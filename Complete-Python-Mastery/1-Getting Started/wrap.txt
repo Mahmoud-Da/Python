@@ -276,3 +276,36 @@ copy it to "User Settings Json" then we change the "python -u" to "python3"
 -------------------code----------------------
 "python": "python3"
 -------------------code----------------------
+
+*** 10- Python Implementations ***
+when talking about Python we need to separate two things are related
+python as "language" and "Implementations"
+as "language":
+it just a specification that defined a set of rules and grammar for writing python code
+as "Implementations":
+is basically a program that understand these rules and can excites python
+
+early in the course we download python from python.org and this the default Implementations of 
+python called "CPython"
+CPython: it's program written in C programming language  
+so in terminal when we run Python3 we got CPython which is the default Implementation of python 
+
+there is many IMPLEMENTATIONS:
+- Jython: written in Java language
+- IronPython: written in C# language
+- PyPy: subset of Python
+
+these three Implementation supported at first from "CPython" cause is default Implementation
+and then the gradually graduate to another Implementation
+
+in theory if we give the same python code to each these Implementations we should have the same result 
+but in practice is not always the case, so certain feature maybe available in one Implementation but not in other
+or they just behave a little differently in particular Implementation 
+
+What is the Point of this?
+why we have several Implementation for python will "CPython" will be enough...
+is the same reason why we have multi system(windows, mac, linux) or multiple browsers or multiple languages
+in these years programmers never agreed in one programming language same as Implementation
+however there is one technical reason behind these difference 
+Jython which written in Java allow you to reuse java code in Python program, so if we are java developer 
+and want to use some java code in our python program we should use Jython same as IronPython of we have C# code 

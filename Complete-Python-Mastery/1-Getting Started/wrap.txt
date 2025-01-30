@@ -396,3 +396,8 @@ and that why we can import some java code inside our Python program
 | Python Bytecode|   |  Java Bytecode |
 +----------------+   +----------------+
 -------------------code----------------------
+
+*** 12- Quiz ***
+- What is an expression?
+- What is a syntax error?
+- What does a linter do?

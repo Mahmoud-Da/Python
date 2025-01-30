@@ -213,3 +213,43 @@ pylint
 
 pylint is the default for the vscode
 
+*** 8- Formatting Python Code ***
+in the Python Community we have a lot of documents called 
+"Python Enhancement Proposals" or "PEPs"
+
+in google if search for python peps
+-------------------code----------------------
+https://peps.python.org/
+-------------------code----------------------
+
+inside the document we have 
+-------------------code----------------------
+PA	8	Style Guide for Python Code
+-------------------code----------------------
+which is so famous between the developers for styling the code 
+
+we will use tool to help us lint our code automatically according to peps 8 
+(the section 8 which for styling)
+
+- now let`s write python code 
+-------------------code----------------------
+x=1
+-------------------code----------------------
+
+here we are declare a variable called x and according to peps 8 it's 
+considering ugly cause we should add space between the "="
+-------------------code----------------------
+x = 1
+-------------------code----------------------
+
+to format it automatically we use shift + cmd + p  and type "Format Document"
+when press enter it will be formatted for us 
+it use "autopep8" extension to format our code 
+-------------------code----------------------
+x = 1
+-------------------code----------------------
+
+- now to avoid type "format document" every time we go to 
+shift + cmd + p and go to "Open User Settings"
+and set the "format on save" to "on"
+now when we save our file it will be formatted automatically

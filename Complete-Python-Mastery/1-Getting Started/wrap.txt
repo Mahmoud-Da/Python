@@ -144,3 +144,27 @@ $ python3 app1.py
 Hello World!
 **********
 -------------------code----------------------
+
+*** 6- Python Extension ***
+we will convert the editor to IDE by using what we called extensions
+with this extension we got number of features such as 
+Linting
+Debugging
+Autocompletion
+Code Formatting
+Unit Testing
+Code Snippets
+
+extensions useful when working with python:
+Python 
+Pylint (for linting)
+
+linting in programming:
+Lint in programming refers to a tool that analyzes code to identify potential errors,
+stylistic issues, or deviations from best practices. It helps developers catch bugs and improve code quality before running the program. Essentially, linting is like having a grammar checker for your code, ensuring that it follows certain rules and conventions.
+
+- now to change the Python version of the VsCode 
+1- view -> appearance -> status Bar 
+2- click inside the python file then in the button left we change the  version to the 
+newest 
+

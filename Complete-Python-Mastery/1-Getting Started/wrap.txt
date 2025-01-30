@@ -84,3 +84,28 @@ SyntaxError: invalid syntax
 
 - Python Interpreter is good opportunity to quickly experiment a piece of code
 and when working with real world application we need a Code editor
+
+*** 4- Code Editors ***
+when it comes to typing python code we have two options "Editor" or "IDE"
+IDE: integrated Development Environment
+IDE is basically code editor that comes with fancy features
+- Autocompletion: as we type code this feature help you complete your code 
+so we don't have to type every charter by hand it's productivity for 
+boosting feature
+- Debugging: finding bugs in the code
+- Testing: for testing the code if it's works as expected
+
+most famous editors:
+VSCode
+cursor which is fork from vscode
+Atom
+Sublime
+
+most famous IDE's:
+PyCharm
+
+to download vscode 
+-------------------code----------------------
+code.visualstudio.com
+-------------------code----------------------
+

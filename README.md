@@ -1,1 +1,1 @@
-# shodai-python
+# The fundamental of Python

@@ -1,0 +1,41 @@
+*** 1- What is Python ***
+Why Python:
+Solve complex problems in less time with fewer lines of code.
+
+example let`s say we want ti extract the 3 first char of "Hello World"
+C#
+-------------------code----------------------
+str.Substring(0, 3)
+-------------------code----------------------
+
+javaScript
+-------------------code----------------------
+str.substr(0, 3)
+-------------------code----------------------
+
+Python
+-------------------code----------------------
+str[0:3]
+-------------------code----------------------
+
+Python is multi-purpose language it can use for:
+Data Analysis
+Al / ML
+Automation
+Web Apps
+Mobile Apps
+Desktop Apps
+Testing
+Hacking
+
+reason to make Python high desirable language
+High-level: don't have to worry about memory management as C++.
+Huge Community: where ever get stuck we can find the solution on the net.
+Cross-platform: can run on windows and mac and linux.
+Large Ecosystem: have large eco system of library and frameworks and tools.
+it create more than 20 years.
+
+we have two versions in Python2 and Python3
+Python2 is outdated in 2020.
+in our course we will work with Python3
+

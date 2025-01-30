@@ -253,3 +253,26 @@ x = 1
 shift + cmd + p and go to "Open User Settings"
 and set the "format on save" to "on"
 now when we save our file it will be formatted automatically
+
+*** 9- Running Python Code ***
+in order to run  our python program we should run 
+-------------------code----------------------
+python3 app.py
+-------------------code----------------------
+
+to avoid that we can download extension called "runner"
+now to run our code we can only press 
+-------------------code----------------------
+ctrl + option + n
+-------------------code----------------------
+
+Ps: save the changes before using this shortcut
+
+there is problem cause it use "python -u" command to run the program by default
+it works for windows but not for mac 
+
+so we go to "Open Settings Json" and search for "code-runner.executorMap" and 
+copy it to "User Settings Json" then we change the "python -u" to "python3"
+-------------------code----------------------
+"python": "python3"
+-------------------code----------------------

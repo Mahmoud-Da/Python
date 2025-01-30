@@ -109,3 +109,38 @@ to download vscode
 code.visualstudio.com
 -------------------code----------------------
 
+*** 5- Your First Python Program ***
+we will create a file with extension .py we called app1.py
+
+we are going to use a built in function in Python called "print"
+in Python we have multi built in functions to perform various type of tasks 
+
+ex:
+think as remote controller of the TV it has multi buttons for different functions
+"Turn On", "Turn Off", "Change the Chanel" and so on.
+this is the built in function in our TV.
+
+we have the same concept in Python (or programming language generally)
+
+and now one of that built in function is called "print" to print something on the screen
+where ever we want to use a function we should use "()" in programming we say we 
+are calling the print function.
+calling a function: means execute it .
+so we use call print to show Hello World in the screen
+-------------------code----------------------
+print("Hello World!")
+-------------------code----------------------
+
+- now to run our program we use python3
+-------------------code----------------------
+$ python3 app1.py
+Hello World!
+-------------------code----------------------
+
+- now we can add star multi 10
+-------------------code----------------------
+$ python3 app1.py
+**********
+Hello World!
+**********
+-------------------code----------------------

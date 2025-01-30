@@ -309,3 +309,90 @@ in these years programmers never agreed in one programming language same as Impl
 however there is one technical reason behind these difference 
 Jython which written in Java allow you to reuse java code in Python program, so if we are java developer 
 and want to use some java code in our python program we should use Jython same as IronPython of we have C# code 
+
+*** 11- How Python Code Works ***
+the programming language that we use like C, C#, Python, Java 
+these are all simple text based languages that we human understand computers
+can`t understand that they only understand machine code "0101010" 
+
+so if we have some code written in C, we should convert it to machine code, and that the job of C Compiler.
+- C Compiler: is program knows how to convert or compile c code to machine code.
+-------------------code----------------------
++---+          +----------+          +----------------+
+| C |  ---->   | Compiler |  ---->   | Machine Code   |
++---+          +----------+          | 01000111       |
+                                    　　| 00100001       |
+                                       | 11011000       |
+                                       +----------------+
+-------------------code----------------------
+
+However, this machine code is specific to the type of the CPU of a computer so if we compile a C program on windows
+machine we can't executed on mac cause mac and windows systems has different machine code 
+just like how people form different countries speak different languages
+
+Java come to solve this problem. Java compiler doesn't compile java code to machine code. 
+instead it compile it into a portable language called "JavaByteCode" which is not specific to a hardware platform like
+windows or mac
+
+but at this time we still need to convert JavaByteCode to machine code, 
+so Java also come with program called "Java Virtual Machine" or "JVM" for doing this
+
+when we run Java program JVM kicks in, it load a a JavaByteCode and then at run time, it will convert each instruction to
+machine code. with this model we can run JavaByteCode one  any platforms that have a JVM.
+we have JVM Implementation for windows and mac and so on 
+-------------------code----------------------
++-----+          +----------+          +--------------+          +----------------+
+| Java|  ---->   | Compiler |  ---->   | Java Bytecode|  ---->   | Java Virtual    |
++-----+          +----------+          +--------------+          | Machine         |
+                                                                  +----------------+
+                                                                          |
+                                                                          v
+                                                                  +----------------+
+                                                                  | Machine Code   |
+                                                                  | 01000111       |
+                                                                  | 00100011       |
+                                                                  | 1011000        |
+                                                                  +----------------+
+-------------------code----------------------
+so JVM on windows knows how to convert JavaByteCode into machine code that windows machine 
+can understand.
+
+C# and Python has also taken the same route so there are platform independent.
+
+so when we run Python program using C Python, first it will compile out Python code into 
+PythonByteCode then it will pass that ByteCode to Python Virtual Machine or PVM  which will 
+in turn convert it into machine code and execute it.
+-------------------code----------------------
++--------+          +----------+          +----------------+          +----------------+
+| Python |  ---->   |  CPython |  ---->   | Python Bytecode|  ---->   | Python Virtual  |
++--------+          +----------+          +----------------+          | Machine         |
+                                                                  +----------------+
+                                                                          |
+                                                                          v
+                                                                  +----------------+
+                                                                  | Machine Code   |
+                                                                  | 01000111       |
+                                                                  | 00100011       |
+                                                                  | 1011000        |
+                                                                  +----------------+
+
+-------------------code----------------------
+in the pervious lesson we speak out how if we us Jython we can use java code in our Python program
+so how it`s works 
+instead of compiling Python to PythonByteCode it will convert it to JavaByteCode and run it using JVM 
+and that why we can import some java code inside our Python program 
+-------------------code----------------------
+          +--------+
+          | Python |
+          +--------+
+          /        \
+         /          \
++----------+      +----------+
+| CPython  |      |  Jython  |
++----------+      +----------+
+     |                  |
+     v                  v
++----------------+   +----------------+
+| Python Bytecode|   |  Java Bytecode |
++----------------+   +----------------+
+-------------------code----------------------

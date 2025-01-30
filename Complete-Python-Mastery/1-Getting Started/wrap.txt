@@ -168,3 +168,48 @@ stylistic issues, or deviations from best practices. It helps developers catch b
 2- click inside the python file then in the button left we change the  version to the 
 newest 
 
+*** 7- Linting Python Code ***
+we will see linting in action. by typing invalid syntax
+-------------------code----------------------
+print "Hello World"
+-------------------code----------------------
+
+- when we save changes we can see red line under print if hover on it we can 
+see error that comes form Pylint
+-------------------code----------------------
+Parsing failed: 'Missing parentheses in call to 'print'. 
+Did you mean print(...)? (app2, line 1)'PylintE0001:syntax-error
+-------------------code----------------------
+
+- this is the benefit of linting we don't have to wait until we run the program
+to see the errors 
+
+now if we fix the code we can see the under line despise
+-------------------code----------------------
+print("Hello World")
+-------------------code----------------------
+
+- let's see another error 
+-------------------code----------------------
+1 +
+-------------------code----------------------
+we got 
+-------------------code----------------------
+Expected expression Pylance
+-------------------code----------------------
+or we can open the terminal of the vc code and go to problems to show the errors
+-------------------code----------------------
+Parsing failed: 'invalid syntax (app2, line 4)'",
+-------------------code----------------------
+
+there are many linters for python
+flake8
+mypy
+pep8
+prospector 
+pydocstyle
+pylama
+pylint
+
+pylint is the default for the vscode
+

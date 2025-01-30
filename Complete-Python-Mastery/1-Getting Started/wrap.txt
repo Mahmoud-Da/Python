@@ -51,3 +51,36 @@ http://python.org
 python3 --version
 -------------------code----------------------
 
+
+*** 3- Python Interpreter ***
+in the CMD when type Python3 and press enter we can see what we call Interpreter
+-------------------code----------------------
+$ python3
+Python 3.12.0 (v3.12.0:0fb18b02c8, Oct  2 2023, 09:45:56) [Clang 13.0.0 (clang-1300.0.29.30)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+-------------------code----------------------
+
+Python Interpreter: is a program that execute python code
+
+we can write an expression inside it.
+in programming an expression means: piece of code that introduce a value  
+-------------------code----------------------
+>>> 2 + 2
+4
+-------------------code----------------------
+
+in programming we have what we called "syntax error"
+syntax Error: in programming syntax means grammar, so just like we have 
+the concept of grammar in the language we speak we have the exact same concept
+in programming
+-------------------code----------------------
+>>> 2 >
+  File "<stdin>", line 1
+    2 >
+        ^
+SyntaxError: invalid syntax
+-------------------code----------------------
+
+- Python Interpreter is good opportunity to quickly experiment a piece of code
+and when working with real world application we need a Code editor

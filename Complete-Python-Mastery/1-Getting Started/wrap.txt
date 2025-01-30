@@ -39,3 +39,15 @@ we have two versions in Python2 and Python3
 Python2 is outdated in 2020.
 in our course we will work with Python3
 
+*** 2- Installing Python ***
+
+from this site we download it
+-------------------code----------------------
+http://python.org
+-------------------code----------------------
+
+- after download to check the version
+-------------------code----------------------
+python3 --version
+-------------------code----------------------
+

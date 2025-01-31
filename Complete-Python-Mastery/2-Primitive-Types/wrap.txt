@@ -608,3 +608,94 @@ and access to
 -------------------code----------------------
 https://docs.python.org/3/library/math.html
 -------------------code----------------------
+
+*** 9- Type Conversion ***
+
+-input() 
+to get the input of the user as argument we pass "" and this will 
+be a label that will be displayed on the terminal
+
+PS: run the program in terminal without using runner cause 
+runner run the program only on read mode
+
+-------------------code----------------------
+x = input("x: ")
+y = x + 1
+=> python3 app9.py
+x: 1
+Traceback (most recent call last):
+  File "Python/Complete-Python-Mastery/2-Primitive-Types/app9.py", line 2, in <module>
+    y = x + 1
+        ~~^~~
+TypeError: can only concatenate str (not "int") to str
+-------------------code----------------------
+
+- we got TypeError why?
+when receive input from the user. this input always comes as string.
+
+so our expression at runtime will look like this 
+-------------------code----------------------
+y = "1" + 1
+-------------------code----------------------
+
+- "1" is different from number 1 cause these are two different types.
+when Python Interpreter sees this expression it doesn't know what to do.
+cause two objects can't be concatenated if they are from different type
+
+-  so we need to convert the type of "1" which string to number 
+in python we have multi built in functions for type Conversion
+-------------------code----------------------
+int(x) => convert to integer
+float(x) => convert to decimal
+bool(x) => convert to boolean
+str(x) => convert to string
+type() => to check the type
+-------------------code----------------------
+
+
+- now to check the type of "x" in our program we use print
+PS: we comment the error line
+-------------------code----------------------
+x = input("x: ")
+print(type(x))
+# y = x + 1
+=>  python3 app9.py
+x: 2
+<class 'str'>
+-------------------code----------------------
+
+- now to fix the problem we need to convert "x" to integer
+-------------------code----------------------
+x = input("x: ")
+y = int(x) + 1
+print(f"x: {x}, y: {y}")
+=> python3 app9.py
+x: 2
+x: 2, y: 3
+-------------------code----------------------
+
+- now all the conversion built it functions are self explanatory 
+the only tricky one is the "bool()"
+
+cause in Python we have concept of truthy and falsy values, these values that are not exactly
+the boolean true or false, but they can be Interpreted as a boolean true or false.
+PS: None represent the absent of value 
+-------------------code----------------------
+# Falsy
+""
+0
+None
+
+# Truthy
+anything else
+-------------------code----------------------
+
+example
+-------------------code----------------------
+print(bool(0))
+=> False
+print(bool("test"))
+=> True
+print(bool("False")) # cause is string
+=> True
+-------------------code----------------------

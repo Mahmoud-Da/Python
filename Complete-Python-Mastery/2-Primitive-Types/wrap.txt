@@ -117,4 +117,143 @@ and cause we set pip8 as extension if we forget this rules it will automatically
 be fixed cause "format on save" feature
 
 but is better to give our self a habit to write clean code without relaying on the tools
- 
+
+*** 3- Strings ***
+where we works with string we should surround them with double quotation or single quotation
+but more often we use double quotation
+-------------------code----------------------
+course = "Python Programming"
+-------------------code----------------------  
+or 
+-------------------code----------------------
+course = 'Python Programming'
+-------------------code----------------------
+
+- we have also triple quotation to format long string
+-------------------code----------------------
+message = """
+Hi Moody
+
+This Moody form Tech department
+
+Blah blah blah
+"""
+-------------------code----------------------
+
+- useful things we can do with strings
+
+we have built in function in Python to get the length of string called "len"
+
+What is function?
+function is basically a reusable piece of code  that carries out a task.
+we give an example a TV remote controller 
+
+- len function:
+to get the length of string, which means the number of characters in that string.
+
+- wherever we use function we should use parenthesis
+now we say we are calling this function, which basically means
+we are using this function
+-------------------code----------------------
+len()
+-------------------code----------------------
+
+- now some functions take additional data, which we refer to as arguments
+arguments: are the inputs of these functions.
+
+so we pass course as argument to the function
+-------------------code----------------------
+len(course)
+-------------------code----------------------
+
+then we print it to show the result
+-------------------code----------------------
+print(len(course))
+=> 18
+-------------------code----------------------
+*********************************************************************************
+1. Parameters:
+Parameters are the variables that are defined in a function's declaration. They act as placeholders for the values that will be passed to the function when it is called.
+For example, in the function definition def add(a, b):, a and b are parameters.
+Arguments:
+Arguments are the actual values that are passed to the function when it is called. They replace the parameters in the function definition.
+For example, in the function call add(5, 3), the values 5 and 3 are the arguments.
+
+Example
+Here’s a simple example to illustrate the difference:
+-------------------code----------------------
+def greet(name):  # 'name' is a parameter
+    print(f"Hello, {name}!")
+
+greet("Alice")  # "Alice" is an argument
+-------------------code----------------------
+*********************************************************************************
+
+
+- if we want to access to a specific character
+we use square brackets notation
+to get the first character we use the index 0
+-------------------code----------------------
+course[0]
+-------------------code----------------------
+
+so Python like many other programming languages 
+strings are 0 index, which means the index of the first character 
+or the first element is 0.
+
+we print it to see the result
+-------------------code----------------------
+print(course[0])
+=> P
+-------------------code----------------------
+
+- also we can use negative index, like minus 
+0 => represent the first character
+-1 => represent the last character
+-------------------code----------------------
+print(course[-1])
+=> g
+-------------------code----------------------
+
+- using similar syntax we can slice strings.
+let's say we want to extract the first 3 characters
+we will use semi column 
+[start_index:end_index]
+-------------------code----------------------
+print(course[0:3])
+=> Pyt
+-------------------code----------------------
+
+index[0] => "P"
+index[1] => "y"
+index[2] => "t"
+
+which means the last index which is "3" is not included
+
+
+- what if we didn't set the end_index 
+we will start from the first index until the end
+=> which means we will have the same original string
+-------------------code----------------------
+print(course[0:])
+=> Python Programming
+-------------------code----------------------
+
+- what if didn't include the start index and instead we include
+only the end index
+we will start from the first letter until the pervious number 
+of the last index 
+-------------------code----------------------
+print(course[:3])
+=> Pyt
+-------------------code----------------------
+
+- and finally without adding and index number we will have copy
+from the original index
+-------------------code----------------------
+print(course[:])
+=> Python Programming
+-------------------code----------------------
+
+- we only have to remember only we can add index to access character
+and len to have length of that characters and ":" to slice the character

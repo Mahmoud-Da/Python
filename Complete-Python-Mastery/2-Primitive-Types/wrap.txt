@@ -322,3 +322,42 @@ print(course)
 Programming
 -------------------code----------------------
 
+*** 5- Formatted Strings ***
+we have first and last name and lest say we want to print
+the full name on the console
+-------------------code----------------------
+first = "Moody"
+last = "Lili"
+-------------------code----------------------
+
+-  we can concatenate it with last
+-------------------code----------------------
+full = first + " " + last
+print(full) 
+-------------------code----------------------
+
+- there is better approach by using formatted string
+we can prefix it with f which can be lower case or upper case
+
+- this formatted string doesn't have constant and it will evaluated at the 
+run time
+
+- and we should use curly braces for the variable
+at run time this expression  f"{first} {last}" will evaluated
+what we have in curly braces will be replaced
+-------------------code----------------------
+full = f"{first} {last}"
+print(full)
+=> Moody Lili
+-------------------code----------------------
+
+- be aware that we can use any exception in between curly braces
+like we can call the len built in function
+-------------------code----------------------
+full = f"{len(first)} {2 + 2}"
+print(full)
+=> 5 4
+-------------------code----------------------
+
+so when we use formatted string we can put any valid expression
+in between curly braces

@@ -257,3 +257,68 @@ print(course[:])
 
 - we only have to remember only we can add index to access character
 and len to have length of that characters and ":" to slice the character
+
+*** 4- Escape Sequences ***
+let's say we want to add double quotation inside our string
+-------------------code----------------------
+course = "Python "Programming"
+-------------------code----------------------
+
+- we have problem cause the Python Interpreter sees the second string as the end of
+the string and the rest of the code are meaningless and invalid
+
+
+how to solve this problem?
+there is two ways:
+1- use single quotation and then we can use double quotation in our string
+-------------------code----------------------
+course = 'Python "Programming'
+-------------------code----------------------
+
+2- we can still using double quotation if we prefix our middle quotation with 
+back slash 
+-------------------code----------------------
+course = "Python \"Programming"
+-------------------code----------------------
+
+- back slash in Python string are special character we used to escape the character after it
+we don't have the "\" char cause we used it to escape the double code
+-------------------code----------------------
+course = "Python \"Programming"
+print(course)
+=> Python "Programming
+-------------------code----------------------
+
+- back slash [\] is escape character
+- [\"] is escape Sequences
+there is few other escape sequences to be aware of 
+
+for example:
+- we have "#" to indicate a comment 
+comment: additional note that we add to our program, and it's not executed by the Interpreter
+-------------------code----------------------
+# course = "Python "Programming"
+-------------------code----------------------
+
+- we have [\'] to include single quotation 
+-------------------code----------------------
+course = "Python \'Programming"
+print(course)
+=> Python 'Programming
+-------------------code----------------------
+
+- we have [\\] to include backslash quotation
+-------------------code----------------------
+course = "Python \\Programming"
+print(course)
+=> Python \Programming
+-------------------code----------------------
+
+- we have [\n] to include new line 
+-------------------code----------------------
+course = "Python \nProgramming"
+print(course)
+=> Python 
+Programming
+-------------------code----------------------
+

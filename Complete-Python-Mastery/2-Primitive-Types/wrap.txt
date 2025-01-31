@@ -491,3 +491,69 @@ course = "python programming"
 print("pro" not in course)
 => False
 -------------------code----------------------
+
+*** 7- Numbers ***
+in Python we have 3 types of numbers 
+
+integer => normal number
+float => decimal number 
+complex => a + bi (where i is the imaginary number) but instead of "i" we use "j"
+-------------------code----------------------
+# integer
+x = 1
+# float
+x = 1.1
+# complex
+x = 1 + 2j
+-------------------code----------------------
+
+- for all this type number we have standard arithmetic operations 
+that we we have in math
+
+"+" => addition
+"-" => subtraction
+"*" => multiplication
+"/" => division float number
+"//" => division float number
+"%" {modulus} => reminder number of the division
+"**" {exponent} => left to the power of right
+-------------------code----------------------
+print(10 + 3)
+=> 13
+print(10 - 3)
+=> 7
+print(10 * 3)
+=> 30
+print(10 / 3)
+=> 3.3333333333333335
+print(10 // 3)
+=> 3
+print(10 % 3)
+=> 1
+print(10 ** 3)
+=> 1000
+-------------------code----------------------
+
+- for all this operator we have special operator called "augmented operator"
+if we have 
+-------------------code----------------------
+x = 10
+-------------------code----------------------
+
+and want to increment it by 3
+-------------------code----------------------
+x = 10
+x = x + 3
+print(x)
+=> 13
+-------------------code----------------------
+
+- or we can use shorter way "augmented assignment operator"
+-------------------code----------------------
+x = 10
+x += 3
+print(x)
+=> 13
+-------------------code----------------------
+
+we can use subtraction and multiple and so 

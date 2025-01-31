@@ -557,3 +557,54 @@ print(x)
 -------------------code----------------------
 
 we can use subtraction and multiple and so 
+
+*** 8- Working with Numbers ***
+
+some useful number functions 
+
+- round()
+rounding a number
+-------------------code----------------------
+print(round(2.9))
+=> 3
+-------------------code----------------------
+
+- abs()
+return the absolute value of a number.
+-------------------code----------------------
+print(abs(-2.5))
+=> 2.5
+-------------------code----------------------
+
+- we only have handful of built in functions to works with numbers
+but if we want to work with complex mathematical calculations 
+we need to use the math module
+
+module: separate file with some python code.
+so in python we math module which includes a lot of mathematical functions to work with numbers
+
+to use a module in our file we need to import at the top of the file first
+-------------------code----------------------
+import math
+-------------------code----------------------
+
+now math in our program is an object so we can use a dot notation to see
+all the functions, more accurately all the methods available in this object.
+
+as example we have math.ceil() to get the ceiling of number 
+
+-------------------code----------------------
+import math
+
+print(math.ceil(2.2))
+=> 3
+-------------------code----------------------
+
+to find the complete list of math function we go to google and lock for 
+-------------------code----------------------
+python3 math module
+-------------------code----------------------
+and access to 
+-------------------code----------------------
+https://docs.python.org/3/library/math.html
+-------------------code----------------------

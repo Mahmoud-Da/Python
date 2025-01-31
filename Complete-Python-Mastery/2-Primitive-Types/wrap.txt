@@ -361,3 +361,133 @@ print(full)
 
 so when we use formatted string we can put any valid expression
 in between curly braces
+
+*** 6- String Methods ***
+- we will lock on multiple function that useful for strings 
+
+- len method that we studied earlier is general purpose and not limited 
+to strings, later we will see how to use it with another object
+in Python we have quite a few functions that are specific to strings
+if type 
+-------------------code----------------------
+course.
+-------------------code----------------------
+
+- we can see all the functions available on strings.in precise terms we 
+refer to these functions as "methods"
+this is a term in object oriented programming that we learn about it later
+
+- for now what we want to take away is that everything in python is an object
+and objects have functions we call methods that we can access using the dot notation.
+
+- upper()
+to convert string to upper case
+-------------------code----------------------
+course = 'Python Programming'
+print(course.upper())
+=> PYTHON PROGRAMMING
+-------------------code----------------------
+
+this method return a new string so the original string is not effected
+course = 'Python Programming'
+-------------------code----------------------
+course = 'Python Programming'
+print(course.upper())
+print(course)
+=> PYTHON PROGRAMMING
+   Python Programming
+-------------------code----------------------
+
+- so course.upper() return a new string and a new value we can store it 
+-------------------code----------------------
+course_capital = course.upper()
+print(course_capital)
+-------------------code----------------------
+
+- lower()
+to convert string to lower case
+
+- title()
+which capital the first letter of every word
+-------------------code----------------------
+course = "python programming"
+print(course.title())
+=> Python Programming
+-------------------code----------------------
+
+- strip()
+we use it when to trim any white space at the beginning or end of a string.
+so it remove the white space from the beginning and the end of a string
+this is particularly useful when receive info from the user.
+-------------------code----------------------
+course = "  python programming"
+print(course.strip())
+=> python programming
+-------------------code----------------------
+
+- rstrip()
+shortcut for right strip only remove the white space from the end of string
+-------------------code----------------------
+course = "python programming  "
+print(course.rstrip())
+=> python programming
+-------------------code----------------------
+
+- lstrip()
+shortcut for left strip only remove the white space from the start of string
+-------------------code----------------------
+course = "  python programming"
+print(course.lstrip())
+-------------------code----------------------
+
+- find()
+to get the index of the character or sequences of characters in a string.
+-------------------code----------------------
+course = "python programming"
+print(course.find("pro"))
+=> 7
+-------------------code----------------------
+
+when working with character we get the index of the first character
+-------------------code----------------------
+course = "python programming"
+print(course.find("p"))
+=> 0
+-------------------code----------------------
+
+when we don't find the character we got -1
+which this string in was not found in the original string
+-------------------code----------------------
+course = "python programming"
+print(course.find("Pro"))
+=> -1
+-------------------code----------------------
+
+- replace()
+we can replace the a character or sequences of characters in a string with something else.
+
+replace(old, new)
+-------------------code----------------------
+course = "python programming"
+print(course.replace("pro", "Pro"))
+=> python Programming
+-------------------code----------------------
+
+- in operator
+check for the existing of character or sequences of characters in a string.
+PS: the difference between in operator and find method is the returning value
+in => boolean
+find() => number(of index)
+-------------------code----------------------
+course = "python programming"
+print("pro" in course)
+=> True
+-------------------code----------------------
+
+- not operator
+check if our string contains character or sequences of characters.
+-------------------code----------------------
+course = "python programming"
+print("pro" not in course)
+=> False
+-------------------code----------------------

@@ -699,3 +699,24 @@ print(bool("test"))
 print(bool("False")) # cause is string
 => True
 -------------------code----------------------
+
+*** 10- Quiz ***
+
+1- what are the primitive types in Python
+2- what we will see in terminal when we print 
+-------------------code----------------------
+fruit = "Apple"
+print(fruit[1])
+-------------------code----------------------
+and
+-------------------code----------------------
+print(fruit[1:-1])
+-------------------code----------------------
+3- what is the result of 
+-------------------code----------------------
+10 % 3
+-------------------code----------------------
+4- what is the result of 
+-------------------code----------------------
+print(bool("False"))
+-------------------code----------------------

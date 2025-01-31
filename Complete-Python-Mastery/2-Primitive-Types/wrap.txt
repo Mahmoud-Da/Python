@@ -1,0 +1,63 @@
+*** 1- Variables ***
+
+- variable is one of the core concept of programming
+we use variable to store data in computer memory
+
+ex:
+- define a variable called students_count and set to 1000
+-------------------code----------------------
+students_count = 1000
+-------------------code----------------------
+
+- when run this program python Interpreter will allocate some memory and store the number 
+1000 in that memory space .
+then it have "students_count" variable to reference that memory location.
+so "students_count" variable is just a label for the memory location
+
+- we can use this label or this variable anywhere in our program to get access to that memory
+location and the data which store there
+
+- if we print the "students_count" and run our program we will get the number of "1000" 
+-------------------code----------------------
+students_count = 1000
+print(students_count)
+=> 1000
+-------------------code----------------------
+
+what type of data we can store in computer memory?
+it what we called primitive types:
+- number => we refer it as "integer" in programming
+- string => like text 
+- boolean => "True" or "False" like yes or no in english
+
+- number example
+normal number 
+-------------------code----------------------
+students_count = 1000
+-------------------code----------------------
+
+decimal number => we call it in programming "float" 
+-------------------code----------------------
+rating = 4.99
+-------------------code----------------------
+
+- boolean
+used to make decisions ex: if the user is admin we want to give it more privileges
+-------------------code----------------------
+is_published = True
+-------------------code----------------------
+
+-------------------code----------------------
+is_published = False
+-------------------code----------------------
+
+PS: Python is "case sensitive language" which means lower case and upper case has 
+different meanings 
+so boolean values should always start with capital letter
+so if we type "false" or "FALSE" this will not be accepted boolean values
+
+string
+where ever working with text in programming we should add quotation
+-------------------code----------------------
+course_name = "Python Programming language"
+-------------------code----------------------

@@ -61,3 +61,60 @@ where ever working with text in programming we should add quotation
 -------------------code----------------------
 course_name = "Python Programming language"
 -------------------code----------------------
+
+*** 2- Variable Names ***
+
+our variable from the pervious lesson
+-------------------code----------------------
+students_count = 1000
+rating = 4.99
+is_published = True
+course_name = "Python Programming language"
+print(students_count)
+-------------------code----------------------
+
+1- all our variable are descriptive and meaningful
+ex: 
+- students_count
+represent the number of the students in the course 
+
+- course_name
+this variable is name is also mean that this variable hold the name of the course
+
+some of mistake of beginners is using mystical name for there Variables
+example: 
+- cn
+as short of course name  
+
+- when someone else read this code they will have no idea what "cn" means 
+or using like "c1" when locking for that name the other developer will wonder where is 
+"c2" and what is the difference between "c1" and "c2" and that is bad practice.
+
+- there is sometimes when we use variable name like "x", "y", "z" if we are dealing 
+with coordinates so that an exception
+
+
+2- using lower case letters to name the variables
+-------------------code----------------------
+course_name => OK
+Course_Name => NG
+COURSE_NAME => NG
+-------------------code----------------------
+
+
+3- using "_" to separate multiple words
+in python we can't have space in variable names 
+and if we avoid using "_" it will be hard to read 
+
+4- add space between between the value and variable and
+without space we called dirty code or stink 
+-------------------code----------------------
+is_published=True
+-------------------code----------------------
+
+the code should be readable so that we have linters like "pep8" 
+and cause we set pip8 as extension if we forget this rules it will automatically
+be fixed cause "format on save" feature
+
+but is better to give our self a habit to write clean code without relaying on the tools
+ 

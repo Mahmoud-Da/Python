@@ -616,3 +616,75 @@ for item in shopping_cart:
 apple
 orange
 -------------------code----------------------
+
+*** 12- While Loops ***
+we have another type of loops called "while loops" and we used to repeat piece of code
+as long as that condition is true
+
+-------------------code----------------------
+number = 100
+while number > 0:
+    print(number)
+    number //= 2
+=> 100
+50
+25
+12
+6
+3
+1
+-------------------code----------------------
+
+- real world example in the Python shell we acn type 2 + 2 
+it will evaluated and ask for another code and this will continue until 
+we press "cmd + c" but behind the scene we have while loop running
+until the user shut down the shell
+-------------------code----------------------
+>>> 2 + 2
+4
+>>> 10 < 0
+False
+>>>
+~  $
+-------------------code----------------------
+
+- to do the same scenario
+python3 app12.py (run it with runner will not apply input cause it runs only on readonly mode)
+-------------------code----------------------
+>test
+ECHO test
+>hi
+ECHO hi
+>exit
+ECHO exit
+$
+-------------------code----------------------
+
+what if we type "Exit" we can see that the programme doesn't 
+terminate cause as we said before the location of "exit" in memory is different from "EXIT"
+-------------------code----------------------
+>Exit
+ECHO Exit
+>
+-------------------code----------------------
+
+- to solve that 
+-------------------code----------------------
+command = ""
+
+while command != "exit" and command != "EXIT":
+    command = input(">")
+    print("ECHO", command)
+-------------------code----------------------
+
+- but what if we have "Exit" will still have the same issue
+and the condition statement will be too long to cover all the cases 
+so instead we use lower() method
+-------------------code----------------------
+command = ""
+
+while command.lower() != "exit":
+    command = input(">")
+    print("ECHO", command)
+-------------------code----------------------
+

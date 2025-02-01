@@ -325,3 +325,101 @@ elif "bag" > "apple" and "bag" > "cat":
 else:
     print("c")
 -------------------code----------------------
+
+*** 8- For Loops ***
+there is a time that we want to repeat a task multi times 
+for example we want to deliver a message to the user and if the sending 
+process failed at least we want to try 3 times
+
+let's imagine we are sending message
+-------------------code----------------------
+print("Sending a message")
+-------------------code----------------------
+
+- if we want to repeat it we don't want to repeat all that code 
+that's considering ugly
+-------------------code----------------------
+print("Sending a message")
+print("Sending a message")
+print("Sending a message")
+print("Sending a message")
+print("Sending a message")
+print("Sending a message")
+print("Sending a message")
+-------------------code----------------------
+
+- that where we use a loop, we use loops to create repetition
+we have built in function called range() and inside we set how much we can repeat the 
+task let's say 3 times and we should terminate the for statement line with semi column
+-------------------code----------------------
+for number in range(3):
+    print("Attempt")
+=> Attempt
+Attempt
+Attempt
+-------------------code----------------------
+
+- what is number?
+if we hover the mouse we can see the type of it is integer
+-------------------code----------------------
+(variable) number: int
+-------------------code----------------------
+
+- we pass the number to the print function
+so we have for loop that iterate 3 times for each iterate the number will 
+have the value of that iterate starting with 0
+so the first iterate is 0 and the second is 1 and so on
+-------------------code----------------------
+for number in range(3):
+    print("Attempt", number)
+
+=> Attempt 0
+Attempt 1
+Attempt 2
+-------------------code----------------------
+
+- now we can do something fun and make our message more readable
+to user by adding 1 to the number
+-------------------code----------------------
+for number in range(3):
+  print("Attempt", number + 1)
+
+=> Attempt 1
+Attempt 2
+Attempt 3
+-------------------code----------------------
+
+- we can take it to the next level by adding dot for each iterate
+-------------------code----------------------
+for number in range(3):
+    print("Attempt", number + 1, (number + 1) * ".")
+
+=> Attempt 1 .
+Attempt 2 ..
+Attempt 3 ...
+-------------------code----------------------
+
+
+- we can refactor the code by set the range 
+range(start_iteration_number, stop_iteration_number) so we don't need to add number + 1
+-------------------code----------------------
+for number in range(1, 4):
+    print("Attempt", number, number * ".")
+
+=> Attempt 1 .
+Attempt 2 ..
+Attempt 3 ...
+-------------------code----------------------
+
+- now we can add the third argument which is the steps
+range(start_iteration_number, stop_iteration_number, steps_number)
+-------------------code----------------------
+for number in range(1, 10, 2):
+    print("Attempt", number, (number) * ".")
+
+=> Attempt 1 .
+Attempt 3 ...
+Attempt 5 .....
+Attempt 7 .......
+Attempt 9 .........
+-------------------code----------------------

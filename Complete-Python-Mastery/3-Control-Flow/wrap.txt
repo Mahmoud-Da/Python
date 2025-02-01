@@ -1,0 +1,58 @@
+*** 1- Comparison Operators ***
+
+we use Comparison Operators to compare values and the result
+of it boolean expression.
+
+
+-------------------code----------------------
+>>> 10 > 3
+True
+>>> 10 >= 3
+True
+>>> 10 < 20
+True
+>>> 10 <= 20
+True
+>>> 10 == 10
+True
+-------------------code----------------------
+
+how about 
+we get False cause this values is different types and stored in different
+location in the memory
+-------------------code----------------------
+>>> 10 == "10"
+False
+-------------------code----------------------
+
+finally we have the "!" not equal operation
+-------------------code----------------------
+>>> 10 != "10"
+True
+-------------------code----------------------
+
+- we can also use comparison operators with strings
+cause when we sort these two words bag comes after so it considered greater
+-------------------code----------------------
+>>> "bag" > "apple"
+True
+-------------------code----------------------
+
+- when comparison equality between lower case and upper case of the word 
+we have false cause every character has numeric presentation in programming
+
+-------------------code----------------------
+>>> "bag" == "BAG"
+False
+-------------------code----------------------
+
+to check the numeric presentation of character we can use ord() method
+-------------------code----------------------
+>>> ord("b")
+98
+>>> ord("B")
+66
+>>> "bag" > "BAG"
+True
+-------------------code----------------------
+

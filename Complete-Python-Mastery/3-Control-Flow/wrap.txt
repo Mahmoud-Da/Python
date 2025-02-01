@@ -547,3 +547,72 @@ and execute 3 times
 -------------------code----------------------
 
 and so ...
+
+*** 11- Iterables ***
+
+let's dive deeper and see what the range function returns 
+we learned before about the type() function that show the type object of the value 
+that we pass 
+-------------------code----------------------
+print(type(5))
+=> <class 'int'>
+-------------------code----------------------
+
+- how about range
+it's from the range object
+-------------------code----------------------
+print(type(range(5)))
+=> <class 'range'>
+-------------------code----------------------
+
+- so in Python we have "primitive types" which is "sting, integer, boolean"
+and we have also what we called "complex types" and range type is example of complex types
+
+- the range object is Iterable that why we can iterate on it so we can 
+use the for loop on it 
+-------------------code----------------------
+for x in range(5):
+    print(x)
+=> 0
+1
+2
+3
+4
+-------------------code----------------------
+
+- range is not only the Iterable objects, stings are also Iterable
+so we can iterate on the string and each iterate show the character
+of that string
+-------------------code----------------------
+for x in "Python":
+    print(x)
+=> P
+y
+t
+h
+o
+n
+-------------------code----------------------
+
+- we have another Iterable object which we called list where we can store multi 
+strings, numbers and etc  
+-------------------code----------------------
+for x in ["Ali", "moody", 3, 4, 5]:
+    print(x)
+=> Ali
+moody
+3
+4
+5
+-------------------code----------------------
+
+- real world example
+-------------------code---------------------- 
+shopping_cart = ["banana", "apple", "orange"]
+
+for item in shopping_cart:
+    print(item)
+=> banana
+apple
+orange
+-------------------code----------------------

@@ -56,3 +56,89 @@ to check the numeric presentation of character we can use ord() method
 True
 -------------------code----------------------
 
+*** 2- Conditional Statements ***
+
+in every programming language there is time when we want to make 
+a decision and here where we use if Statement.
+
+let's say we have a temperature variable and depends on the value we want to show 
+message to user.
+
+we use "if" and after it we add statement which basically a boolean expression produce
+a boolean value.
+
+if that expression evaluated to true the follow expression will be executed.
+PS: when we use if statement we should always terminate our expression with ":"
+-------------------code----------------------
+temperature = 37
+if temperature > 30:
+  => cursor is indented automatically to two white spaces
+    and this indent is very important so the Python interpreter which
+    statement to execute if the condition is true
+-------------------code----------------------
+
+- we can have multi statement unless this statement belong to the 
+indented of the if block
+PS: when we save the file pip8 indent 4white spaces cause that what it
+redemanded
+-------------------code----------------------
+temperature = 37
+if temperature > 30:
+    print("it's worm")
+    print("Drink water")
+-------------------code----------------------
+
+- finally the Done statement will be execute where ever 
+the condition is True or False cause
+the indented is not belong the if statement 
+-------------------code----------------------
+temperature = 37
+if temperature > 30:
+    print("it's worm")
+    print("Drink water")
+print("Done")
+
+=> it's worm
+Drink water
+Done
+-------------------code----------------------
+
+when we change the temperature
+-------------------code----------------------
+temperature = 15
+if temperature > 30:
+    print("it's worm")
+    print("Drink water")
+print("Done")
+=> Done
+-------------------code----------------------
+
+- what if want to have multi conditions we use "elif" and that is shortcut 
+to "else if "
+PS: we can has as many as elif statement as we want
+-------------------code----------------------
+temperature = 21
+if temperature > 30:
+    print("it's worm")
+    print("Drink water")
+elif temperature > 20:
+    print("it's nice")
+print("Done")
+=> it's nice
+   Done
+-------------------code----------------------
+
+- we can have also "else" which means if not of the conditions are True
+-------------------code----------------------
+temperature = 15
+if temperature > 30:
+    print("it's worm")
+    print("Drink water")
+elif temperature > 20:
+    print("it's nice")
+else:
+    print("it's cold")
+print("Done")
+=> it's cold
+ Done
+-------------------code----------------------

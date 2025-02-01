@@ -717,3 +717,14 @@ while command != "exit" and command != "EXIT":
 -------------------code----------------------
 cause in this case we have to defined command before the while 
 instead in the second approach we did't have to define  command variable
+
+*** 14- Exercise ***
+write a code display the even numbers and title number of that even number
+-------------------code----------------------
+2
+4
+6
+8
+
+We have 4 even numbers
+-------------------code----------------------

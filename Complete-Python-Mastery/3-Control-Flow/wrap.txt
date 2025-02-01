@@ -290,3 +290,26 @@ else:
 -------------------code----------------------
 
 ====> in Python the Logical operators are short-circuit
+
+*** 6- Chaining Comparison Operators ***
+
+powerful technique to write a clean code
+
+let's say we want to implement a role says age should be between 18 and 65
+-------------------code----------------------
+age = 22
+if age >= 18 and age < 65:
+    print("Eligible")
+# Eligible
+-------------------code----------------------
+
+- how can write this in math 
+=> 18 <= age <= 65 
+in Python we can write the same thing and it's more readable
+that what we called chaining comparison
+-------------------code----------------------
+age = 22
+if 18 <= age < 65:
+    print("Eligible")
+# Eligible
+-------------------code----------------------

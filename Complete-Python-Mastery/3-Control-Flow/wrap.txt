@@ -251,3 +251,42 @@ else:
     print("not Eligible")
 => Eligible
 -------------------code----------------------
+
+*** 5- Short-circuit Evaluation ***
+whe Python interpreter read this condition in the below 
+it start to read it from the left condition by condition and when we 
+find the result of condition it stop evaluation 
+-------------------code----------------------
+if high_income and good_credit and not is_student:
+-------------------code----------------------
+
+- so in the code below the Python interpreter start with high_income and when it sees 
+the result is false is jump to else immediately and the rest of the condition expression will be meaningless
+that what we called Short-circuit
+-------------------code----------------------
+high_income = False
+good_credit = True
+is_student = True
+
+if high_income and good_credit and not is_student:
+    print("Eligible")
+else:
+    print("not Eligible")
+# not Eligible
+-------------------code----------------------
+
+- same with "or" and in this case if it's find True in the if statement
+it jumps immediately to the expression to execute
+-------------------code----------------------
+high_income = False
+good_credit = True
+is_student = True
+
+if high_income or good_credit or not is_student:
+    print("Eligible")
+else:
+    print("not Eligible")
+# not Eligible
+-------------------code----------------------
+
+====> in Python the Logical operators are short-circuit

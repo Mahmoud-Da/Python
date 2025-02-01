@@ -688,3 +688,32 @@ while command.lower() != "exit":
     print("ECHO", command)
 -------------------code----------------------
 
+*** 13- Infinite Loops ***
+infinite loop is that loop runs for ever for example 
+if we set the while for True it will run forever cause it will never 
+be false
+-------------------code----------------------
+command = ""
+
+while True:
+    command = input(">")
+    print("ECHO", command)
+-------------------code----------------------
+
+- to jump out of the loop we can use break keyword
+-------------------code----------------------
+while True:
+    command = input(">")
+    print("ECHO", command)
+    if command.lower() != "exit":
+        break
+-------------------code----------------------
+
+- in this case using while true is better than using 
+-------------------code----------------------
+command = ""
+
+while command != "exit" and command != "EXIT":
+-------------------code----------------------
+cause in this case we have to defined command before the while 
+instead in the second approach we did't have to define  command variable

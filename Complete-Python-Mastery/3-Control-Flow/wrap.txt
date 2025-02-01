@@ -142,3 +142,41 @@ print("Done")
 => it's cold
  Done
 -------------------code----------------------
+
+*** 3- Ternary Operator ***
+in this lesson we will see a technique to how to write a clean code 
+lt's say we are building an application for an university and we want to check if 
+the person who apply to this university is eligible or not.
+-------------------code----------------------
+age = 21
+if age >= 18:
+    print("Eligible")
+else:
+    print("not Eligible")
+# Eligible
+-------------------code----------------------
+
+- now there is nothing wrong with this code but we will see a cleaner way 
+to achieve the same result.
+
+step1: instead of having multi print methods we can define a variable we 
+called "message" and set to value depends on condition
+-------------------code----------------------
+age = 21
+if age >= 18:
+    message = "Eligible"
+else:
+    message = "not Eligible"
+print(message)
+
+# Eligible
+-------------------code----------------------
+
+step2: when we have an if else statement with this structure where we assign
+value to a variable we can rewrite it in simpler way
+that what we called "Ternary Operator"
+-------------------code----------------------
+age = 21
+message = "Eligible" if age >= 18 else "not Eligible"
+print(message)
+-------------------code----------------------

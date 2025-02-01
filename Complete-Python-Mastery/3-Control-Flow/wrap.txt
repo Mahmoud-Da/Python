@@ -180,3 +180,74 @@ age = 21
 message = "Eligible" if age >= 18 else "not Eligible"
 print(message)
 -------------------code----------------------
+
+*** 4- Logical Operators ***
+in Python we have 3 Logical operators and we use to module more complex 
+conditions
+"and": if both conditions are true => True
+"or": if one of the conditions at least is true => True
+"not": inverse the value if the boolean if not the condition => True
+
+imagine we building application for processing loans 
+we have high_income and high_credit and if this two values are true 
+the client will be eligible
+-------------------code----------------------
+high_income = True
+good_credit = True
+if high_income and good_credit:
+    print("Eligible")
+=> Eligible
+-------------------code----------------------
+
+PS: we didn't use ==True cause high_credit and good_credit is already boolean
+so we didn't write like
+-------------------code----------------------
+if high_income == True and good_credit == True:
+    print("Eligible")
+-------------------code----------------------
+
+- if one of the condition is false 
+-------------------code----------------------
+high_income = False
+good_credit = True
+if high_income and good_credit:
+    print("Eligible")
+else:
+    print("not Eligible")
+=> not Eligible
+-------------------code----------------------
+
+- using "or"
+-------------------code----------------------
+high_income = False
+good_credit = True
+if high_income or good_credit:
+    print("Eligible")
+else:
+    print("not Eligible")
+=> Eligible
+-------------------code----------------------
+
+- using "not"
+-------------------code----------------------
+is_student = True
+
+if not is_student:
+    print("Eligible")
+else:
+    print("not Eligible")
+=> not Eligible
+-------------------code----------------------
+
+- high_income or good_credit the client is not a student
+-------------------code----------------------
+high_income = False
+good_credit = True
+is_student = False
+
+if (high_income or good_credit) and not is_student:
+    print("Eligible")
+else:
+    print("not Eligible")
+=> Eligible
+-------------------code----------------------

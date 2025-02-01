@@ -423,3 +423,71 @@ Attempt 5 .....
 Attempt 7 .......
 Attempt 9 .........
 -------------------code----------------------
+
+
+*** 9- For..Else ***
+
+let's imagine after the first Attempt sending message was successful so we want 
+to jump our of the loop 
+-------------------code----------------------
+for number in range(3):
+    print("Attempt")
+
+=>Attempt
+Attempt
+Attempt
+-------------------code----------------------
+
+- we use the break statement
+-------------------code----------------------
+successful = True
+
+for number in range(3):
+    print("Attempt")
+    if successful:
+        print("Successful")
+        break
+
+=> Attempt
+Successful
+-------------------code----------------------
+
+PS: the print("Attempt") and the if statement belong to the for loops cause 
+it under the loop indent and the print("Successful") and the break belong
+to if statement cause it inside the indent of the if statement
+
+- now what if we Attempt 3 times and then we failed to send message 
+we use for else and the code below it only be executed if the for loop 
+complete without early termination so if never break from that loop the code below
+else will executed
+-------------------code----------------------
+successful = False
+for number in range(3):
+    print("Attempt")
+    if successful:
+        print("Successful")
+        break
+else:
+    print("Attempted 3 times and Failed")
+
+=> Attempt
+Attempt
+Attempt
+Attempted 3 times and Failed
+-------------------code----------------------
+
+- now if the successful is True cause we break from the loop the the expression 
+below the else statement will not evaluated
+-------------------code----------------------
+successful = True
+for number in range(3):
+    print("Attempt")
+    if successful:
+        print("Successful")
+        break
+else:
+    print("Attempted 3 times and Failed")
+
+=> Attempt
+Successful
+-------------------code----------------------

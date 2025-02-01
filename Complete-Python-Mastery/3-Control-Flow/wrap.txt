@@ -491,3 +491,59 @@ else:
 => Attempt
 Successful
 -------------------code----------------------
+
+*** 10- Nested Loops ***
+in programming we have concept called nested loops  and that means 
+put loop inside another loop 
+-------------------code----------------------
+for x in range(5):
+    for y in range(3):
+        print(f"({x}, {y})")
+=> 
+(0, 0)
+(0, 1)
+(0, 2)
+(1, 0)
+(1, 1)
+(1, 2)
+(2, 0)
+(2, 1)
+(2, 2)
+(3, 0)
+(3, 1)
+(3, 2)
+(4, 0)
+(4, 1)
+(4, 2)
+-------------------code----------------------
+
+- how exactly Python interpreter execute this code  
+now we how two loops 
+"for x in range(5)" is called the outer loop and "for y in range(3)" is called the inner loop
+
+so the execution of our programme start from the outer loop 
+- first iteration the x is 0 then interpreter go to the inner loop
+and what we have in the child loop (inner loop) will execute three times 
+and the the first result of the first iteration of the outer loop
+-------------------code----------------------
+(0, 0)
+(0, 1)
+(0, 2)
+-------------------code----------------------
+
+- second iteration the x is 1 then interpreter go to the inner loop
+and execute 3 times 
+-------------------code----------------------
+(1, 0)
+(1, 1)
+(1, 2)
+-------------------code----------------------
+
+- third iteration
+-------------------code----------------------
+(2, 0)
+(2, 1)
+(2, 2)
+-------------------code----------------------
+
+and so ...

@@ -276,3 +276,36 @@ increment 2 by 1
 
 So if you're calling a function with multiple arguments and it's not quite clear what these arguments are for
 You can make your code more readable by using keyword arguments.
+
+*** 5- Default Arguments ***
+- all the parameters that we define for a function are required by default.
+
+- how to make the by parameter optional?
+let's say we don't
+want to explicitly pass by equals one every time we want to call this increment function
+
+
+- so we want to give this parameter a default value so we set it to one
+now if we call this function and don't supply the second argument this default value will be used otherwise the value that we
+specify will be used
+-------------------code----------------------
+def increment(number, by=1):
+    return number + by
+
+print(increment(2))
+# 3
+
+print(increment(2, 2))
+# 4
+-------------------code----------------------
+PS: just be aware that all these optional parameters should
+come after the required parameters.
+
+in other words. we cannot add another required parameter "another" if we save the changes we can see we get a red underline
+so all the optional parameters should come after the required parameters 
+-------------------code----------------------
+def increment(number, by=1, another):
+    return number + by
+
+error: "another" is not accessed
+-------------------code----------------------

@@ -1,0 +1,48 @@
+*** 1- Defining Functions ***
+So Far we have learned how to use some of the built-in functions in Python such as print round and so on in this section
+we're going to learn how to write our own functions now.
+
+- why do we even need to write our own functions?
+when we build a real program that program is going to consist hundreds or thousands of lines of code
+we shouldn't write all that code in one file like we have done so far
+we should break that code into a smaller more maintainable and potentially more reusable "chunks"
+we refer to these "chunks" as "functions". 
+
+
+- how to create our own custom functions?
+We start with the "def" keyword which is short for define
+Next we need to give our function a name, So let's call this greet.
+
+PS: all the best practices we learned about naming our variables also apply to naming our functions
+So make sure our function names are meaningful
+Descriptive use lowercase letters to name our functions and an underscore to separate multiple words
+
+Now after the name we need to add
+Parenthesis we will see why shortly and then we'll add a colon now what is going to happen?
+
+we know it we're going to get indentation which means the following statements will belong to this function
+we add two statements
+Both these lines belong to this function because they're indented
+-------------------code----------------------
+def greet():
+    print("Hi there")
+    print("Welcome aboard")
+-------------------code----------------------
+
+Now we're done with this function. We need to call it
+So we remove the indentation and  adding two line breaks after this function This is what pep 8 recommends
+to keep our code clean and maintainable.
+
+
+we call this function greet with parentheses just like how we call the built-in functions.
+-------------------code----------------------
+def greet():
+    print("Hi there")
+    print("Welcome aboard")
+
+
+greet()
+
+=> Hi there
+Welcome aboard
+-------------------code----------------------

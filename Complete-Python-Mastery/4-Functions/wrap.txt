@@ -309,3 +309,104 @@ def increment(number, by=1, another):
 
 error: "another" is not accessed
 -------------------code----------------------
+
+
+*** 6- xargs ***
+There are times that you may want to create a function that takes a variable number of arguments.
+
+example: let's define this function multiply that takes two parameters x and y and
+simply returns x times y now we can call this function 
+-------------------code----------------------
+def multiply(x, y):
+    return x * y
+
+
+result = multiply(2, 3)
+print(result)
+=> 6
+-------------------code----------------------
+
+
+
+- like this so far so good but what if you want to pass one or two more arguments here that doesn't work because our multiply function
+takes only two parameters to solve this problem we need to replace these two parameters with a
+single parameter we use a plural name here to indicate that this is a collection of arguments.
+and then we prefix it with an "asterisk" now we try to print them
+-------------------code----------------------
+def multiply2(*numbers):
+    print(numbers)
+
+
+multiply2(2, 3, 4, 5)
+=> (2, 3, 4, 5)
+-------------------code----------------------
+
+- we can see all our arguments and they're packed in parentheses
+what is this well earlier you learned about lists when we use square brackets
+-------------------code----------------------
+[1, 2, 3, 4, 5, 6] => called list
+(2, 3, 4, 5) => called tuple
+-------------------code----------------------
+
+
+- the difference is that.
+in tuples we cannot modify this collection we cannot add a new object to this tuple.
+
+tuples just like lists are iterable so we can iterate over them which means we can use them in loops.
+-------------------code----------------------
+def multiply3(*numbers):
+    for number in numbers:
+        print(number)
+
+
+multiply3(2, 3, 4, 5)
+=> 2
+3
+4
+5
+-------------------code----------------------
+ 
+- so now with a simple change we can calculate the product of all
+these numbers all we have to do is to define a variable like "total" initially we set it to one.
+
+- and then in each iteration we get total and multiplied by the current number or we can rewrite this statement
+using an augmented assignment operator so total times equal number.
+-------------------code----------------------
+def multiply4(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
+
+
+final_result = multiply4(2, 3, 4, 5)
+print(final_result)
+=> 120
+-------------------code----------------------
+
+PS: one of the issues i see often in beginners code is that they don't
+use this indentation properly so they put the return statement here and then they wonder why their
+function doesn't work properly if you put the return statement here it will be part of the for loop
+so it will be executed in each iteration in this case after the first iteration because of this return
+statement will return from this multiply function so the total will not be calculated properly.
+-------------------code----------------------
+def multiply4(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+        return total
+-------------------code----------------------
+
+- so we need to put this at the same level of indentation as other statements in this function 
+-------------------code----------------------
+def multiply4(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
+
+
+final_result = multiply4(2, 3, 4, 5)
+print(final_result)
+=> 120
+-------------------code----------------------

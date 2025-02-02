@@ -410,3 +410,56 @@ final_result = multiply4(2, 3, 4, 5)
 print(final_result)
 => 120
 -------------------code----------------------
+
+*** 7- xxargs ***
+so in the last lecture you learned the syntax to pass a variable number of arguments to a function
+we have a variation of this syntax with "double asterisk".
+
+so for this demo let's rename this function to save underline user and rename
+the argument to user so let's imagine we're going to use this function to save information about a user
+now in this function let's just print this user argument.
+-------------------code----------------------
+def save_user(**user):
+    print(user)
+-------------------code----------------------
+
+- now instead of passing arbitrary arguments here we can pass arbitrary
+keyword arguments, we can add
+multiple keyword arguments like id equals 1 name equals john age equals 22 and so on so we are
+passing three keyword arguments to this function.
+-------------------code----------------------
+def save_user(**user):
+    print(user)
+
+
+save_user(id=1, name="John", age=22)
+=> {'id': 1, 'name': 'John', 'age': 22}
+-------------------code----------------------
+
+this object you see here is called a "dictionary".
+it's another complex type or a data structure in python. 
+
+- for now all we want to take away is that when we use double
+asterisk here we can pass multiple key value pairs or multiple keyword arguments to a function
+and python will automatically package them into a dictionary.
+ so this user object here is a dictionary.
+
+- now using the bracket notation we can get the value of various keys.
+ex1:
+-------------------code----------------------
+def save_user2(**user):
+    print(user["id"])
+
+
+save_user2(id=1, name="John", age=22)
+=> 1
+-------------------code----------------------
+ex2:
+-------------------code----------------------
+def save_user3(**user):
+    print(user["name"])
+
+
+save_user3(id=1, name="John", age=22)
+=> John
+-------------------code----------------------

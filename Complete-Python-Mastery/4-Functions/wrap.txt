@@ -221,3 +221,58 @@ def greet(name):
     print(f"Hi {name}")
 -------------------code----------------------
 
+*** 4- Keyword Arguments ***
+Let's create another function
+We call it increment. We want to use this function to increment a number by a given value.
+and store it in in a variable "result" and then print it on the terminal
+-------------------code----------------------
+def increment(number, by):
+    return number + by
+
+
+result = increment(2, 1)
+print(result)
+=> 3
+-------------------code----------------------
+
+- We can simplify this code
+We have used this result variable only in a single place that is line 6
+So we don't really need it. So on line 6 we can replace result with a call to increment function
+like this
+-------------------code----------------------
+def increment(number, by):
+    return number + by
+
+
+print(increment(2, 1))
+-------------------code----------------------
+
+- So when Python interpreter executes this code first, it will call the increment function
+It will get the result and temporarily store it in a variable for us
+We don't see that variable and then it will pass that variable as an argument to the print function
+
+
+- Now if we run this program we get the exact same result
+-------------------code----------------------
+def increment(number, by):
+    return number + by
+
+
+print(increment(2, 1))
+=> 3
+-------------------code----------------------
+
+- Now we can make this code more readable
+if someone else looks at line 5 they may not know exactly What these arguments are for we can use a "keyword argument"
+to make this code more readable So this one here is the value of this by parameter. 
+We can prefix it With the name of the parameter like this
+-------------------code----------------------
+print(increment(2, by=1))
+# 3
+-------------------code----------------------
+
+Now we can read this code almost like plain English
+increment 2 by 1
+
+So if you're calling a function with multiple arguments and it's not quite clear what these arguments are for
+You can make your code more readable by using keyword arguments.

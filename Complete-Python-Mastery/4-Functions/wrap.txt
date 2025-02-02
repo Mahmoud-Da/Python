@@ -46,3 +46,76 @@ greet()
 => Hi there
 Welcome aboard
 -------------------code----------------------
+
+*** 2- Arguments ***
+What is the difference between the greet and Print functions?
+the difference is that this print function takes an input
+Whereas our greet function doesn't take any inputs.
+
+- how to pass inputs like first name and last name to this function.
+When defining a function in between parentheses will list our parameters
+So here we add two parameters like first underline name and last underline name
+Now when calling this function, we need to supply two values for those parameters. We refer to them as arguments
+so "Moody Lili" these are the arguments to the greet function
+-------------------code----------------------
+def greet(first_name, last_name):
+    print("Hi there")
+    print("Welcome aboard")
+
+
+greet("Moody", "Lili")
+-------------------code----------------------
+
+
+difference between parameters and arguments.
+- parameter: is The input that you define for our function.
+- argument: is the actual value for a given parameter.
+
+now instead of saying hi there
+We can greet a person by their full name so we can convert it to a formatted string and
+Pass two fields here first name as well as last name
+-------------------code----------------------
+def greet(first_name, last_name):
+    print(f"Hi {first_name} {last_name}")
+    print("Welcome aboard")
+
+
+greet("Moody", "Lili")
+
+=> Hi Moody Lili
+Welcome aboard
+-------------------code----------------------
+
+
+
+
+This function is more useful. We can reuse it and call it with different arguments. 
+So let's greet John Smith as well
+-------------------code----------------------
+def greet(first_name, last_name):
+    print(f"Hi {first_name} {last_name}")
+    print("Welcome aboard")
+
+
+greet("Moody", "Lili")
+greet("John", "Smith")
+
+=> Hi Moody Lili
+Welcome aboard
+Hi John Smith
+Welcome aboard
+-------------------code----------------------
+
+note: by default all the parameters that you define for a function are required
+So here our greet function takes two parameters if I exclude one of these arguments and save the changes
+You can see we have this red on the line
+Spylent is complaining and saying
+-------------------code----------------------
+No value for argument 'last_name' in function call
+-------------------code----------------------
+
+Also, if we run the program we get this 
+-------------------code----------------------
+Type error greet missing one required positional argument
+-------------------code----------------------
+

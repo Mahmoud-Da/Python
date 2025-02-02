@@ -119,3 +119,105 @@ Also, if we run the program we get this
 Type error greet missing one required positional argument
 -------------------code----------------------
 
+
+*** 3- Types of Functions ***
+so this is the simplified version of this great function we created earlier 
+-------------------code----------------------
+def greet(name):
+    print(f"Hi {name}")
+-------------------code----------------------
+
+
+now in programming
+we have two types of functions 
+1- functions that perform a task
+2- functions that calculate and return a Value
+
+both the print and greet functions are examples of type one "functions that perform a task"
+the round function is an example of a function that calculates and returns a value so the functions
+-------------------code----------------------
+print(round(1.9))
+=> 2
+-------------------code----------------------
+
+how to rewrite great function to be "functions that calculate and return a Value" 
+we use the "return statement" keyword
+-------------------code----------------------
+def get_greeting(name):
+    return f"Hi {name}"
+
+
+get_greeting("Moody")
+-------------------code----------------------
+
+
+- now we can print the value 
+-------------------code----------------------
+print(get_greeting("Moody"))
+=> Hi Moody
+-------------------code----------------------
+
+or even store it in variable
+-------------------code----------------------
+message = get_greeting("Moody")
+-------------------code----------------------
+
+which form of this greeting functions is better? 
+- this first implementation (greet function) we are locked 
+to printing something in the terminal in the future if you want to write that message in a file or send it in an email we have to create
+another function so we cannot reuse this great function in other scenarios.
+
+in contrast this second form is not tied to printing something on the terminal.
+-------------------code----------------------
+print(message)
+=> Hi Moody
+-------------------code----------------------
+
+it simply returns a value now we get this value and we can do
+whatever we want with it we can print it on the terminal or we can use the built-in open function to write this
+message to a file so we can create a file like content dot txt open it for writing this returns a file object.
+and then we can call file that write message
+-------------------code----------------------
+file = open("content.txt", "w")
+file.write(message)
+-------------------code----------------------
+
+- but what we want to take away here is that we have this message
+variable and we can do whatever we want with it we can
+print it on the terminal, write it to a file, send it in an email and so on
+
+- what if we call great which already had print function inside print function l
+we get hi mosh followed by none what is this
+-------------------code----------------------
+def greet(name):
+    print(f"Hi {name}")
+
+
+print(greet("Moody"))
+=> Hi Moody
+None
+-------------------code----------------------
+
+- None is the return value of the greet function
+so in python all functions by default
+return the none value.
+
+- none is an object that represents the absence of a value
+means it's return nothing.
+
+- all functions return none by default unless you specifically return a value
+so here if we return some string
+none will no longer be returned
+-------------------code----------------------
+def test(name):
+    # print(f"Hi {name}")
+    return "...."
+-------------------code----------------------
+
+PS: even though this function returns none by default
+it is still classified as a function that carries out a task
+-------------------code----------------------
+def greet(name):
+    print(f"Hi {name}")
+-------------------code----------------------
+

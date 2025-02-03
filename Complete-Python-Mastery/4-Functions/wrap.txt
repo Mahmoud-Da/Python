@@ -463,3 +463,173 @@ def save_user3(**user):
 save_user3(id=1, name="John", age=22)
 => John
 -------------------code----------------------
+
+*** 8- Scope ***
+- In programming we have a very important concept called scope,
+which refers to the region of the code where a variable is defined.
+
+- So in this example we have this message variable, the scope
+of this variable is the greet function. It only exists
+inside of this function. So if we go outside of this function
+and try to print message, see what happens. As soon as we save the changes, we get this red underline
+undefined variable message. And if we run our
+program, we get this name error, name message
+is not defined. 
+-------------------code----------------------
+def greet():
+    message = "a"
+
+
+print(message)
+=> NameError: name 'message' is not defined
+-------------------code----------------------
+
+
+
+- The same rule applies to the parameters
+of our functions. So if we add a name parameter here, and then
+try to print it outside of the greet function,
+we get the same error. 
+-------------------code----------------------
+def greet(name):
+    message = "a"
+
+
+print(name)
+# NameError: name 'name' is not defined
+-------------------code----------------------
+
+- So the scope of the name and message
+variables are the greet function, and we refer to these variables
+as "local variables" in this function.
+They're local in this function, which means they don't exist anywhere else.
+And that means we can have another function.
+
+
+- let's say we will send email
+with a parameter with the same name. so we can have a message variable,
+but this message variable is completely different from the message variable we have in the greet function.
+And of course, the same rule applies to the name parameters
+in these functions. They are completely separate.
+-------------------code----------------------
+def greet(name):
+    message = "a"
+
+
+def send_email(name):
+    message = "b"
+-------------------code----------------------
+
+
+- These local variables. have a short lifetime. So when we call
+let's say the greet function and pass a name.
+
+Python interpreter will allocate some memory and have the name
+and message variables reference those memory locations.
+When we finish executing the greet function, because these variables are not referenced
+or used anywhere else, eventually they get "garbage collected".
+
+Which means Python interpreter will release the memory that allocated for these variables.
+-------------------code----------------------
+def greet(name):
+    message = "a"
+
+
+def send_email(name):
+    message = "b"
+
+
+print(great("moody"))
+=> a
+-------------------code----------------------
+
+
+
+- In contrast to local variables, we have global variables.
+So if we move this message variable outside
+of the greet function,
+
+now it's a global variable, which means it's accessible anywhere
+in same file. So the scope of this variable is same file.
+
+We can use it anywhere in same file, in any functions
+or outside of a function.
+
+Now for this reason, global variables stay in memory for a longer
+period of time until they are garbage collected, and you should not
+use them that often.
+ 
+In fact, global variables are really evil. So as a best practice, create functions with parameters
+and local variables.
+-------------------code----------------------
+message = "a"
+
+
+def greet(name):
+    print(message)
+
+
+print(great("moody"))
+=> a
+-------------------code----------------------
+
+- Now, what if here in the greet function
+we set message to let's say "b",
+
+So we call the greet function, in this function we assign a new value
+to the message variable, now let's
+print this message and see what we get.
+
+What we're going to get?
+We get "a", but didn't we change the value of message variable
+to "b"? Not really.
+-------------------code----------------------
+message = "a"
+
+
+def greet(name):
+    message = "b"
+
+
+print(message)
+=> a
+-------------------code----------------------
+Because by default, python interpreter treats this message variable as "a" local variable in the
+greet function, even though it has
+the same name as the global
+variable that we have on line one. So these two variables are separate.
+
+- Now, as bad practices. For example, how to modify the
+value of this global message variable inside of a function.
+Let me show you how to do that.
+PS: we should avoid it at all times.
+
+When python interpreter sees this "global" keyword, it will realize
+that in this function we want to use the global message variable.
+So it will not define a local variable in this function.
+-------------------code----------------------
+message = "a"
+
+
+def greet(name):
+    global message
+    message = "b"
+
+
+print(message)
+# b
+-------------------code----------------------
+
+
+-  Why is this bad?
+Because it is possible that you might have multiple functions that rely
+on the value of this global variable. If you accidentally or deliberately change
+the value of this global variable in one function, this might have a side effect in other functions.
+Those functions may not behave properly. And this way we can create a bug in our program.
+
+- So, global variables have always been bad. This is
+not a python thing, this is a discussion
+that's been going on for decades.
+Avoid them as much as we can, or if there are situations that we really need to define a variable globally
+in a file.
+

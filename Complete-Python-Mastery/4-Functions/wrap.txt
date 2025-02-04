@@ -633,3 +633,264 @@ that's been going on for decades.
 Avoid them as much as we can, or if there are situations that we really need to define a variable globally
 in a file.
 
+*** 9- Debugging ***
+
+how to find and fix bugs in our programs 
+- so here's a function called multiply 
+-------------------code----------------------
+def multiply(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
+
+
+print("Start")
+print(multiply(1, 2, 3))
+=> Start
+6
+-------------------code----------------------
+
+
+
+- to create a bug in our program
+we'e going to deliberately indent this return statement so now when we run this program
+instead of six we get one.
+
+-------------------code----------------------
+def multiply(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+        return total
+
+
+print("Start")
+print(multiply(1, 2, 3))
+=> Start
+1
+-------------------code----------------------
+
+
+- so we're going to use a technique called "debugging" it's means to find and fix the
+bug(problem behave ) 
+
+
+- A bug in programming refers to an error, flaw, or unintended behavior in a software program 
+that causes it to produce incorrect or unexpected results.
+Bugs can arise from various sources, including:
+1. Syntax Errors: 
+Mistakes in the code that violate the rules of the programming language,
+such as missing punctuation or incorrect keywords.
+
+2. Logic Errors: Flaws in the program's logic that lead to incorrect outcomes,
+even if the code runs without crashing. For example, using the wrong formula in a calculation.
+
+3. Runtime Errors: Errors that occur while the program is running,
+such as trying to divide by zero or accessing an out-of-bounds index in an array.
+
+4. Semantic Errors: When the code is syntactically correct but does not do what the programmer intended.
+For example, using the wrong variable in a calculation.
+
+5. Integration Errors: Issues that arise when combining different parts of a program
+or when integrating with external systems or libraries.
+Debugging is the process of identifying, isolating, and fixing these bugs to ensure that the software behaves as expected.
+
+- all right first we need to open the debugging panel on the left side of vs code.
+the first time you want to use debugging in the python project you need to click this icon this will generate a new file called launch.json
+in this file we have a bunch of debugging configuration you'll never have to touch any of this
+so we don't worry about it.
+-------------------code----------------------
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    }
+  ]
+}
+-------------------code----------------------
+- we  close it you can see this file is placed inside of this vs code folder
+it's right here launch.json
+
+- now when we have this file we can go to the debugging panel
+and from this list we can select a debugging configuration some of these configurations
+are useful for more complex applications for example we use python "django" to debug a web application
+built with python for this course we're going to use "python current file with integrated terminal"
+
+
+- so select it and now we start debugging
+
+- first we need to add a breakpoint on the line that we want to debug 
+
+then so we're going to put the cursor on line 22 and insert a breakpoint by pressing "f9" so this is our breakpoint.
+-------------------code----------------------
+● print("Start")
+-------------------code----------------------
+
+- we can press f9 one more time to remove it if you're on a mac "function key + f9" so here we have a breakpoint
+now we can press "function key + f5" to run the application up to this point so f5
+so this automatically opens the integrated terminal.
+so you can see our program is running up to this point this line is highlighted
+
+- now we can execute this program line by line and see exactly what happens at runtime
+so to execute one statement at a time press "function key + f10"
+
+- however on line 23 we are calling the multiply function
+if we press f10 again the execution stops so we couldn't figure out why we got 1 as the result
+of multiplying these numbers so let's start debugging one more time we press "function key + f5"
+so once again we are on line 22 let's step over this line with "function key + f10"
+
+- now this time we want to step into this multiply function so we see exactly what is going on here
+so instead of "function key + f10" press "function key + f11" now we are on line 15 so if you're calling a function that we have defined
+
+
+- now here we are in the multiply function on the left side inside the variables panel
+you can see all the variables that are meaningful in this function.
+so under locals we have numbers so this is our numbers argument
+-------------------code----------------------
+Variables
+       Local 
+          numbers (1, 2, 3) 
+-------------------code----------------------
+
+
+- now our total variable is not in this list because it's not defined yet
+-------------------code----------------------
+def multiplyError(*numbers):
+==> total = 1  
+    for number in numbers:
+        total *= number
+        return total
+
+WATCH 
+=> NameError("name 'total' is not defined")
+-------------------code----------------------
+
+- now if we moved in the debugger to the next line 
+and check for title we can find it
+-------------------code----------------------
+def multiplyError(*numbers):
+    total = 1
+==> for number in numbers:
+        total *= number
+        return total
+
+WATCH 
+=> total = 1
+-------------------code----------------------
+
+now here we are on line 19 if we press "function key + f10" we can see we jump out of this function so our loop did not
+execute to completion and that is the reason our program has a bug.
+
+
+-------------------code----------------------
+def multiplyError(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+ ==>    return total
+
+WATCH 
+=> total = 1
+-------------------code----------------------
+
+
+- so we stop the debugger and fix the indent
+-------------------code----------------------
+def multiplyFixed(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
+
+
+print("Start")
+print(multiplyFixed(1, 2, 3))
+# Start
+# 1
+-------------------code----------------------
+
+- so to fix this i'm going to stop the
+-------------------code----------------------
+def multiplyFixed(*numbers):
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
+
+
+print("Start")
+print(multiplyFixed(1, 2, 3))
+# Start
+# 1
+-------------------code----------------------
+
+
+- now we can run the debugger again and see the after the first iteration
+the debugger go again to the begging of the loop
+and the result is fixed
+-------------------code----------------------
+def multiplyFixed(*numbers):
+    total = 1
+==> for number in numbers:
+        total *= number
+    return total
+
+
+print("Start")
+print(multiplyFixed(1, 2, 3))
+# Start
+# 6
+-------------------code----------------------
+
+PS: we put the breakpoint on the first line of the program
+we don't always have to do this.
+for example here we know that our multiply function has a bug
+so instead of putting the breakpoint on line print("Start") statement we could put it inside the function
+immediately
+
+PS: 
+function works properly you can immediately step out of that function with shift and f11
+so you don't have to execute the entire function line by line you can press shift and f11 to step out of
+that function
+
+
+instead of the breakpoint or we can use a tool called Debugger every programming language has it's own Debugger
+for python we are going to use debugger called "pdb"
+-------------------code----------------------
+https://docs.python.org/3/library/pdb.html
+-------------------code----------------------
+
+- first: we import 
+-------------------code----------------------
+import pdb
+-------------------code----------------------
+
+- Second: call the set_trace() method where we want to stop it.
+-------------------code----------------------
+def multiplyError2(*numbers):
+    pdb.set_trace()
+    total = 1
+    for number in numbers:
+        total *= number
+    return total
+-------------------code----------------------
+
+- third we run the program
+-------------------code----------------------
+pp9.py(45)multiplyError2()
+-> pdb.set_trace()
+(Pdb) title
+*** NameError: name 'title' is not defined
+(Pdb) 
+-------------------code----------------------
+
+- to exit we press "ctrl + c"

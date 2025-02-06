@@ -1,0 +1,100 @@
+*** 1- Lists ***
+- In this section, we're going to look at the built-in data structures in python,
+which are extremely important when building real applications.
+
+First, we're going to look at lists, and then we'll look at tuples, sets, and dictionaries.
+So earlier you have seen that we can use square brackets
+to define a list or a sequence of objects.
+-------------------code----------------------
+["a", "b", "c"]
+-------------------code----------------------
+
+
+- In between these brackets we can have objects of any type, so we can have a list
+of strings ,and then assign it to a variable like letters.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+-------------------code----------------------
+
+
+- We can also have a list of numbers, booleans.
+-------------------code----------------------
+numbers = [1, 2, 3, 4]
+-------------------code----------------------
+
+- or even we can have a list of lists.
+So here we have a list, each item in this list
+will be a list itself. So here's the first item, which is
+a list of two items. Now let's add another item
+to our main or parent list. This item is also a list
+a list with two items. 
+So now we have a matrix, which is a two dimensional list.
+-------------------code----------------------
+matrix = [[1, 2], [3, 4]]
+-------------------code----------------------
+
+- we have some cool tricks. Let's
+say we want to have a list of a hundred
+zeros. we don't want to manually
+create that like this, that's very ugly.
+-------------------code----------------------
+[0, 0, 0, 0, 0, 0 ....]
+-------------------code----------------------
+
+
+- instead we can define a list of one item,
+one zero, and then we can multiply it by a hundred.
+And the result will be this. 
+-------------------code----------------------
+zeros = [0] * 100
+print(zeros)
+=> [0, 0, 0, 0, 0, 0, 0, 0,,,,]
+-------------------code----------------------
+
+- So using a star or an asterisk, we can repeat
+the items in a list.
+
+
+- Now similarly, we can use a plus to
+concatenate multiple lists.
+-------------------code----------------------
+letter1 = ["a", "b", "c"]
+zeros1 = [0] * 5
+combined = zeros1 + letter1
+=> [0, 0, 0, 0, 0, 'a', 'b', 'c']
+-------------------code----------------------
+
+PS: in python, every object in a list can be of a different type.
+So they don't have to be exactly the same type.
+We can combine a list of numbers with strings and booleans or even
+lists.
+
+- Now let's say you want to have a list of numbers
+like 0, 1, 2, 3, all the way up to 20. we don't want to type all of these by hand.
+There is a better way. So we have this list function. As we can see, this function
+takes an iterable. So we can pass any iterable as argument and convert it to a list.
+Earlier we learned about the range function. This function returns
+a range object which is iterable. Which means we can iterate or loop over it. So here we can
+call this function and pass 20 and with this we can create a list of numbers from 0 to 20.
+-------------------code----------------------
+numbers = list(range(20))
+print(numbers)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+-------------------code----------------------
+
+- As another example, let's call the list function and pass a string.
+Earlier we said you that strings are also iterable.
+so, We can loop over them. So we can pass them to the list function.
+-------------------code----------------------
+char = list("Hello World")
+print(char)
+=> ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
+-------------------code----------------------
+
+- we can get the number of items in that list using the len function.
+So here we can print the len or length of chars.
+
+-------------------code----------------------
+print(len(char))
+=> 11
+-------------------code----------------------

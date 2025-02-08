@@ -3,7 +3,7 @@
 which are extremely important when building real applications.
 
 First, we're going to look at lists, and then we'll look at tuples, sets, and dictionaries.
-So earlier you have seen that we can use square brackets
+So earlier we have seen that we can use square brackets
 to define a list or a sequence of objects.
 -------------------code----------------------
 ["a", "b", "c"]
@@ -69,7 +69,7 @@ So they don't have to be exactly the same type.
 We can combine a list of numbers with strings and booleans or even
 lists.
 
-- Now let's say you want to have a list of numbers
+- Now let's say we want to have a list of numbers
 like 0, 1, 2, 3, all the way up to 20. we don't want to type all of these by hand.
 There is a better way. So we have this list function. As we can see, this function
 takes an iterable. So we can pass any iterable as argument and convert it to a list.
@@ -83,7 +83,7 @@ print(numbers)
 -------------------code----------------------
 
 - As another example, let's call the list function and pass a string.
-Earlier we said you that strings are also iterable.
+Earlier we said that strings are also iterable.
 so, We can loop over them. So we can pass them to the list function.
 -------------------code----------------------
 char = list("Hello World")
@@ -477,4 +477,145 @@ count. So letters dot count, this will return the number of occurrences of the g
 letters = ["a", "b", "c"]
 print(letters.count("d"))
 # 0
+-------------------code----------------------
+
+*** 7- Sorting Lists ***
+Here we have this list with a bunch of numbers that are not in any particular order.
+To sort this list we call sort method.
+-------------------code----------------------
+numbers = [3, 51, 2, 8, 6]
+numbers.sort()
+print(numbers)
+# [2, 3, 6, 8, 51]
+-------------------code----------------------
+
+-  What if we want to sort these items in descending order?
+Well, this sort method takes two parameters
+key which we'll look at later, and reverse which we can use
+to change the sort order.
+-------------------code----------------------
+numbers = [3, 51, 2, 8, 6]
+numbers.sort(reverse=True)
+print(numbers)
+# [51, 8, 6, 3, 2]
+-------------------code----------------------
+
+- However, in addition to the sort method, we have a built-in function called sorted.
+as we can see this function takes an iterable, so we can pass any
+iterables here and it will sort it for us.
+-------------------code----------------------
+numbers = [3, 51, 2, 8, 6]
+print(sorted(numbers))
+# [2, 3, 6, 8, 51]
+-------------------code----------------------
+
+- PS: unlike the sort method, this will not modify the original list, it will return a
+new sorted list. 
+
+
+
+- Also similar to the sort method, if we want to change the sort
+order, we can simply set the reverse argument to true.
+-------------------code----------------------
+numbers = [3, 51, 2, 8, 6]
+print(sorted(numbers, reverse=True))
+# [51, 8, 6, 3, 2]
+-------------------code----------------------
+
+- sorting numbers and strings is pretty easy, but what if we're dealing with a list of complex
+objects? For example, what if we have a list of tuples?
+
+-  Let's imagine we are building an application
+for processing orders, and we have this list of order items. Every item in this list
+is a tuple with two items. The product name, followed by the price.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+-------------------code----------------------
+
+- What happens if we try to sort this list? Let's take a look, so items.sort, 
+and then we print the items, so nothing is changed here, because python doesn't know how
+to sort this list.
+
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+items. sort()
+print(items)
+# [('Product1', 10), ('Product2', 9), ('Product3', 12)]
+-------------------code----------------------
+
+- In situations like this, we need to define a function that python will use for sorting lists.
+So, here we're going to define a function, let's call it sort underline item,
+this function should take an item like this tuple, and it should return a value that will be used for sorting.
+In this example, let's imagine we want to sort these items based on their price.
+So, if each item is a tuple, we can get the price using square brackets of 1. 
+So all this function does is that it takes an item
+and it returns its price.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+
+def sort_item(item):
+    return item[1]
+-------------------code----------------------
+
+
+- Now python is dealing with a list of numbers, and it can easily sort that list. Now finally
+we need to pass this function when sorting our list of items.
+
+- So once again, we look at this sort method, the first parameter is key, and this is where we need to pass our sorting function.
+So we pass sort underline item.
+
+PS: we're not calling this function, I'm simply passing a reference to this function.
+When python attempts to sort this list, the list of items, it gets each item, and it will pass each item
+to our sort function.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+
+def sort_item(item):
+    return item[1]
+
+
+items. sort(sort_item)
+print(items)
+# TypeError: sort() takes no positional arguments
+-------------------code----------------------
+
+
+- So, let's run this program and see what happens. We get a type error.
+Sort takes no positional arguments, which basically means
+here we can only use keyword arguments. So we need to specify our argument that is key, we set it to
+sort item.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+
+def sort_item(item):
+    return item[1]
+
+
+items. sort(key=sort_item)
+print(items)
+# [('Product2', 9), ('Product1', 10), ('Product3', 12)]
 -------------------code----------------------

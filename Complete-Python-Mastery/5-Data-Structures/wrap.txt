@@ -295,3 +295,71 @@ print(other)
 # [2, 3, 4, 4, 2]
 -------------------code----------------------
 
+*** 4- Looping over Lists *** 
+-  how to loop over lists. So here we have a list of three items, we can use our for loops to loop over
+this list.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+for letter in letters:
+    print(letter)
+# a
+# b
+# c
+-------------------code----------------------
+
+- what if we want to get the index of each item as well?
+Well, we have a built in function called enumerate,
+we call it here, and this will return an enumerate object, which is iterable.
+In each iteration this enumerate object will give us a tuple.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+for letter in enumerate(letters):
+    print(letter)
+# (0, 'a')
+# (1, 'b')
+# (2, 'c')
+-------------------code----------------------
+
+- a tuple as we told before is like a list but it's read only, we cannot add new items to it.
+So in each iteration we're getting a tuple of two items the first item in this tuple is the index, and the second
+item is the item at that index. So now to get the index, we can use square brackets.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+for letter in enumerate(letters):
+    print(letter[0], letter[1])
+# 0 a
+# 1 b
+# 2 c
+-------------------code----------------------
+
+- But this syntax is a little bit ugly. In the last lecture we learned about list unpacking.
+So if we have a list with two items we can unpack it into two variables index and letter equals items.
+-------------------code----------------------
+items = [0, "a"]
+index, letter = items
+-------------------code----------------------
+
+- So here we are unpacking the items list. Now what if we change square brackets
+to parentheses?
+Now we have a tuple and we can still unpack this tuple.
+-------------------code----------------------
+items = (0, "a")
+index, letter = items
+-------------------code----------------------
+
+
+- So we saw that this enumerate function returns an enumerate
+object which is iterable. In each iteration, this
+enumerate object will return a tuple So we can unpack it immediately.
+-------------------code----------------------
+for index, letter in enumerate(letters):
+    print(index, letter)
+# 0 a
+# 1 b
+# 2 c
+-------------------code----------------------
+
+- So to recap we can use for loops to iterate over lists. If we also need the index
+we should call the enumerate function this will return an enumerate
+object which is iterable in each iteration it will return a tuple and we can unpack that tuple.
+

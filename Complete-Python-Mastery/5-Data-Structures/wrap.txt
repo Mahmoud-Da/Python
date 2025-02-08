@@ -213,3 +213,85 @@ print(numbers[::-1])
 => [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 -------------------code----------------------
 
+*** 3- List Unpacking ***
+There are times that we may want to get individual items in a list and assign them
+to different variables.
+-------------------code----------------------
+numbers = [1, 2, 3]
+first = numbers[0]
+second = numbers[1]
+third = numbers[2]
+-------------------code----------------------
+
+- Now there is a cleaner and more elegant way to achieve the same result, 
+and that is what we call list "unpacking".
+So we can unpack this list into multiple variables.
+-------------------code----------------------
+first, second, third = numbers
+-------------------code----------------------
+
+- What we have on now  is exactly identical to what we have when assign the variable manually.
+This is what we call list unpacking.
+
+- Now what is important here is that the number of variables that we have on the left side
+of the assignment operator should be equal to the number of items we have in the list.
+So if we exclude third here, and run this program, we will get an error.
+So there are too many items in this list, and we cannot unpack it into enough variables.
+-------------------code----------------------
+first, second = numbers
+# ValueError: too many values to unpack (expected 2)
+-------------------code----------------------
+
+- Now what if in this list we have so many items, but we only care about the first two.
+We don't want to define so many variables on the left side of the assignment operator.
+-------------------code----------------------
+numbers2 = [1, 2, 3, 4, 4, 2, 1]
+first, second, *other = numbers2
+-------------------code----------------------
+
+
+- With this syntax, we'll get the first and second items and everything else will be stored in
+a separate list called other.
+-------------------code----------------------
+numbers2 = [1, 2, 3, 4, 4, 2, 1]
+first, second, *other = numbers2
+print(first, second)
+# 1 2
+print(other)
+# [3, 4, 4, 2, 1]
+-------------------code----------------------
+
+
+- So in this example, we have both unpacking and packing.
+First we try to unpack first and second list into the variables on the left side of the
+assignment operator, and then because we have used an asterisk here, we're basically packing
+all the other items into a separate list.
+-------------------code----------------------
+first, second, *other = numbers2
+-------------------code----------------------
+
+Now to refresh our memory, earlier we used this syntax when
+defining a function with a variable number of arguments. We had a function like this, where 
+we set the parameter with an asterisk, with that python would get all these arbitrary arguments, and pack them
+into a tuple.
+-------------------code----------------------
+def multiple(*args):
+    return args
+
+
+print(multiple(1, 2, 3, 4, 5))
+# (1, 2, 3, 4, 5)
+-------------------code----------------------
+
+- What if we care only about the first and the last item?
+Well, we can put other in between, so we get the first, other,
+and then the last item.
+-------------------code----------------------
+numbers3 = [1, 2, 3, 4, 4, 2, 9]
+first, *other, last = numbers3
+print(first, last)
+# 1 9
+print(other)
+# [2, 3, 4, 4, 2]
+-------------------code----------------------
+

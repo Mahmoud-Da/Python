@@ -363,3 +363,86 @@ for index, letter in enumerate(letters):
 we should call the enumerate function this will return an enumerate
 object which is iterable in each iteration it will return a tuple and we can unpack that tuple.
 
+*** 5- Adding or Removing Items ***
+- how to add new items to a list or remove existing items. So for adding items we have two options
+depending on where we want to add this new item.
+
+- If we want to add an item at the end of the list, we should use the append method.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+
+letters.append("d")
+print(letters)
+# ['a', 'b', 'c', 'd']
+-------------------code----------------------
+
+PS: So, earlier we learned that everything in python is an object, so we can use the dot notation to access individual
+functions or more accurately methods in that object. So when a function is part of an object, we refer to that function as a method.
+So here are all the methods available on list objects.
+
+-  Now if we want to add an item at a specific position, we should use the insert method. So letters that insert, we can add
+something at the beginning of the list.
+-------------------code----------------------
+letters.insert(0, "-")
+print(letters)
+# ['-', 'a', 'b', 'c', 'd']
+-------------------code----------------------
+
+- Now for removing objects, again we have a few different options, if we want to remove
+the item at the end of the list, we should use the pop method.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+letters.pop()
+print(letters)
+# ['-', 'a', 'b', 'c', 'd']
+-------------------code----------------------
+
+- we can also pass an index here, to remove the item at the given index. So,
+if we pass 0, instead of D, this hyphen will be removed.
+-------------------code----------------------
+letters = ['-', 'a', 'b', 'c', 'd']
+letters.pop(0)
+print(letters)
+# ['a', 'b', 'c', 'd']
+-------------------code----------------------
+
+- there are times that we want to remove an object, but we don't know its index.
+If that's the case, we can use the remove method, so letters that remove, here we can remove "b",
+and this will remove the first occurrence of the letter "b".
+-------------------code----------------------
+letters = ['-', 'a', 'b', 'c', 'd']
+letters.remove("b")
+print(letters)
+# ['-', 'a', 'c', 'd']
+-------------------code----------------------
+
+PS: So if we have multiple "b"'s, only the first one will be removed. If we want to remove
+all "b"'s in this list, we will have to loop over this list, and remove each "b" individually.
+
+- We have another way to remove an item from a list, and that is using the del or delete statement.
+So here we can delete an item by its index,
+-------------------code----------------------
+letters = ['-', 'a', 'b', 'c', 'd']
+del letters[0]
+print(letters)
+# ['a', 'b', 'c', 'd']
+-------------------code----------------------
+
+- we can also delete a range of items. So this is the difference between the delete statement
+and the pop method. 
+The pop method will remove only one item by index, whereas with the delete statement, we can remove a range
+of items.
+-------------------code----------------------
+letters = ['-', 'a', 'b', 'c', 'd']
+del letters[0:3]
+print(letters)
+# ['c', 'd']
+-------------------code----------------------
+
+- finally if we want to remove all the objects in the list, we should use the clear method.
+-------------------code----------------------
+letters = ['-', 'a', 'b', 'c', 'd']
+letters.clear()
+print(letters)
+# []
+-------------------code----------------------

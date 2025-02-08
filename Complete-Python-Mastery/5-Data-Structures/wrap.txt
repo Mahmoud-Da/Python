@@ -446,3 +446,35 @@ letters.clear()
 print(letters)
 # []
 -------------------code----------------------
+
+*** 6- Finding Items ***
+- There are times that we want to find the index of a given object in a list.
+So, let's say we want to find the index of letter "a" in our letters list.
+ 
+-  What if we try to get the index of an object that doesn't exist here, like "d".
+We get a value error, "d" is not in the list. This behavior is different from a lot of programming
+languages out there, C based languages return negative 1, if we try to get the index of an object that doesn't exist in the list.
+But in python, we get an error.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+print(letters.index("d"))
+# ValueError: 'd' is not in list
+-------------------code----------------------
+
+- So, to prevent this error from happening, first we should check to see if the given object exists
+in the list. And for that we use the in operator, so if D is in letters, then we will
+print its index.now we run the program and we don't get any errors.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+if "d" in letters:
+    print(letters.index("d"))
+# 
+-------------------code----------------------
+ 
+- another method that we might find useful in certain situations, and that is
+count. So letters dot count, this will return the number of occurrences of the given item in this list.
+-------------------code----------------------
+letters = ["a", "b", "c"]
+print(letters.count("d"))
+# 0
+-------------------code----------------------

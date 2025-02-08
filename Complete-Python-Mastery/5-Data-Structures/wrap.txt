@@ -619,3 +619,60 @@ items. sort(key=sort_item)
 print(items)
 # [('Product2', 9), ('Product1', 10), ('Product3', 12)]
 -------------------code----------------------
+
+*** 8- Lambda Functions ***
+- If you have any experience with other programming languages, you've probably heard of the term lambda expression or
+lambda function.
+
+- It's basically a simple one line anonymous function that we can pass to other functions.
+So here on in our code, we're passing a reference to our sort underline item function,
+we can improve this code and make it cleaner by using a lambda expression or an anonymous function.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+
+def sort_item(item):
+    return item[1]
+
+
+items. sort(key=sort_item)
+print(items)
+# [('Product2', 9), ('Product1', 10), ('Product3', 12)]
+-------------------code----------------------
+
+- So we don't have to define this function first and then pass it here. So, we remove this
+and add lambda, with this we're telling python that we're defining a lambda or anonymous function.
+
+- The syntax for writing a lambda function is like this. We add parameters
+-------------------code----------------------
+lambda parameters: expression
+-------------------code----------------------
+
+- So using this syntax, we can rewrite this function. by replace the parameters keyword with item 
+and pass instead of the expression what we return in the sort_item function which is item[1].
+-------------------code----------------------
+# lambda parameters: expression
+items. sort(key=lambda item: item[1])
+-------------------code----------------------
+
+- Now you can see with this syntax, we don't need to use
+def for defining a function, we don't need to give our function a name, we don't need this parenthesis here,
+and we don't need the return statement.
+So this is a shorter and cleaner way to define a function that we're going to use only once
+as an argument to another function.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+
+items. sort(key=lambda item: item[1])
+print(items)
+# [('Product2', 9), ('Product1', 10), ('Product3', 12)]
+-------------------code----------------------

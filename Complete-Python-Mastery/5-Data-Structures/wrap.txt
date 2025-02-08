@@ -98,3 +98,118 @@ So here we can print the len or length of chars.
 print(len(char))
 => 11
 -------------------code----------------------
+
+*** 2- Accessing Items ***
+- here we have a list of four items, we can use square brackets to access individual items
+in this list.
+-------------------code----------------------
+letters = ["a", "b", "c", "d"]
+-------------------code----------------------
+
+
+- print letters of 0, this will return the first item in this list.
+-------------------code----------------------
+letters = ["a", "b", "c", "d"]
+print(letters[0])
+=> "a"
+-------------------code----------------------
+
+Now similar to strings, if we pass a negative index,it will return the first item from the end of the list. 
+-------------------code----------------------
+letters = ["a", "b", "c", "d"]
+print(letters[-1])
+=> "d"
+-------------------code----------------------
+
+
+- we can also modify items in the list, so let's change the first item to a capital "A".
+-------------------code----------------------
+letters2 = ["a", "b", "c", "d"]
+letters2[0] = "A"
+print(letters2)
+=> ["A", "b", "c", "d"]
+-------------------code----------------------
+
+- Now earlier in the course, we learned that we can use two indexes to slice a string. 
+we have the exact same concept in the list.
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+print(letters3[0:3])
+=> ['A', 'b', 'c']
+-------------------code----------------------
+
+
+- PS: using slice operator will return a new list with the first three items
+in our original list. So if we print our original list, we can see that it's not changed. 
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+print(letters3[0:3])
+=> ['A', 'b', 'c']
+
+print(letters3)
+=> ["A", "b", "c", "d"]
+-------------------code----------------------
+
+- just like strings, if we don't specify the first argument, zero will be assumed by default.
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+print(letters3[:3])
+=> ['A', 'b', 'c']
+-------------------code----------------------
+
+- So as we can see, these two expressions produce the exact same result.
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+print(letters3[0:3])
+=> ['A', 'b', 'c']
+
+print(letters3[:3])
+=> ['A', 'b', 'c']
+-------------------code----------------------
+
+- Similarly, if we don't include the end index, by default, the length of the list
+will be used.
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+print(letters3[0:])
+=> ["A", "b", "c", "d"]
+-------------------code----------------------
+
+
+- And similarly, we can also exclude the start index here. And with this syntax, we can get a copy of our original list.
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+
+print(letters3[:])
+=> ["A", "b", "c", "d"]
+-------------------code----------------------
+
+- Now when slicing a string, we can also pass a "step", and this is useful in situations
+where we want to return every second or every third element in the original list.
+-------------------code----------------------
+letters3 = ["A", "b", "c", "d"]
+print(letters3[::2])
+=> ['A', 'c']
+-------------------code----------------------
+
+- another example, Create a new list called numbers, and call the range function.
+-------------------code----------------------
+numbers = list(range(10))
+print(numbers)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+-------------------code----------------------
+
+- using "step" to get all the even numbers
+-------------------code----------------------
+numbers = list(range(10))
+print(numbers[::2])
+# [0, 2, 4, 6, 8]
+-------------------code----------------------
+
+- to reverse a list we can use step with  -1.
+-------------------code----------------------
+numbers = list(range(10))
+print(numbers[::-1])
+=> [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+-------------------code----------------------
+

@@ -621,7 +621,7 @@ print(items)
 -------------------code----------------------
 
 *** 8- Lambda Functions ***
-- If you have any experience with other programming languages, you've probably heard of the term lambda expression or
+- If we have any experience with other programming languages, we've probably heard of the term lambda expression or
 lambda function.
 
 - It's basically a simple one line anonymous function that we can pass to other functions.
@@ -659,7 +659,7 @@ and pass instead of the expression what we return in the sort_item function whic
 items. sort(key=lambda item: item[1])
 -------------------code----------------------
 
-- Now you can see with this syntax, we don't need to use
+- Now we can see with this syntax, we don't need to use
 def for defining a function, we don't need to give our function a name, we don't need this parenthesis here,
 and we don't need the return statement.
 So this is a shorter and cleaner way to define a function that we're going to use only once
@@ -676,3 +676,74 @@ items. sort(key=lambda item: item[1])
 print(items)
 # [('Product2', 9), ('Product1', 10), ('Product3', 12)]
 -------------------code----------------------
+
+*** 9- Map Function ***
+- So here we have this list of items, let's imagine we want to transform this list
+into a different shape, so currently each item in this list is a topple of two items, let's say we're only interested in the
+price of these items, so we want to transform this list into a list of numbers, that is the list of prices.
+Here is a basic way
+- We can define an empty list
+- then iterate over our list of items
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+prices = []
+
+for item in items:
+    prices.append(item[1])
+
+print(prices)
+# [10, 9, 12]
+-------------------code----------------------
+
+
+
+- Now there is a better and more elegant way to achieve the same result.
+Instead of this loop, we can use the map function. So
+we call the built in map function, as we can see this function takes
+two parameters, a function and one or more iterables.
+So as the first argument we can pass a lambda function and as the second argument we can
+pass our list of items.
+-------------------code----------------------
+x = map(lambda item: item[1], items)
+print(x)
+
+# <map object at 0x104f8b160>
+-------------------code----------------------
+
+- This map function will apply our lambda function on each item in this list.
+and this map function returns a map object which is another iterable.
+-------------------code----------------------
+x = map(lambda item: item[1], items)
+for item in x:
+    print(item)
+
+# 10
+# 9
+# 12
+-------------------code----------------------
+
+-  Alternatively, we can convert this map object into a list object.
+So, we can use our list function earlier we learned that we can pass any iterables
+to this list function to create a new list.
+-------------------code----------------------
+x = list(map(lambda item: item[1], items))
+print(x)
+# [10, 9, 12]
+-------------------code----------------------
+
+
+- now we can rename x to prices and simply print prices.
+-------------------code----------------------
+prices = list(map(lambda item: item[1], items))
+print(prices)
+# [10, 9, 12]
+-------------------code----------------------
+
+
+- how the map function works?
+It takes a lambda function and applies it on every item of this iterable.

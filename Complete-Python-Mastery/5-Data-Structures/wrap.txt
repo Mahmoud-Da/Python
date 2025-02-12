@@ -747,3 +747,65 @@ print(prices)
 
 - how the map function works?
 It takes a lambda function and applies it on every item of this iterable.
+
+
+*** 10- Filter Function ***
+- Here's another scenario for using a lambda function. So we have our list
+of items, let's say we want to filter this list and only get
+the items with price greater than or equal to $10.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+-------------------code----------------------
+
+- Again, one basic way is to define an empty list, like filtered,
+then we iterate over our list of items for each item we get the price, if it matches our criteria
+we'll add it to this list.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+
+filtered = []
+for item in items:
+    if item[1] >= 10:
+        filtered.append(item)
+
+print(filtered)
+# [('Product1', 10), ('Product3', 12)]
+-------------------code----------------------
+
+
+- but that's pretty basic, a better approach is to use the built in filter function.
+we Look at the parameters, this function just like the map function takes
+two parameters, a function and an iterable.
+
+- we're going to pass a lambda function, this function takes an item
+and returns a boolean value that determines if this item
+matches a criteria or not.
+
+- In this case, we want to get the price of each item and see if it's greater than
+or equal to $10. So the result of this expression is a boolean value, if it's
+true, this item will be returned. and as a second argument to the filter function, we pass
+our items list.
+
+- 
+-------------------code----------------------
+x = filter(lambda item: item[1] >= 10, items)
+print(x)
+# <filter object at 0x10317b1c0>
+-------------------code----------------------
+
+- we get a filter object. A filter object just like a map object is iterable, so we can
+loop over it, and we can also convert it to a list right away.
+-------------------code----------------------
+x = list(filter(lambda item: item[1] >= 10, items))
+print(x)
+# [('Product1', 10), ('Product3', 12)]
+-------------------code----------------------

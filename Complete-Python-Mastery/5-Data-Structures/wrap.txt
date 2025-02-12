@@ -809,3 +809,77 @@ x = list(filter(lambda item: item[1] >= 10, items))
 print(x)
 # [('Product1', 10), ('Product3', 12)]
 -------------------code----------------------
+
+*** 11- List Comprehensions ***
+- So here's the usage of map and filter functions that we just learned about.
+These two functions are pretty useful in python, and they're often used by
+developers who come from a functional programming background. So the
+concept of mapping and filtering lists is very natural to them.
+-------------------code----------------------
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12),
+]
+
+prices = list(map(lambda item: item[1], items))
+print(prices)
+# [10, 9, 12]
+
+filtered = list(filter(lambda item: item[1] >= 10, items))
+print(filtered)
+# [('Product1', 10), ('Product3', 12)]
+-------------------code----------------------
+
+- But in python we have another feature for achieving the same result
+and as far as I know, we don't have this feature in other programming languages.
+That is called "comprehension". Here's the basic syntax.
+
+We add our square brackets for defining a list, and here we'll write a comprehension
+expression like this. 
+-------------------code----------------------
+[expression for item in items]
+-------------------code----------------------
+
+- now if we want to get the price of each item, we can write an expression like this,
+item of one. So this is what we call a list comprehension, and it produces the exact same
+result as what we have on line7.  As we can see, this code is shorter
+and cleaner, we don't have all these parentheses and colon, what we have on line 7
+is a little bit ugly and noisy.
+-------------------code----------------------
+prices = list(map(lambda item: item[1], items))
+print(prices)
+# [10, 9, 12]
+
+prices = [item[1] for item in items]
+print(prices)
+# [10, 9, 12]
+-------------------code----------------------
+
+- Now, some developers might disagree, but generally speaking, in the Python
+community, the preferred way to map and filter lists
+is to use list comprehensions.
+
+- But we included the map and filter functions in this course because as we look at the code
+written by others, we'll probably come across instances of using the map and filter functions.
+So I wanted to make sure that we really understand how they work. But as a best
+practice, my recommendation to we is to use list comprehensions because they're cleaner and also more performant.
+
+- we can also filter items. So, if I want to rewrite
+what we have on line 10, using a list comprehension, that will look like this.
+-------------------code----------------------
+[expression for item in items if statement]
+-------------------code----------------------
+
+- we set it to square brackets, so we're defining a new list,
+no need to call the list function. In between the brackets, we'll write an expression.
+-------------------code----------------------
+filtered = list(filter(lambda item: item[1] >= 10, items))
+print(filtered)
+# [('Product1', 10), ('Product3', 12)]
+
+
+filtered = [item for item in items if item[1] >= 10]
+print(filtered)
+# [('Product1', 10), ('Product3', 12)]
+-------------------code----------------------

@@ -679,7 +679,7 @@ print(items)
 
 *** 9- Map Function ***
 - So here we have this list of items, let's imagine we want to transform this list
-into a different shape, so currently each item in this list is a topple of two items, let's say we're only interested in the
+into a different shape, so currently each item in this list is a we're of two items, let's say we're only interested in the
 price of these items, so we want to transform this list into a list of numbers, that is the list of prices.
 Here is a basic way
 - We can define an empty list
@@ -886,7 +886,7 @@ print(filtered)
 
 *** 12- Zip Function ***
 
-- Here we have two lists, let's say we want to combine these two lists into a single list of topples like this.
+- Here we have two lists, let's say we want to combine these two lists into a single list of we'res like this.
 So we have a list where each item is a tuples.
 -------------------code----------------------
 list1 = [1, 2, 3]
@@ -1064,7 +1064,7 @@ if not browsing_session:
 -------------------code----------------------
 
 *** 14- Queues ***
-- In the last lecture we're learned about stacks. You learned that stacks have the
+- In the last lecture we're learned about stacks. we learned that stacks have the
 LIFO behavior. Last in, first out. We have another very useful data structure called "queue", which has the
 "FIFO" behavior. First in, first out. And it resembles
 a queue in the real world. Let's say a queue of people to get into
@@ -1320,8 +1320,8 @@ print("y: ", y)
 -------------------code----------------------
 
 - but let me explain what exactly happens under the hood.
-on the right side of the assignment operator, we're defining a topple. Because in the last lecture
-I told we that when defining a topple, we can use
+on the right side of the assignment operator, we're defining a we're. Because in the last lecture
+I told we that when defining a we're, we can use
 parenthesis, or we can exclude the parenthesis. So this code is exactly
 equivalent to this.
 -------------------code----------------------
@@ -1329,8 +1329,8 @@ x, y = y, x
 # x, y = (11, 10)
 -------------------code----------------------
 
-- We have a topple, what is y? It's 11, what is x? It's 10.
-Now what do we have is We have a topple that we're unpacking.
+- We have a we're, what is y? It's 11, what is x? It's 10.
+Now what do we have is We have a we're that we're unpacking.
 So we're setting x to 11, and y to 10. And that is why
 with this line of code, we can easily swap two variables.
 
@@ -1341,7 +1341,7 @@ a, b = 1, 2
 # unpacking the tuple = define the tuple
 -------------------code----------------------
 
-- Once again, we're defining a topple and then unpacking it on the left side.
+- Once again, we're defining a we're and then unpacking it on the left side.
 So a will be 1 and b will be 2. 1 and b will be 2.
 
 *** 17- Arrays ***
@@ -1432,7 +1432,7 @@ and we encounter performance problems. For other cases, use lists and tuples by 
 In Python we have another very useful data structure called a "set".
 
 - which is basically a collection with no duplicates. So let's say we have a list of numbers, with a bunch of
-duplicate items, If we want to remove the duplicates, we can convert this list to a set. So I'm going to
+duplicate items, If we want to remove the duplicates, we can convert this list to a set. So we're going to
 define a variable uniques, we call the set function, and pass the numbers list.
 
 
@@ -1545,3 +1545,145 @@ if 1 in first:
 - So to recap, set is an unordered collection of unique items, we cannot have duplicates,
 and these objects are unordered, they are not in sequence.
 So we cannot access them using an index.
+
+*** 19- Dictionaries ***
+- In Python we have a very powerful data structure called "dictionary".
+
+- that is basically a collection of key value pairs. We use it to
+map a key to a value. A real world example of this is a phone book.
+In a phone book, we map a person's name to their contact details.
+
+- So we use a person's name as the key, and
+their contact information as the value. So a phone book is a dictionary,
+it's a collection of key value pairs. 
+
+
+- how to work with dictionaries in python. So we're going to define a variable
+point, we can set it to an empty dictionary, or we can add one or more key value pairs here.
+-------------------code----------------------
+point = {}
+
+point = {"x": 1, "y": 2}
+print(point)
+# {'x': 1, 'y': 2}
+-------------------code----------------------
+
+-  In python we can only use immutable types for the keys, so quite often we use
+strings and numbers. But the value can be of any type, there are no limitations.
+
+
+- So here's one way to define a dictionary,
+we can also use the dict function, just like we have the list, tuple, and set functions, we also have
+the dict functions that we can use to create a dictionary.
+-------------------code----------------------
+list()
+tuple()
+set()
+dict()
+
+point = dict(x=1, y=2)
+print(point)
+# {'x': 1, 'y': 2}
+-------------------code----------------------
+
+
+- Now I personally prefer the second approach, because we don't have
+to deal with these quotes. I find this syntax a little bit cleaner and shorter.
+
+- So now we have a dictionary, we can get the value associated
+with a key using an index.
+-------------------code----------------------
+print(point["x"])
+# 1
+-------------------code----------------------
+
+- Note that our index is the name of a key. So because
+dictionaries are collections of key value pairs, we cannot access an item
+using a numeric index as we do with lists.
+-------------------code----------------------
+print(point[0])
+# KeyError: 0
+-------------------code----------------------
+
+- We can add a new key. So let's set z
+to 20. And then print the point. So now we have 3 key value pairs.
+-------------------code----------------------
+point["z"] = 20
+print(point)
+# {'x': 1, 'y': 2, 'z': 20}
+-------------------code----------------------
+
+
+- if we use an invalid key, we'll get an error. So let's look up the value of the item with the key a.
+-------------------code----------------------
+print(point["a"])
+# KeyError: 'a'
+-------------------code----------------------
+
+- There are two workarounds here. One solution is to check for the existence of a key.
+-------------------code----------------------
+if "a" in point:
+    print(point["a"])
+-------------------code----------------------
+- The other solution is to use the get method.
+So instead of using brackets and the name of the key, we call the get method.
+and we pass the name of the key. if the key doesn't exist, by default
+it returns none.
+-------------------code----------------------
+print(point.get("a"))
+# None
+-------------------code----------------------
+
+
+- or we can pass a default value as a second argument.
+So we say, hey, if we don't have an item with the key a, return 0 by default.
+-------------------code----------------------
+print(point.get("a", 0))
+# 0
+-------------------code----------------------
+
+- To delete an item, we use the del or delete statement.
+-------------------code----------------------
+del point["x"]
+print(point)
+# {'y': 2, 'z': 20}
+-------------------code----------------------
+
+-  how to loop over dictionaries. So if we write a simple
+for statement for x in point, let's see what we get.
+-------------------code----------------------
+for x in point:
+    print(x)
+# y
+# z
+-------------------code----------------------
+
+-  So in each iteration, our loop variable will hold the key of an item.
+So it's better to rename this to key.
+Now, we can print the key, as well as the value associated with the key.
+-------------------code----------------------
+for key in point:
+    print(key, point[key])
+# y 2
+# z 20
+-------------------code----------------------
+
+
+- There is another way to iterate over a dictionary, so here
+we can call point.items Now, let me rename key to x and just print x. 
+-------------------code----------------------
+for x in point.items():
+    print(x)
+# ('y', 2)
+# ('z', 20)
+-------------------code----------------------
+
+
+- So in each iteration, we get a tuples. In this we're, we have the key and the value. So,
+we can unpack it right here.
+-------------------code----------------------
+for key, value in point.items():
+    print(key, value)
+# y 2
+# z 20
+-------------------code----------------------

@@ -1141,3 +1141,128 @@ So this is all about queues.
 if not queue:
     print("'empty")
 -------------------code----------------------
+
+*** 15- Tuples ***
+
+- Throughout the course We've mentioned tuples a few times, in this lecture we're going to take a closer look at them.
+A tuple is basically a read only list.
+
+- We can use it to contain a sequence of objects,
+but we cannot modify this sequence, we cannot add a new object to it,
+we cannot remove an existing object, and we cannot modify an existing object.
+
+- So let's start by defining a tuple called point
+instead of square brackets, we use parenthesis to define a tuple.
+-------------------code----------------------
+point = (1, 2)
+print(type(point))
+# <class 'tuple'>
+-------------------code----------------------
+
+- We can also exclude parenthesis, and python will see it as tuple.
+-------------------code----------------------
+point = 1, 2
+print(type(point))
+# <class 'tuple'>
+-------------------code----------------------
+
+- Now if we have one item, we should add a trailing comma,
+otherwise python thinks we're defining an integer.
+-------------------code----------------------
+point = 1,
+print(type(point))
+# <class 'tuple'>
+
+point = 1
+print(type(point))
+# <class 'int' >
+-------------------code----------------------
+
+- Also if we want to define an empty tuple, we should use empty parenthesis.
+-------------------code----------------------
+point = ()
+print(type(point))
+# <class 'tuple' >
+-------------------code----------------------
+
+
+- Now similar to lists, we can concatenate two tuples, so here we have one tuple,
+we can concatenate it with another tuple.
+-------------------code----------------------
+point = (1, 2) + (3,  4)
+print(point)
+# (1, 2, 3, 4)
+-------------------code----------------------
+
+
+- We can also use the multiplication operator to repeat a tuple.
+-------------------code----------------------
+point = (1, 2) * 3
+print(point)
+# (1, 2, 1, 2, 1, 2)
+-------------------code----------------------
+
+- We can also convert a list to a tuple, so let's say we have a list of two numbers,
+to convert this list to a tuple, we call the tuple function.
+As we can see, tuple function takes an iterable, so we can pass any iterables here,
+and this function will return a tuple.
+-------------------code----------------------
+point = tuple([1, 2])
+print(point)
+# (1, 2)
+-------------------code----------------------
+
+-  or we can pass a string, like hello world, and because strings are iterable,
+now we get a tuple of 11 strings.
+-------------------code----------------------
+point = tuple("Hello World")
+print(point)
+# ('H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd')
+-------------------code----------------------
+
+
+- Similar to lists, we can access individual items using an index.
+-------------------code----------------------
+point = (1, 2, 3)
+print(point[0])
+# 1
+-------------------code----------------------
+
+- or we can get a range of items, like items from index 0 to index 2,
+this returns another tuple with only those objects.
+-------------------code----------------------
+point = (1, 2, 3)
+print(point[0:2])
+# (1, 2)
+-------------------code----------------------
+
+- We can also unpack these tuples, so we can define three variables like x, y, and z,
+and set it to point.
+-------------------code----------------------
+point = (1, 2, 3)
+x, y, z = point
+-------------------code----------------------
+
+- Similar to lists, we can use the in operator to check for the existence of an item.
+So if 10 is in point, then we print exists.
+-------------------code----------------------
+point = (1, 2, 3)
+if 10 in point:
+    print("exist")
+-------------------code----------------------
+- But as we said, these tuples are immutable, we cannot mutate them, we cannot change them.
+So if I try to modify point of 0, and set it to a new number,
+look, we immediately get this red underline,
+and if we run the code, we get this type error. Tuple object does not support item assignment.
+-------------------code----------------------
+point = (1, 2, 3)
+# point[0] = 10
+# TypeError: 'tuple' object does not support item assignment
+-------------------code----------------------
+
+- For this very reason, unlike lists, we don't have methods to add a new object or remove an existing object.
+So we might ask, where in the real world we use tuples?
+Here's a basic rule of thumb. Let's say we're dealing with a sequence of objects,
+and we want to make sure that we don't accidentally modify this sequence, we don't accidentally add a new object to it,
+or remove an existing object.
+So instead of a list, we can use a tuple to prevent these accidental errors.

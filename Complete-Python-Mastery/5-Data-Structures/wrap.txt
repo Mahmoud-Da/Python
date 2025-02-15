@@ -1427,3 +1427,121 @@ at the time of creating the array using the type code.
 
 - Recap, use arrays only if we're dealing with a large sequence of numbers,
 and we encounter performance problems. For other cases, use lists and tuples by default.
+
+*** 18- Sets ***
+In Python we have another very useful data structure called a "set".
+
+- which is basically a collection with no duplicates. So let's say we have a list of numbers, with a bunch of
+duplicate items, If we want to remove the duplicates, we can convert this list to a set. So I'm going to
+define a variable uniques, we call the set function, and pass the numbers list.
+
+
+PS: Also note that we use curly braces to define sets.
+-------------------code----------------------
+numbers = [1, 1, 2, 3, 4]
+uniques = set(numbers)
+print(uniques)
+# {1, 2, 3, 4}
+-------------------code----------------------
+
+- again we define a second set using curly braces with two items, one to four. 
+-------------------code----------------------
+second = {1, 2, 3, 4}
+-------------------code----------------------
+
+- Now similar to lists, we can add new items to a set, or remove an existing one, so here
+we can call add method, we can append a new number.
+-------------------code----------------------
+second.add(5)
+print(second)
+# {1, 2, 3, 4, 5}
+-------------------code----------------------
+
+- we can also call remove, and we can use the len function to get the number of items in a set.
+-------------------code----------------------
+second.remove(5)
+print(second)
+# {1, 2, 3, 4}
+
+print(len(second))
+# 4
+-------------------code----------------------
+
+
+- But where sets shine are in the powerful mathematical
+operations that are supported by them.
+
+- for example we can get a union of two sets using the vertical bar,
+so this expression will return a new set that includes all the items that are either in the first or
+in the second set. 
+-------------------code----------------------
+numbers = [1, 1, 2, 3, 4]
+first = set(numbers)
+second = {1, 5}
+
+print(first | second)
+# {1, 2, 3, 4, 5}
+-------------------code----------------------
+
+- we can also get the intersection of two sets, so print, first, and second.
+This will return a new set that includes all the items that are in both first
+and second sets.
+-------------------code----------------------
+print(first & second)
+# {1}
+-------------------code----------------------
+
+
+- We can also get the difference between two sets, when we run this code,
+we get two, three, four. So the first set has this additional numbers that we don't have in the second set.
+-------------------code----------------------
+print(first - second)
+# {2, 3, 4}
+-------------------code----------------------
+
+- And finally we have symmetric difference, and This will return the items that are either in the
+first or second sets, but not both.
+-------------------code----------------------
+print(first ^ second)
+# {2, 3, 4, 5}
+-------------------code----------------------
+
+- Now one thing we need to know about sets is that unlike lists,
+there are unordered collection. Which means the items that we have in a set
+are not in sequence, so we cannot access them using an index.
+In other words, if we try to print first of zero, we will get a runtime error.
+-------------------code----------------------
+print(first[0])
+# TypeError: 'set' object is not subscriptable
+-------------------code----------------------
+
+- set object does not support indexing. So if we need to access items by an index,
+we need to use a list. With sets, quite often we use one of these operations here.
+-------------------code----------------------
+numbers = [1, 1, 2, 3, 4]
+first = set(numbers)
+second = {1, 5}
+
+print(first | second)
+# {1, 2, 3, 4, 5}
+
+print(first & second)
+# {1}
+
+print(first - second)
+# {2, 3, 4}
+
+print(first ^ second)
+# {2, 3, 4, 5}
+-------------------code----------------------
+
+- or we can check for the existence of an item in a set.
+-------------------code----------------------
+if 1 in first:
+    print("yes")
+# yes
+-------------------code----------------------
+
+- So to recap, set is an unordered collection of unique items, we cannot have duplicates,
+and these objects are unordered, they are not in sequence.
+So we cannot access them using an index.

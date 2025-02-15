@@ -883,3 +883,56 @@ filtered = [item for item in items if item[1] >= 10]
 print(filtered)
 # [('Product1', 10), ('Product3', 12)]
 -------------------code----------------------
+
+*** 12- Zip Function ***
+
+- Here we have two lists, let's say we want to combine these two lists into a single list of topples like this.
+So we have a list where each item is a tuples.
+-------------------code----------------------
+list1 = [1, 2, 3]
+list2 = [10, 20, 30]
+[('a', 1, 10), ('b', 2, 20), ('c', 3, 30)]
+-------------------code----------------------
+
+- So how can we combine these two lists into a single list like this?
+Well in this case we can't use the map function or a list comprehension,
+because both these work with a single list.
+
+- But here we're combining multiple lists.
+To achieve this we use the built in zip function.
+So zip function takes multiple iterables, and it will combine them.
+-------------------code----------------------
+list1 = [1, 2, 3]
+list2 = [10, 20, 30]
+
+print(zip(list1, list2))
+# <zip object at 0x10063fc40>
+-------------------code----------------------
+
+- it returns a zip object which is also iterable.
+So we can iterate over it or simply pass it to the built in list function
+to convert it to a list.
+-------------------code----------------------
+list1 = [1, 2, 3]
+list2 = [10, 20, 30]
+
+print(list(zip(list1, list2)))
+# [(1, 10), (2, 20), (3, 30)]
+-------------------code----------------------
+
+
+- As we saw, this zip function takes one or more iterables.
+So we don't have to pass a list here. we can also pass a string like "abc",
+we can see our string "abc" is spread across multiple tuples in this list.
+
+-------------------code----------------------
+list1 = [1, 2, 3]
+list2 = [10, 20, 30]
+
+print(list(zip("abc", list1, list2)))
+# [('a', 1, 10), ('b', 2, 20), ('c', 3, 30)]
+-------------------code----------------------
+
+- That's pretty powerful. If we want to achieve the same thing in other programming languages,
+we have to write several lines of code.
+But in python we can do it in a single line.

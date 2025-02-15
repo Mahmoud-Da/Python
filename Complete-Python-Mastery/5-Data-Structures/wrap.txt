@@ -944,7 +944,7 @@ the last book that we put on top of the stack is the first
 book that we can remove. We refer to this behavior as 
 "LIFO": which is short for last in, first out.
 So this is a stack data structure, and it's very common in real world applications.
-A good example of that is your browser. Whenever we navigate to a new website, your browser keeps your
+A good example of that is our browser. Whenever we navigate to a new website, our browser keeps our
 browsing session in a stack, so when we click the back button, it takes we to the previous website.
 
 - how it works. So we start with an empty stack, now let's say
@@ -1343,3 +1343,87 @@ a, b = 1, 2
 
 - Once again, we're defining a topple and then unpacking it on the left side.
 So a will be 1 and b will be 2. 1 and b will be 2.
+
+*** 17- Arrays ***
+- So we have learned a lot about lists in Python, these lists are very useful, but if we're
+dealing with a large sequence of numbers, we have a more efficient data type in Python
+called "array".
+
+- These arrays take less memory and perform a little bit faster, but note
+that we will see the difference only if we're dealing with a large list of numbers, let's
+say 10,000 or more. So for 90% of the cases, we will use lists, but if we run our
+program and we see some performance problems, then we can see if we can solve the problem
+by replacing a list with an array. If we don't have any performance problems, don't try
+to optimize. In other words, don't solve a problem that doesn't exist.
+
+- we how to use arrays in Python. To use an array, we need to import it from the array
+module. So we have a module called array, and in this module, we have a class called array.
+It has the same name as the module itself.
+-------------------code----------------------
+from array import array
+-------------------code----------------------
+
+- Now, we call array, look at the first parameter, this is called a type code, which is a string
+that determines the type of objects in our array.
+
+- So here in google, search for python3 type code.
+-------------------code----------------------
+python3 type code
+
+# the official document 
+https://docs.python.org/3/library/array.html
+-------------------code----------------------
+
+- what is python3 type code?
+So it's a string of one character that determines the type of objects in our list. So if we're
+dealing with signed integers, we should use a lowercase i.
+and as a second argument, we pass a list of integers. So we move this list here. Now we get an array,
+we can call it numbers.
+-------------------code----------------------
+from array import array
+
+numbers = array("i", [1, 2, 3])
+print(numbers)
+# array('i', [1, 2, 3])
+-------------------code----------------------
+
+- In this object, similar to lists, we have methods for adding new objects,
+or removing existing ones, so we can call numbers.append, to append a number to the end of the list.
+-------------------code----------------------
+numbers.append(4)
+print(numbers)
+# array('i', [1, 2, 3, 4])
+-------------------code----------------------
+
+
+- or we can use insert to add a number at a specific index. 
+-------------------code----------------------
+numbers.insert(1, 9)
+print(numbers)
+# array('i', [1, 9, 2, 3, 4])
+-------------------code----------------------
+- We also have pop and remove exactly like lists.
+-------------------code----------------------
+numbers.remove(9)
+print(numbers)
+# array('i', [1, 2, 3, 4])
+
+numbers.pop()
+print(numbers)
+# array('i', [1, 2, 3])
+-------------------code----------------------
+
+
+- And we can also access items by their index. So we can get the first item in this array.
+However, unlike lists, the objects in this array are typed. So here every object should be an integer.
+If we try to put a floating point number here, or any other kind of objects, we'll get an error.
+-------------------code----------------------
+numbers[0] = 1.0
+# TypeError: 'float' object cannot be interpreted as an integer
+-------------------code----------------------
+
+- So every object in this array should be of the same type, which is determined
+at the time of creating the array using the type code.
+
+- Recap, use arrays only if we're dealing with a large sequence of numbers,
+and we encounter performance problems. For other cases, use lists and tuples by default.

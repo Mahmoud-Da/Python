@@ -1063,3 +1063,81 @@ if not browsing_session:
     browsing_session[-1]
 -------------------code----------------------
 
+*** 14- Queues ***
+- In the last lecture we're learned about stacks. You learned that stacks have the
+LIFO behavior. Last in, first out. We have another very useful data structure called "queue", which has the
+"FIFO" behavior. First in, first out. And it resembles
+a queue in the real world. Let's say a queue of people to get into
+a restaurant. The first person in the queue is the first person who would get in.
+
+
+- Now technically we're can use a list to implement a queue in python. 
+So let's say we have a queue of three items, if we're want to remove an item from this queue,
+we should remove the one at the beginning.
+
+
+- As opposed to the one at the end. So we remove one
+and then two, and then three.
+-------------------code----------------------
+[1, 2, 3]
+[2, 3]
+[3]
+-------------------code----------------------
+
+
+- However, if we're're dealing with a large list or a large queue, we're might see some adverse
+effect on the performance.
+Because let's say we have a large number of items in this list. Every time we remove an item from the beginning
+of this list, all the other items need to be shifted to the
+left. So if we're have a list with a thousand and one items, when we're remove
+one item, a thousand items need to be moved in memory.
+-------------------code----------------------
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+[2, 2, 3, 4, 5, 6, 7, 8, 9]
+-------------------code----------------------
+
+
+- In situations like that, it's more efficient to use a dequeue object.
+so first we need to import dequeue from the collections module.
+we're going to talk about modules later in the course. For now, let's imagine
+a module is a bucket with a bunch of reusable code.
+
+- So from collections, that's the name of our module, we should
+import dequeue, which is a class. Again, we're going to talk about
+classes later in the course.
+-------------------code----------------------
+from collections import deque
+-------------------code----------------------
+
+So we import a deque class here. Now, instead of defining
+a variable and setting it to an empty list, we should wrap this list
+with a dequeue object.
+So, we call dequeue and pass our empty list as an argument.
+-------------------code----------------------
+queue = deque([])
+-------------------code----------------------
+
+- This dequeue object has similar methods that we have
+in the list object. So we can call queue.append multi times Now to remove an item
+from the beginning of the queue, we call queue.popleft(), We don't have this method in list objects.
+
+-------------------code----------------------
+queue = deque([])
+queue.append(1)
+queue.append(2)
+queue.append(3)
+queue.popleft()
+
+print(queue)
+# deque([2, 3])
+-------------------code----------------------
+
+-  we can see one is removed and now we only have two and three.
+Also, similar to lists, we can easily check to see if a queue
+is empty using the not operator. So, if not
+queue, that means we have an empty queue, then we can print something like empty.
+So this is all about queues.
+-------------------code----------------------
+if not queue:
+    print("'empty")
+-------------------code----------------------

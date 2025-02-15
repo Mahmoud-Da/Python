@@ -578,7 +578,7 @@ we need to pass this function when sorting our list of items.
 - So once again, we look at this sort method, the first parameter is key, and this is where we need to pass our sorting function.
 So we pass sort underline item.
 
-PS: we're not calling this function, I'm simply passing a reference to this function.
+PS: we're not calling this function, we're simply passing a reference to this function.
 When python attempts to sort this list, the list of items, it gets each item, and it will pass each item
 to our sort function.
 -------------------code----------------------
@@ -936,3 +936,130 @@ print(list(zip("abc", list1, list2)))
 - That's pretty powerful. If we want to achieve the same thing in other programming languages,
 we have to write several lines of code.
 But in python we can do it in a single line.
+
+*** 13- Stacks ***
+- In programming, we have a common data structure called "stack", which resembles a
+stack of items in the real world. Imagine we have a stack of books,
+the last book that we put on top of the stack is the first
+book that we can remove. We refer to this behavior as 
+"LIFO": which is short for last in, first out.
+So this is a stack data structure, and it's very common in real world applications.
+A good example of that is your browser. Whenever we navigate to a new website, your browser keeps your
+browsing session in a stack, so when we click the back button, it takes we to the previous website.
+
+- how it works. So we start with an empty stack, now let's say
+we navigate to website number 1, here for simplicity we're using a number, if we're building a browser, instead of a number we'll use
+a string which is the address of the current website.
+-------------------code----------------------
+[1, 2, 3]
+-------------------code----------------------
+
+- now let's say we navigate to a couple more websites, and then click the
+back button. At this point the browser removes the item
+on top of the stack, and then it will redirect us to the
+previous website.
+-------------------code----------------------
+[1, 2]
+-------------------code----------------------
+ 
+- Now let's say we press the back button a couple more times, so we'll end up with an empty stack, at this
+point the browser will disable the back button. This is how a stack
+works. Last in, first out.
+-------------------code----------------------
+[1]
+-------------------code----------------------
+
+- how to use a stack in python. Basically we can use a list object as a stack.
+So here we're going to define a variable like browsing session, and set it to an empty list.
+Now let's say the user navigates to website number 1, so
+we call browsing session dot append method, and add the address of the current website.
+-------------------code----------------------
+browsing_session = []
+browsing_session.append(1)
+-------------------code----------------------
+
+Now let's say the user navigates to website
+number 2, and then 3, let's have a look at what we have in our stack.
+So we print it, and as we see we have a list of three items.
+-------------------code----------------------
+browsing_session = []
+browsing_session.append(1)
+browsing_session.append(2)
+browsing_session.append(3)
+print(browsing_session)
+# [1, 2, 3]
+-------------------code----------------------
+ 
+- Now when the user presses the back button, we should remove
+the last item in this list.
+How do we do it?
+we use the pop method. it will remove the last item from the stack and return it.
+-------------------code----------------------
+last = browsing_session.pop()
+print(last)
+# 3
+-------------------code----------------------
+
+- we can see that, so three is removed from the stack.
+Now if we print our stack one more time,
+print browsing session, we can see three is removed and we have only two
+items in our stack. 
+-------------------code----------------------
+print(browsing_session)
+# [1, 2]
+-------------------code----------------------
+
+So we need to take the user to the previous website,
+which is the item on top of the stack. And we can get that using
+a negative one index.
+-------------------code----------------------
+print("redirect", browsing_session[-1])
+# redirect 2
+-------------------code----------------------
+
+- So when the user presses the back button, we redirect
+them to the previous website, which is website number two.
+
+Now here we need to check if the stack is empty or not. If it becomes
+empty, we need to disable the back button. Earlier in the course,
+we talked about the falsy values, so number zero, an empty string, an empty list, these
+are all falsy values.
+-------------------code----------------------
+# Falsy values
+0
+""
+[]
+-------------------code----------------------
+
+
+- So if we apply the not operator to an empty list, we'll
+get the boolean true.
+-------------------code----------------------
+not []
+# True
+-------------------code----------------------
+
+- So to see if our stack is empty, we can simply write code
+like this. If not browsing session, then at this point we will disable the back button.
+-------------------code----------------------
+if not browsing_session:
+    print("disable the back Button")
+-------------------code----------------------
+
+- Recap, we use the append method to add an item on top
+of the stack, we use pop to remove the item on top
+of the stack, we use index negative one to get the item on
+top of the stack, and of course before doing that, we need to check
+to see if our stack is empty or not, because if it's empty,
+when we run this code, we'll get an error.
+So if not browsing session, then we'll get the item
+on top of the stack. These are the operations
+that we can perform on stacks.
+-------------------code----------------------
+# Operation on Stacks
+browsing_session.append(1)
+browsing_session.pop()
+if not browsing_session:
+    browsing_session[-1]
+-------------------code----------------------
+

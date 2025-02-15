@@ -1266,3 +1266,80 @@ Here's a basic rule of thumb. Let's say we're dealing with a sequence of objects
 and we want to make sure that we don't accidentally modify this sequence, we don't accidentally add a new object to it,
 or remove an existing object.
 So instead of a list, we can use a tuple to prevent these accidental errors.
+
+*** 16- Swapping Variables ***
+
+
+- we're going to define two variables, x
+and y. A basic exercise we give to people who start in programming
+is to write code to swap two variables.
+-------------------code----------------------
+x = 10
+y = 11
+-------------------code----------------------
+
+- To swap two variables, we need a third variable. So we're going to define a third variable like z
+and set it to x. So basically we're copying the value of x into a separate
+variable as a backup.
+
+- Now we can overwrite x with y. So
+we set x to y, we copy the value of y to x. Now we have the old value of x stored in z. So we can use
+that to overwrite y. We set y to z.
+With these three lines, we can swap the
+value of these two variables.
+-------------------code----------------------
+x = 10
+y = 11
+
+
+z = x
+x = y
+y = z
+
+print("x: ", x)
+print("y: ", y)
+# x:  11
+# y:  10
+-------------------code----------------------
+
+
+- we've got a good news good news for we. In python, we can swap the value
+of two variables using only one line of code and without a third variable.
+So instead of writing these three lines, we can simply write x, y equals y, x.
+Now if we run this code, we get the exact same result.
+-------------------code----------------------
+x = 10
+y = 11
+
+x, y = y, x
+
+print("x: ", x)
+print("y: ", y)
+# x:  11
+# y:  10
+-------------------code----------------------
+
+- but let me explain what exactly happens under the hood.
+on the right side of the assignment operator, we're defining a topple. Because in the last lecture
+I told we that when defining a topple, we can use
+parenthesis, or we can exclude the parenthesis. So this code is exactly
+equivalent to this.
+-------------------code----------------------
+x, y = y, x
+# x, y = (11, 10)
+-------------------code----------------------
+
+- We have a topple, what is y? It's 11, what is x? It's 10.
+Now what do we have is We have a topple that we're unpacking.
+So we're setting x to 11, and y to 10. And that is why
+with this line of code, we can easily swap two variables.
+
+- For this very reason, we can define multiple variables on the same line. So we can define a and b
+and set them to 1 and 2.
+-------------------code----------------------
+a, b = 1, 2
+# unpacking the tuple = define the tuple
+-------------------code----------------------
+
+- Once again, we're defining a topple and then unpacking it on the left side.
+So a will be 1 and b will be 2. 1 and b will be 2.

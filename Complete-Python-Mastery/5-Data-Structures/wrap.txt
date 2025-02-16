@@ -1702,7 +1702,7 @@ print(values)
 # [0, 2, 4, 6, 8]
 -------------------code----------------------
 
-- As we told before, whenever we have this pattern in your code, we can either use the
+- As we told before, whenever we have this pattern in our code, we can either use the
 map function or preferably a list comprehension.
 what is our expression?
 We're multiplying x by 2.
@@ -1793,7 +1793,7 @@ print(values)
 
 - So, instead of defining an empty dictionary, then looping over
 an iterable and then in each iteration adding something to this dictionary like values of x
-equals x times two whenever we have this pattern in your code, we can use
+equals x times two whenever we have this pattern in our code, we can use
 a dictionary comprehension.
 -------------------code----------------------
 values = {}
@@ -1813,3 +1813,125 @@ print(values)
 
 - we don't get a topple what's going on here?
 We get a generator object and that's the topic for the next lecture.
+
+*** 21- Generator Expressions ***
+- Here we are creating a list using a list comprehension expression,
+then we iterate over all the numbers in this list and print them.
+When we run this program, we get the even numbers from 0 to 18.
+-------------------code----------------------
+values = [x * 2 for x in range(10)]
+
+for x in values:
+    print(x)
+# 0
+# 2
+# 4
+# 6
+# 8
+# 10
+# 12
+# 14
+# 16
+# 18
+print(getsizeof(values))
+-------------------code----------------------
+
+- This is perfectly fine, but there are situations that we might be working with a really large
+data set, or perhaps an infinite stream of data.
+In those situations, we shouldn't store all those values in the memory,
+because that's very memory inefficient. For example, what if instead of range of 10 here,
+we had the range of, let's say a billion. We don't want to store a billion objects in memory.
+That takes too much memory. In situations like this, it's more efficient to use a generator object.
+Generator objects are iterable, so just like lists, we can iterate over them,
+and in each iteration, they generate or spit out a new value.
+
+- So unlike lists, they don't store all the values in memory,
+they generate a new value in each iteration.
+
+- how that works. So here, we're going to replace
+these square brackets with parentheses, save the changes, run the program, we get the exact same result.
+However, values is no longer a list, it's a generator object.
+-------------------code----------------------
+values = (x * 2 for x in range(10))
+print(values)
+# <generator object <genexpr> at 0x10429ea80>
+for x in values:
+    print(x)
+# 0
+# 2
+# 4
+# 6
+# 8
+# 10
+# 12
+# 14
+# 16
+# 18
+-------------------code----------------------
+
+- So as we can see, generator objects are iterable, we can iterate over them.
+In each iteration, they spit out a new value.
+
+- But what is interesting is the size of generator objects.
+how we can get the size of an object.
+So on the top, from the sys module, we should import a function called get size of.
+-------------------code----------------------
+from sys import getsizeof
+-------------------code----------------------
+
+- So here we have a generator object, let's change range to a thousand.
+-------------------code----------------------
+values = (x * 2 for x in range(1000))
+print(values)
+# <generator object <genexpr> at 0x10429ea80>
+
+print(getsizeof(values))
+# 200
+# 200 byte of memory
+-------------------code----------------------
+
+- What if we change the range to 100,000.
+the size of this generator object remains consistent.
+-------------------code----------------------
+values = (x * 2 for x in range(1000000))
+print(values)
+# <generator object <genexpr> at 0x10429ea80>
+
+print(getsizeof(values))
+# 200
+-------------------code----------------------
+
+
+- In contrast, if we used a list comprehension expression here,
+we would end up with a list of 100,000 items.
+So our list is taking over 800,000 bytes of memory
+compared to our generator object that takes only 200 bytes.
+-------------------code----------------------
+values = [x * 2 for x in range(1000000)]
+print(values)
+# [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, ....]
+
+print(getsizeof(values))
+# 8448728
+# 8448728 byte of memory
+-------------------code----------------------
+
+- So, in situations where we're dealing with a really large data set
+or potentially an infinite stream of data, use a generator expression to create a generator object.
+So when we use parenthesis around a comprehension expression,
+just be aware that because generator objects don't store all the items in memory,
+we won't be able to get the total number of items we're working with.
+
+
+- For example, here, let's just keep the generator object,
+and then print the len of values.
+
+- we'll get an error. Because we can only access these items, these values,
+when we iterate over generator object.
+So we won't know ahead of time, how many objects or how many items
+this generator is going to produce.
+-------------------code----------------------
+values = (x * 2 for x in range(1000))
+print(values.len())
+# AttributeError: 'generator' object has no attribute 'len'
+-------------------code----------------------

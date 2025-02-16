@@ -832,7 +832,7 @@ print(filtered)
 -------------------code----------------------
 
 - But in python we have another feature for achieving the same result
-and as far as I know, we don't have this feature in other programming languages.
+and as far as we know, we don't have this feature in other programming languages.
 That is called "comprehension". Here's the basic syntax.
 
 We add our square brackets for defining a list, and here we'll write a comprehension
@@ -862,10 +862,10 @@ is to use list comprehensions.
 
 - But we included the map and filter functions in this course because as we look at the code
 written by others, we'll probably come across instances of using the map and filter functions.
-So I wanted to make sure that we really understand how they work. But as a best
+So we wanted to make sure that we really understand how they work. But as a best
 practice, my recommendation to we is to use list comprehensions because they're cleaner and also more performant.
 
-- we can also filter items. So, if I want to rewrite
+- we can also filter items. So, if we want to rewrite
 what we have on line 10, using a list comprehension, that will look like this.
 -------------------code----------------------
 [expression for item in items if statement]
@@ -1251,7 +1251,7 @@ if 10 in point:
     print("exist")
 -------------------code----------------------
 - But as we said, these tuples are immutable, we cannot mutate them, we cannot change them.
-So if I try to modify point of 0, and set it to a new number,
+So if we try to modify point of 0, and set it to a new number,
 look, we immediately get this red underline,
 and if we run the code, we get this type error. Tuple object does not support item assignment.
 -------------------code----------------------
@@ -1321,7 +1321,7 @@ print("y: ", y)
 
 - but let me explain what exactly happens under the hood.
 on the right side of the assignment operator, we're defining a we're. Because in the last lecture
-I told we that when defining a we're, we can use
+we told that when defining a we're, we can use
 parenthesis, or we can exclude the parenthesis. So this code is exactly
 equivalent to this.
 -------------------code----------------------
@@ -1587,8 +1587,8 @@ print(point)
 -------------------code----------------------
 
 
-- Now I personally prefer the second approach, because we don't have
-to deal with these quotes. I find this syntax a little bit cleaner and shorter.
+- Now we personally prefer the second approach, because we don't have
+to deal with these quotes. we find this syntax a little bit cleaner and shorter.
 
 - So now we have a dictionary, we can get the value associated
 with a key using an index.
@@ -1687,3 +1687,129 @@ for key, value in point.items():
 # y 2
 # z 20
 -------------------code----------------------
+
+
+*** 20- Dictionary Comprehensions ***
+we have this piece of code here. On the top we're defining an empty list, then we're iterating over
+this range object, in each iteration we get x,
+multiply it by 2 and add it to our list.
+-------------------code----------------------
+values = []
+for x in range(5):
+    values.append(x * 2)
+
+print(values)
+# [0, 2, 4, 6, 8]
+-------------------code----------------------
+
+- As we told before, whenever we have this pattern in your code, we can either use the
+map function or preferably a list comprehension.
+what is our expression?
+We're multiplying x by 2.
+-------------------code----------------------
+[expression for item in items]
+
+[x * 2 for x in range(5)]
+-------------------code----------------------
+
+- This line of code is exactly identical to these three lines.
+-------------------code----------------------
+values = []
+for x in range(5):
+    values.append(x * 2)
+
+values = [x * 2 for x in range(5)]
+-------------------code----------------------
+
+- PS when using list comprehension we use the extend method instead of append method
+what is extend method 
+The extend method in Python is used to add elements from an iterable 
+(like a list, tuple, or set) to the end of a list. Unlike the append method,
+which adds its argument as a single element to the end of the list,
+extend takes each element from the iterable and adds them individually to the list.
+-------------------code----------------------
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+
+list1.extend(list2)
+print(list1)
+# [1, 2, 3, 4, 5, 6]
+-------------------code----------------------
+
+-when using append with list comprehension
+-------------------code----------------------
+values = []
+values = [x * 2 for x in range(5)]
+values.append(values)
+print(values)
+# [0, 2, 4, 6, 8, []]
+-------------------code----------------------
+
+- when we use extend 
+-------------------code----------------------
+values = []
+values = [x * 2 for x in range(5)]
+values.extend(values)
+print(values)
+# [0, 2, 4, 6, 8]
+-------------------code----------------------
+
+- why when we using append we get a empty list inside our list.
+-------------------code----------------------
+values = []  # This is an empty list
+values = [x * 2 for x in range(5)]  # This creates a list [0, 2, 4, 6, 8]
+# This appends the empty list values to original values which is empty array
+values.append(values)
+print(values)  # The output is [0, 2, 4, 6, 8, []]
+-------------------code----------------------
+
+- also use them with sets and dictionaries. So now, if we replace these square brackets
+with curly braces, we get a set.
+-------------------code----------------------
+values = {x * 2 for x in range(5)}
+print(values)
+# {0, 2, 4, 6, 8}
+-------------------code----------------------
+
+
+- Now, what is the syntactical difference between a set and a dictionary?
+Well, for both these data structures, we use curly braces.
+curly braces. In sets, we just have values, but in dictionaries, we have key value
+pairs that are separated using a colon. So, here we can map one to a character, two
+to another character, and so on.
+-------------------code----------------------
+{1, 2, 3, 4}  # sets
+{1: "a", 2: "b"}  # dictionaries
+-------------------code----------------------
+
+- So, we can easily use comprehension expressions to create dictionary
+objects. such that we have a key value pair.
+So, here we can use x as the key and x times two as the value.
+-------------------code----------------------
+values = {x: x * 2 for x in range(5)}
+print(values)
+# {0: 0, 1: 2, 2: 4, 3: 6, 4: 8}
+-------------------code----------------------
+
+- So, instead of defining an empty dictionary, then looping over
+an iterable and then in each iteration adding something to this dictionary like values of x
+equals x times two whenever we have this pattern in your code, we can use
+a dictionary comprehension.
+-------------------code----------------------
+values = {}
+for x in range(5):
+    values[x] = x * 2
+print(values)
+# {0: 0, 1: 2, 2: 4, 3: 6, 4: 8}
+-------------------code----------------------
+
+- to Recap, we can use comprehensions with lists,
+sets, and dictionaries. But what about topples?
+-------------------code----------------------
+values = (x * 2 for x in range(5))
+print(values)
+# <generator object <genexpr> at 0x10461ea80>
+-------------------code----------------------
+
+- we don't get a topple what's going on here?
+We get a generator object and that's the topic for the next lecture.

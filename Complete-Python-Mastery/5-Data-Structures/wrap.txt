@@ -1935,3 +1935,100 @@ values = (x * 2 for x in range(1000))
 print(values.len())
 # AttributeError: 'generator' object has no attribute 'len'
 -------------------code----------------------
+
+*** 22- Unpacking Operator ***
+So in this section we have learned a lot about data structures in python.
+One operator that comes handy when working with these data structures
+is the "unpacking" operator.
+
+
+- how that works. So let's say we have a list of numbers, 1, 2, 3,
+if we print this list, we get a list on the terminal.
+-------------------code----------------------
+numbers = [1, 2, 3]
+print(numbers)
+# [1, 2, 3]
+-------------------code----------------------
+
+- But what if we want to print
+the individual numbers?  In other words, what if we want to get an output like this? so we don't have square brackets and we don't have comma.
+-------------------code----------------------
+print(1, 2, 3)
+# 1 2 3
+-------------------code----------------------
+
+- To achieve this we can use the unpacking operator. So all we have to do is prefix this variable with
+the unpacking operator. In javascript we have an operator called
+spread operator, which is 3 dots, this is exactly the same. So here we unpack a container,
+take out its individual elements and pass them as arbitrary arguments to the print function.
+-------------------code----------------------
+numbers = [1, 2, 3]
+print(*numbers)
+# 1 2 3
+-------------------code----------------------
+
+- Another useful application of this is when creating lists.
+So let's say we want to have the list of numbers from 0 to 5.
+You know that this range function returns a range object,
+so we need to convert it to a list, and then store the result inthis variable.
+-------------------code----------------------
+values = list(range(5))
+print(values)
+# [0, 1, 2, 3, 4]
+-------------------code----------------------
+
+- In this case, instead of calling the list function,
+we can use the unpacking operator. So, we call range of 5, this returns an iterable, right?
+The good thing about this unpacking operator is that we can unpack
+any iterables, it doesn't have to be a list.
+So we unpack this iterable, which basically means we take individual values, then
+we put them in a list, and finally store the result.
+-------------------code----------------------
+values = [*range(5)]
+print(values)
+# [0, 1, 2, 3, 4]
+-------------------code----------------------
+
+- By the same token, we can unpack a string.
+-------------------code----------------------
+values = [*"Hello"]
+print(values)
+# ['H', 'e', 'l', 'l', 'o']
+-------------------code----------------------
+
+- So these are some cool tricks that we can do in python
+that as far as we know, we don't have in other popular languages.
+
+- Let's look at another example. Using unpacking operator,
+we can combine multiple lists.
+-------------------code----------------------
+first = [1, 2]
+second = [3]
+values = [*first, *second]
+print(values)
+# [1, 2, 3]
+-------------------code----------------------
+
+
+- We can also put something in the middle, or
+unpack a string at the end, hello, so it's very powerful.
+-------------------code----------------------
+values = [*first, "a", *second, *"Hello"]
+print(values)
+# [1, 2, 'a', 3, 'H', 'e', 'l', 'l', 'o']
+-------------------code----------------------
+
+- Now we can also unpack dictionaries, but we need to use two asterisks.
+-------------------code----------------------
+first = {"x": 1}
+second = {"x": 10, "y": 2}
+combined = {**first, **second, "z": 1}
+print(combined)
+# {'x': 10, 'y': 2, 'z': 1}
+-------------------code----------------------
+
+- Note that the value of x is 10, so if we have multiple items with the same key,
+the last value will be used.
+
+- To Recap, we can use the unpacking operator to take out individual values
+in any iterable.

@@ -1969,7 +1969,7 @@ print(*numbers)
 
 - Another useful application of this is when creating lists.
 So let's say we want to have the list of numbers from 0 to 5.
-You know that this range function returns a range object,
+we know that this range function returns a range object,
 so we need to convert it to a list, and then store the result inthis variable.
 -------------------code----------------------
 values = list(range(5))
@@ -2032,3 +2032,183 @@ the last value will be used.
 
 - To Recap, we can use the unpacking operator to take out individual values
 in any iterable.
+
+*** 23- Exercise ***
+
+write a program to find the most repeated character in this text
+-------------------code----------------------
+sentence = "This is a common interview question"
+-------------------code----------------------
+
+- how do we solve this problem? Well, first we need to know how many times
+each character is repeated. Once we have that information, then we can
+find the most repeated character.
+
+
+- What kind of data structure is useful for storing this information? A dictionary. Because
+a dictionary is a collection of key value pairs, so here we can use
+the characters as the keys, and the repetition as the value.
+
+- we start by defining an empty dictionary, let's call it char or character frequency.
+-------------------code----------------------
+char_frequency = {}
+-------------------code----------------------
+
+- We set it to an empty dictionary. Now we need to iterate
+over this string, get each character, and update its frequency
+in this dictionary. So we need a for loop, for char, in sentence.
+
+- Now first we need to see if we have this character in our dictionary.
+If we don't have it, we need to set its frequency to 1.
+Otherwise we need to increment the frequency.
+-------------------code----------------------
+for char in sentence:
+    if char in char_frequency:
+        char_frequency[char] += 1
+    else:
+        char_frequency[char] = 1
+print(char_frequency)
+# {'T': 1, 'h': 1, 'i': 5, 's': 3, ' ': 5, 'a': 1, 'c': 1, 'o': 3, 'm': 2, 'n': 3, 't': 2, 'e': 3, 'r': 1, 'v': 1, 'w': 1, 'q': 1, 'u': 1}
+-------------------code----------------------
+
+- So capital T is repeated once, H is repeated once, we is repeated 5 times, and so on.
+Now this output is a little bit unreadable, so we'm going to show we a trick to make it more
+readable. We have a module called pretty printing.
+-------------------code----------------------
+from pprint import pprint
+-------------------code----------------------
+-  With this function, we have more control over printing stuff on the terminal.
+instead of the regular print function, we use pprint, and as the second argument,
+we pass a keyword argument called width that determines the number of characters on each line.
+-------------------code----------------------
+pprint(char_frequency, width=1)
+# {' ': 5,
+#  'T': 1,
+#  'a': 1,
+#  'c': 1,
+#  'e': 3,
+#  'h': 1,
+#  'i': 5,
+#  'm': 2,
+#  'n': 3,
+#  'o': 3,
+#  'q': 1,
+#  'r': 1,
+#  's': 3,
+#  't': 2,
+#  'u': 1,
+#  'v': 1,
+#  'w': 1}
+-------------------code----------------------
+
+
+- So now we have all the information to solve this problem.
+The next step is to sort this dictionary by the frequency of characters.
+
+- However, as we told we before, dictionaries, like sets, are unordered collections.
+We cannot sort them. We can only sort lists.
+So we need to pull out the items in this dictionary, and put them in a list for
+sorting. So basically we need to take out each key value pair, convert it to a tuple, and then put it
+in a list. We'll end up with a list of tuples that we can easily sort.
+
+
+- So, how do we do this? we'm going to call the sorted function.
+Earlier we learned that this function takes an iterable and sorts it. As the iterable, we'm going to pass char frequency Earlier we learned that this method
+returns all the key value pairs as tuples.
+-------------------code----------------------
+pprint(sorted(char_frequency.items()))
+# [(' ', 5),
+#  ('T', 1),
+#  ('a', 1),
+#  ('c', 1),
+#  ('e', 3),
+#  ('h', 1),
+#  ('i', 5),
+#  ('m', 2),
+#  ('n', 3),
+#  ('o', 3),
+#  ('q', 1),
+#  ('r', 1),
+#  ('s', 3),
+#  ('t', 2),
+#  ('u', 1),
+#  ('v', 1),
+#  ('w', 1)]
+-------------------code----------------------
+
+- now We get a list of tuples, in each tuple we have two items, the first is the
+character, and the second is the repetition or frequency.
+But as we can see, this list is not sorted because by default, this sorted function doesn't know how to sort
+these tuples.
+So, we can pass a second argument here, key, we set this to a lambda,
+which is an anonymous function, this function takes a key value pair and returns
+the value, so that is key value of one. That is the frequency of each character, we're going to use that
+for sorting.
+-------------------code----------------------
+pprint(sorted(char_frequency.items(), key=lambda kv: kv[1]))
+# [('T', 1),
+#  ('h', 1),
+#  ('a', 1),
+#  ('c', 1),
+#  ('r', 1),
+#  ('v', 1),
+#  ('w', 1),
+#  ('q', 1),
+#  ('u', 1),
+#  ('m', 2),
+#  ('t', 2),
+#  ('s', 3),
+#  ('o', 3),
+#  ('n', 3),
+#  ('e', 3),
+#  ('i', 5),
+#  (' ', 5)]
+-------------------code----------------------
+
+
+- Now we need to reverse the sorting. So, back to our
+sorted function, as the third argument, we're going to pass a keyword argument, reverse
+equals true.
+-------------------code----------------------
+pprint(sorted(char_frequency.items(), key=lambda kv: kv[1], reverse=True))
+# [('i', 5),
+#  (' ', 5),
+#  ('s', 3),
+#  ('o', 3),
+#  ('n', 3),
+#  ('e', 3),
+#  ('m', 2),
+#  ('t', 2),
+#  ('T', 1),
+#  ('h', 1),
+#  ('a', 1),
+#  ('c', 1),
+#  ('r', 1),
+#  ('v', 1),
+#  ('w', 1),
+#  ('q', 1),
+#  ('u', 1)]
+-------------------code----------------------
+
+- Finally, the first item in this list is the solution to our
+problem. So we simply print char frequency sorted of zero.
+-------------------code----------------------
+print(char_frequency_sorted[0])
+# ('i', 5)
+-------------------code----------------------
+
+
+- we can see the code on line 90 is kind of outside the screen.
+-------------------code----------------------
+char_frequency_sorted = sorted(char_frequency.items(), key=lambda kv: kv[1], reverse=True)
+-------------------code----------------------
+
+- But pep 8 recommends a maximum of 80 characters on one
+line, so if we have a line that is too long, it's better to break it down into multiple lines, this makes wer code
+more readable. So here, we'm going to list each argument on a new line.
+-------------------code----------------------
+char_frequency_sorted = sorted(
+    char_frequency.items(),
+    key=lambda kv: kv[1],
+    reverse=True)
+-------------------code----------------------

@@ -595,3 +595,155 @@ because we will see this in other people's code.
 raising exceptions is costly. So our example, instead of raising an exception here
 and then handling it below this function, we could take a different approach
 that would result in better performance.
+
+
+*** 7- Cost of Raising Exceptions ***
+
+- As we explained in the last lecture, when writing our own functions, prefer
+not to raise exceptions, because these exceptions come with a cost
+and that's what we're going to see in this lecture.
+-------------------code----------------------
+def calculate_xfactor(age):
+    if age <= 0:
+        raise ValueError("Age cannot be 0 or less.")
+    return 10 / age
+
+
+try:
+    calculate_xfactor(-1)
+except ValueError as error:
+    print(error)
+
+-------------------code----------------------
+
+- So, from the timeit module, we're going to import a function called
+timeit. With this function, we can calculate the execution time of some Python code.
+So, this is how it works. Imagine we want to calculate
+the execution time of this piece of code.
+-------------------code----------------------
+from timeit import timeit
+-------------------code----------------------
+
+
+- We define a variable, let's call it code1, and set it to a string.
+This string should include our Python code. So, we're going to use
+triple codes, because our Python code is spread across multiple lines,
+and then we terminate it at the end of code.
+-------------------code----------------------
+code1 = """
+def calculate_xfactor(age):
+    if age <= 0:
+        raise ValueError("Age cannot be 0 or less.")
+    return 10 / age
+
+
+try:
+    calculate_xfactor(-1)
+except ValueError as error:
+    print(error)
+"""
+-------------------code----------------------
+
+- So, this is one piece of code. Now,
+after that, we call timeit as the first argument we pass
+our Python code. That is our code1 variable.
+Now, here we have a keyword argument number, we set this to the
+number of times we want to execute this piece of code.
+
+- So, let's set it to 10,000, so we can
+see the difference. Now, this function returns the execution time of this piece of code
+after 10,000 repetitions. Now
+this function will execute our Python code 10,000 times, it will
+calculate the execution time and return it. So, we can simply print it on a terminal.
+-------------------code----------------------
+print("first code= ", timeit(code1, number=10000))
+
+# Age cannot be 0 or less.
+# Age cannot be 0 or less.
+# Age cannot be 0 or less.
+# Age cannot be 0 or less.
+# Age cannot be 0 or less.
+# Age cannot be 0 or less.
+# first code=  0.06886674999987008
+-------------------code----------------------
+
+- we got 10,000 messages here, and here's the execution time.
+Now, to clean this up, let's go back to our except clause. I don't want to print
+this error message, so let's use the "pass" statement.
+-------------------code----------------------
+code1 = """
+def calculate_xfactor(age):
+    if age <= 0:
+        raise ValueError("Age cannot be 0 or less.")
+    return 10 / age
+
+
+try:
+    calculate_xfactor(-1)
+except ValueError as error:
+    pass
+"""
+
+print("first code= ", timeit(code1, number=10000))
+
+# first code=  0.002173792000121466
+-------------------code----------------------
+
+- This pass statement is a statement that doesn't do anything.
+And we need to use that here, because we cannot have an empty except block.
+
+- Now, let's try a different approach. Back in our calculate x-factor function,
+instead of raising an exception if age is 0 or less, we can
+return a value like None.
+
+- instead of raising an exception, we want to return none. So,
+none is an object that represents the absence of a value.
+
+- this new implementation, we don't need
+a try block, so we can simplify our code,
+e simply get the x-factor, we can store it in a variable,
+so instead of handling an exception, we can compare this x-factor with none.
+So, if x-factor equals none, then, let's just pass.
+-------------------code----------------------
+code2 = """
+def calculate_xfactor(age):
+    if age <= 0:
+        return None
+    return 10 / age
+
+
+xfactor = calculate_xfactor(-1)
+if xfactor == None:
+   pass
+"""
+-------------------code----------------------
+
+
+- So immediately we can see this code
+is simpler than the previous implementation,
+and as we will see in a second, this will be executed
+almost four times faster.
+
+- So here's the execution time of the first implementation.
+As we can see, our second implementation was almost four times faster.
+
+-------------------code----------------------
+print("Second code= ", timeit(code2, number=10000))
+
+# Second code=  0.0007847910001146374
+-------------------code----------------------
+
+- Now there is a caveat here. We see this difference when we execute this piece of code
+10,000 times. So if we run the code once, we're not going to see any differences.
+
+- In other words, if we're building a simple application for a few users,
+raising exceptions in our functions is not going to have a bad impact
+on the performance of our application. But if we're building an application
+where performance and scalability is important, then it's better to raise exceptions
+when we really have to.
+
+
+- As a general rule of thumb, when we want to raise exceptions in our functions,
+think twice. See if we can handle the situation with a simple if statement.
+Whether there is a performance difference or not, our code will end up being
+a little bit cleaner. So, raise exceptions if we really have to.

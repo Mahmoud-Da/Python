@@ -510,3 +510,88 @@ except ValueError:
 else:
     print("No exception were thrown")
 -------------------code----------------------
+
+
+*** 6- Raising Exceptions ***
+
+- So far we have learned how to handle exceptions.
+But we can also raise or throw exceptions in our own code.
+
+- an example. So we're going to define a function, let's call it calculate
+xFactor.
+
+- This function takes age and simply returns 10
+divided by age. Now in this example age cannot be 0 or less. So we can have an
+if statement here, if age is less than or equal to 0, we can raise an
+exception. So we use the "raise" statement and then specify the type of our exception. So far we have seen
+a few types, like value error, 0 division error and so on. 
+-------------------code----------------------
+def calculate_xfactor(age):
+    if age <= 0:
+        raise ValueError("Age cannot be 0 or less.")
+    return 10 / age
+-------------------code----------------------
+
+In python we have various kinds of built in exceptions.
+-------------------code----------------------
+python 3 built in exceptions
+-------------------code----------------------
+and go to 
+-------------------code----------------------
+https://docs.python.org/3/library/exceptions.html
+-------------------code----------------------
+
+- on this page, we can see all the built in exceptions in python and what they're used for.
+Down the bottom of this page
+we can see the complete list of these exceptions.
+So as we can see here we have a hierarchy, like a
+parent-child kind of relationship. At the very top we have
+base exception, below that we have
+a few children, one of them is exception, below exception we have
+arithmetic error and below that we have
+zero division error.
+
+-  So these are the built in exceptions in python
+and they're sufficient for most cases. But we can also define
+our own exception types. It's not something that we do that often,
+but it is something that we can do for sure. In order to do that, we have to learn about
+classes and that's the topic for the next section.
+
+
+- Back to our code, So recall
+calculate x factor and pass let's say negative 1.
+Now when we run this program we can see our program crashed
+with a value error exception. And here's the message, age cannot be 0 or less.
+-------------------code----------------------
+calculate_xfactor(-1)
+
+#  File "app6.py", line 7, in <module >
+#     calculate_xfactor(-1)
+#     ~~~~~~~~~~~~~~~~~ ^ ^ ^ ^
+#   File "app6.py", line 3, in calculate_xfactor
+#     raise ValueError("Age cannot be 0 or less.")
+# ValueError: Age cannot be 0 or less.
+-------------------code----------------------
+
+- Obviously this happened because we didn't handle exceptions here properly
+so we didn't have a try block.
+To fix this issue, let's add
+a try block with an accept clause of type value error. and our program didn't crash.
+-------------------code----------------------
+try:
+    calculate_xfactor(-1)
+except ValueError as error:
+    print(error)
+
+# Age cannot be 0 or less.
+-------------------code----------------------
+
+
+- So this is how we can raise exceptions in our code.
+But this is not something that we advise we to do. we only explained it here
+because we will see this in other people's code.
+
+- As we will see in the next lecture,
+raising exceptions is costly. So our example, instead of raising an exception here
+and then handling it below this function, we could take a different approach
+that would result in better performance.

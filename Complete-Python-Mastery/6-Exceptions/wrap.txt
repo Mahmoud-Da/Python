@@ -1,0 +1,67 @@
+*** 1- Exceptions ***
+- When writing programs, many things can go wrong. Our programs may encounter an error and terminate. 
+Usually these errors happen because of programmer's mistakes, or bad data
+that we get from the user, or resources not being available. For
+example, we might need to open a file, but if that file doesn't exist, our program
+is going to crash. It's our job as a programmer to prevent
+our application from crashing in this kind of situations. Instead
+we want to display a proper error message to the user, like hey, this file doesn't exist.
+
+
+- other examples. we're going to define a list of numbers with two items, and then print
+the third item. 
+-------------------code----------------------
+numbers = [1, 2]
+print(numbers[3])
+
+# Traceback (most recent call last):
+#   File "app1.py", line 2, in <module>
+#     print(numbers[3])
+#           ~~~~~~~^^^
+# IndexError: list index out of range
+-------------------code----------------------
+
+- When we run this program we get this error, index error, this
+happened in this file, app1.py, on line 2
+and here's the statement that generated this error. In programming
+we refer to this kind of error as an "exception". An exception is a kind of
+error that terminates the execution of a program.
+
+
+- More specifically we say this line, this statement, through an exception.
+And this is an example of an exception that was thrown because of the
+programmer's mistake.
+
+- another example. Earlier
+we learned about the input function to get input from the user. Let's say we ask
+for the user's age, we know that this function returns a string
+so we need to convert it to an integer and then store it
+here.
+-------------------code----------------------
+age = int(input("Age: "))
+-------------------code----------------------
+
+
+ Now, instead of running this using the coderunner
+let's go to the terminal and run python or 
+-------------------code----------------------
+python3 app.py
+-------------------code----------------------
+
+- The reason I didn't run this using code runner
+is that by default code runner runs our programs in the output window which is read only, so we cannot enter data.
+-------------------code----------------------
+Age: a
+Traceback (most recent call last):
+  File "app1.py", line 10, in <module>
+    age = int(input("Age: "))
+ValueError: invalid literal for int() with base 10: 'a'
+-------------------code----------------------
+
+- if we enter a non-numeric value like "a", our program crashes.
+In this example we got an exception of type
+value error. So, as  we  told before it's our job as a programmer to handle
+these exceptions and prevent our application
+from crashing.
+
+

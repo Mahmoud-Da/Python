@@ -302,3 +302,107 @@ print("Execution continue")
 # You didn't enter a valid age
 # Execution continue
 -------------------code----------------------
+
+*** 4- Cleaning Up ***
+- There are times that we need to work with external resources, like files,
+network connections, databases, and so on. Whenever we use these
+resources, after we're done, we need to release them.
+
+- For example,
+when we open a file, we should always close it after we're done, otherwise
+another process or another program may not be able to open that file.
+
+- So, let's take this example to the next level. Here
+in our try block, first we'm going to open a file, so we call the open function, and let's open
+appa.py. and returns a file object.
+-------------------code----------------------
+try:
+    file = open("app1.py")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+-------------------code----------------------
+
+- Now when we're done, we should close this file
+object. So this file object has a method
+called close. 
+-------------------code----------------------
+try:
+    file = open("app1.py")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+    file.close()
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+-------------------code----------------------
+
+- Now the problem with this code is that
+this statement will not be executed in case of an exception.
+In other words, if one of these two lines, throws an exception,
+the control will be moved to our except clause, so file.close() code will not 
+be executed
+-------------------code----------------------
+age = int(input("Age: "))
+x_factor = 10 / age
+-------------------code----------------------
+
+
+- One solution is to move this down here, but again the problem
+is that this will only be executed if we have an exception.
+but If we don't have an exception, the control
+will be moved to else statement, so our file will not be closed.
+-------------------code----------------------
+try:
+    file = open("app1.py")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+
+except ValueError:
+    print("You didn't enter a valid age")
+    file.close()
+else:
+    print("No exception were thrown")
+-------------------code----------------------
+ 
+- So another solution is to duplicate the close file code.
+but duplication is a bad
+practice in programming. we should not repeat ourself in our code.
+-------------------code----------------------
+try:
+    file = open("app1.py")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+
+except ValueError:
+    print("You didn't enter a valid age")
+    file.close()
+else:
+    print("No exception were thrown")
+    file.close()
+
+-------------------code----------------------
+ 
+- So what is the solution? The solution is
+to use the finally clause.  This final clause is always
+executed, whether we have an exception or not. And we use it to release
+external resources. So this is the perfect place to close
+files, database connections,
+network connections, and so on.
+-------------------code----------------------
+try:
+    file = open("app1.py")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+finally:
+    file.close()
+-------------------code----------------------

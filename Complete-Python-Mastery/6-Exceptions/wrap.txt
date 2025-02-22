@@ -179,3 +179,126 @@ print("Execution continue")
 # <class 'ValueError'>
 # Execution continue
 -------------------code----------------------
+
+*** 3- Handling Different Exceptions ***
+- let's define x_factor that take the input of the age and divide it on 10.
+and let's try to input 0.
+
+- What happened? Our program crashed again, we got
+a different kind of exception that is a 0 division error.
+Because in programming we cannot divide a number by 0.
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+print("Execution continue")
+
+# Age: 0
+# Traceback(most recent call last):
+#     File "app3.py", line 3, in <module >
+#     x_factor = 10 / age
+#     ~~~ ^ ~~~~
+# ZeroDivisionError: division by zero
+-------------------code----------------------
+
+- So, the statement on line 3 "except ValueError"
+threw an exception, but we don't have a matching except clause for that kind of exception. 
+In other words, in this code we're only handling value error exceptions.
+And that is why our program crashed
+
+- So, to solve this problem,
+we can come back here and add a second except clause, and specify a different kind of exception.
+In this case, 0 division error. 
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+except ZeroDivisionError:
+    print("Age cannot be 0")
+else:
+    print("No exception were thrown")
+print("Execution continue")
+
+# Age: 0
+# Age cannot be 0
+# Execution continue
+-------------------code----------------------
+
+
+- Now let's take this to the next level. Let's imagine
+if the user enters 0 for the age, we want to print
+the exact same error message. 
+- So we're going to copy this and paste it like this. Now our code looks a little bit repetitive.
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+except ZeroDivisionError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+print("Execution continue")
+-------------------code----------------------
+
+- We have repeated this message, and that means if in the future
+we want to change this message, we have to change it in two places.
+There is a better way to handle this situation.
+
+- In front of this except clause, we can specify multiple types of exception.
+So if the exception that is thrown matches any of those exceptions, by separated them by comma.
+then the code that we have in the except block will be executed.
+
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except (ValueError, ZeroDivisionError):
+    print("You didn't enter a valid age")
+except ZeroDivisionError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+print("Execution continue")
+-------------------code----------------------
+
+- Now with this change, technically we don't need these two lines.
+We can delete them. But temporarily we'm going to keep them
+to show we something interesting. So back in the terminal,
+let's run this one more time, and enter 0.
+-------------------code----------------------
+# Age: 0
+# You didn't enter a valid age
+# Execution continue
+-------------------code----------------------
+
+- Note that we get a single error on the terminal.
+In other words, the code that we have
+in this except block was not executed. Otherwise we would see this message twice.
+So here's the lesson. When python executes
+the code that we have in the try block, if any of the statements throws an exception
+that matches one of the except clauses, that except clause is executed, and the other except clauses
+are ignored.
+
+- So, to clean up our code. 
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except (ValueError, ZeroDivisionError):
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+print("Execution continue")
+
+# Age: 0
+# You didn't enter a valid age
+# Execution continue
+-------------------code----------------------

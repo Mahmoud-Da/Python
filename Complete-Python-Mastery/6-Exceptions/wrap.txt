@@ -406,3 +406,107 @@ else:
 finally:
     file.close()
 -------------------code----------------------
+
+*** 5- The With Statement ***
+- In the last lecture we learned that we use the finally clause to release external resources.
+-------------------code----------------------
+file = None
+try:
+    file = open("app1.py")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+finally:
+    file.close()
+-------------------code----------------------
+
+- Now we have a shorter and cleaner way to achieve the same thing,
+but without the finally clause. But it doesn't always work, it works
+with certain kinds of objects.
+
+- Instead of getting the return value of the open function, we prefix
+open function with the "with" statement. And then we'll get access
+to the return value of this function by typing as file.
+So this is the file object that the open function returns.
+
+- In this block of code, we can work with this file object. For example,
+we can read something from this file or write to it and so on. So for now
+let's just print file opened.
+
+- So this is the file object that the open function returns.
+
+- whenever we open a file using the with statement,
+python will automatically
+call file.close whether we have a final clause or not.
+In other words, the with statement is used to
+automatically release external resources.
+so no need for finally statement.
+-------------------code----------------------
+try:
+    with open("app1.py") as file:
+        print("File opened")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+-------------------code----------------------
+
+- But let's dive deeper and see how this exactly works under the hood.
+So,in the file object, We have methods that start with two underlines.
+And we refer to them as "magic methods".
+
+PS: In the next section where we talk about classes and objects,
+we're going to learn about these in detail.
+But here we have two magic methods that we should be aware of.
+We have enter and exit.
+-------------------code----------------------
+try:
+    with open("app1.py") as file:
+        print("File opened")
+        file.__enter__
+        file.__exit__
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+-------------------code----------------------
+
+- When an object has these two methods, we say that object supports
+"context management protocol". 
+PS:in the next section, we're going to talk about this in more detail.
+So, if an object supports the context management protocol,
+or in other words, if an object has these "__enter__"  and "__exit__" two methods,
+we can use that object with the "with" statement.
+
+-Python will automatically call the exit method, and there it will release
+external resources. That is the reason we don't need a finally clause.
+
+
+- Now to take this to the next level,
+there are times that we might be working with multiple external resources.
+Let's say we want to read some data from one file and write it to another file.
+So how do we do that?
+Well, here before the colon,
+we can add a comma, and open another external resource,
+like another file. So open, and we give it a variable name,
+like target, with this,
+python will automatically release both these external resources.
+
+-------------------code----------------------
+try:
+    with open("app1.py") as file, open("another.txt") as target:
+        print("File opened")
+    age = int(input("Age: "))
+    x_factor = 10 / age
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+-------------------code----------------------

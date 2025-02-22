@@ -48,7 +48,7 @@ let's go to the terminal and run python or
 python3 app.py
 -------------------code----------------------
 
-- The reason I didn't run this using code runner
+- The reason we didn't run this using code runner
 is that by default code runner runs our programs in the output window which is read only, so we cannot enter data.
 -------------------code----------------------
 Age: a
@@ -65,3 +65,117 @@ these exceptions and prevent our application
 from crashing.
 
 
+*** 2- Handling Exceptions ***
+how to handle exceptions in our programs.
+
+- So, continuing with the code from the last lecture, to handle the value error
+exception here, we need to put the statement in a try block. So, we add try with colon,
+we indent it, and then after try we need to add an
+except clause. 
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+except 
+-------------------code----------------------
+
+- What is the type of the exception that we get
+if the user enters a non-numeric value, that's a value
+error exception, we saw that in the last lecture, right? So,
+we add the accept clause, and then we'll print
+a friendly error message.
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+except ValueError:
+    print("You didn't enter a valid age")
+
+# Age: 10
+# Age: a
+# You didn't enter a valid age
+-------------------code----------------------
+
+- When python sees a try block, it will execute every
+statement in this block, if any of these statements throws an exception,
+the code in the accept clause will be executed.
+If we don't have any exceptions, this code will not be executed.
+and our application didn't crash.
+
+- This is the important thing about handling exceptions. If we don't handle
+exceptions properly, our program
+will crash. So, in other words,
+if we add another statement here, let's print
+execution continues.
+In this example, because we are handling this
+exception properly, this statement will be executed.
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+except ValueError:
+    print("You didn't enter a valid age")
+print("Execution continue")
+
+# Age: a
+# You didn't enter a valid age
+# Execution continue
+-------------------code----------------------
+
+- In contrast, in the last lecture where
+we didn't have the try block, if we put this print statement
+after getting users age, this line would not be executed.
+
+
+- We also have an optional else clause here, so else
+colon, and what we put inside this block will be executed if no exception is thrown
+in the code that we add in the try block.
+So let's print a message like no exceptions were thrown.
+and what we have in the else clause will only be executed
+if we don't have any exceptions.
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+except ValueError:
+    print("You didn't enter a valid age")
+else:
+    print("No exception were thrown")
+print("Execution continue")
+
+# Age: 10
+# No exception were thrown
+# Execution continue
+
+# Age: a
+# You didn't enter a valid age
+# Execution continue
+-------------------code----------------------
+
+- This is very similar to our for else loops. Remember for else?
+Earlier when we talked about for else loops, we told we that
+the else clause is executed if we don't break out of the for loop. 
+In other words, if the completes, then the else clause is executed. So here's a
+basic structure for handling exceptions.
+
+
+- when handling the exception, we can optionally
+define a variable that will include the details about the exception.
+Mostly the error message, and sometimes additional arguments.
+we can add "as" keyword, and then define a variable,
+like "ex" shortcut for exception. 
+and we can print the actual error message that is
+included in the exception or even print the type of that error.
+-------------------code----------------------
+try:
+    age = int(input("Age: "))
+except ValueError as ex:
+    print("You didn't enter a valid age")
+    print(ex)
+    print(type(ex))
+else:
+    print("No exception were thrown")
+print("Execution continue")
+
+# Age: a
+# You didn't enter a valid age
+# invalid literal for int() with base 10: 'a'
+# <class 'ValueError'>
+# Execution continue
+-------------------code----------------------

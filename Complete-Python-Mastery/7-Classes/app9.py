@@ -1,6 +1,3 @@
-from typing import Any
-
-
 class TagCloud:
     def __init__(self):
         self.tags = {}

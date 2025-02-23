@@ -768,3 +768,76 @@ print(point < other)
 so as we see we don't have to explicitly implement each of these operators
 when we implement the greater than magic method Python would automatically figure out
 what to do if we use the less than operator
+
+*** 8- Performing Arithmetic Operations ***
+- We also have magic methods for performing arithmetic operations between two objects.
+For example, what if we want to add these two points together?
+When we run this program, obviously we're going to get an error.
+-------------------code----------------------
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+
+
+point = Point(1, 2)
+other = Point(1, 2)
+
+print(point + other)
+# TypeError: unsupported operand type(s) for +: 'Point' and 'Point'
+-------------------code----------------------
+
+- So back in the list of magic methods (site), we have
+numeric magic methods. In this category, if we scroll down
+we can see normal arithmetic operators.
+
+- So we have
+add, subtract, multiply, and so on. So in order
+to add two points together, we need to implement the add
+method.
+-------------------code----------------------
+__add__(self, other)
+Implements addition.
+
+__sub__(self, other)
+Implements subtraction.
+
+__mul__(self, other)
+Implements multiplication.
+
+and so
+-------------------code----------------------
+
+
+
+- So define add
+with two parameters, self and other, we simply return a new point object with these values.
+-------------------code----------------------
+def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+-------------------code----------------------
+
+
+- we get this new point object
+at this address, so we don't see the actual
+x and y values of this point object, because in this example
+we removed the stir magic method.
+-------------------code----------------------
+print(point + other)
+# <__main__.Point object at 0x100bea520>
+-------------------code----------------------
+
+- However,
+if we store the result of this arithmetic operation in another object,
+like combine, and then print combine.x
+we can see we get 11, which proves that we successfully added two points together.
+-------------------code----------------------
+point = Point(1, 2)
+other = Point(1, 2)
+
+combined = point + other
+print(combined.x)
+# 2
+-------------------code----------------------

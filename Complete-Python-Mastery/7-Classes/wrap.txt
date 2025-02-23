@@ -1086,3 +1086,105 @@ for tag in cloud:
 
 # python
 -------------------code----------------------  
+
+*** 10- Private Members ***
+- This class that we built in the last lecture has a tiny problem,
+So here we have a cloud object, we're going to call cloud.add
+pass python, repeat this a couple times, and then
+change this to an uppercase p. Now if we print
+cloud of python all in uppercase,
+we get three, so our program is working,
+-------------------code----------------------  
+cloud = TagCloud()
+cloud.add("python")
+cloud.add("python")
+cloud.add("Python")
+print(cloud["PYTHON"])
+# 3
+-------------------code----------------------  
+
+- however, if we access the underlined dictionary
+in this class, our program is going to crash, let's take a look. So we got an
+exception of type key error, because we don't have this key in our
+dictionary, everything is stored as lowercase. So the problem
+with this class is that it gives us access to the underlined dictionary
+that is used to keep track of the count of tags.
+-------------------code----------------------  
+print(cloud.tags["PYTHON"])
+# KeyError: 'PYTHON'
+-------------------code----------------------  
+
+- To fix this problem, we need to hide this attribute from the outside, so we cannot access
+it. How do we do this?
+So, back to our class. Put the cursor on this attribute, Now to
+make this private, or inaccessible from the outside, we need to
+prefix it with two underlines.
+-------------------code----------------------  
+class TagCloud:
+    def __init__(self):
+        self.__tags = {}
+
+    def add(self, tag):
+        self.__tags[tag.lower()] = self.__tags.get(tag.lower(), 0) + 1
+
+    def __getitem__(self, tag):
+        return self.__tags.get(tag.lower(), 0)
+
+    def __setitem__(self, tag, count):
+        self.__tags[tag.lower()] = count
+
+    def __len__(self):
+        return len(self.__tags)
+
+    def __iter__(self):
+        return iter(self.__tags)
+-------------------code----------------------  
+
+-  Now, back to where we use a tag cloud object.
+If we use the dot operator, so cloud dot,
+we no longer have tags here, we also don't have double underscore tags,
+so if we print this, we get an exception of type attribute error,
+tag cloud object doesn't have this attribute.
+-------------------code----------------------  
+print(cloud.__tags)
+# AttributeError: 'TagCloud' object has no attribute 'tags'
+-------------------code----------------------  
+
+- So this is how we can make certain attributes, or certain
+methods in the class private. If we prefix them with double underscores,
+they're considered private.
+
+- Having said that, technically, these members are still accessible from
+the outside, it's just a little bit harder to access them. So the point of this
+practice is not security, it's more of a warning or alert
+to someone who is using this class.
+
+- It's telling the consumer of this class,
+don't touch this, this is private. 
+
+- But how we can still access this.
+Every class, or every object, has this property called "__dict__".
+This is a dictionary that holds all the attributes in this class.
+-------------------code----------------------  
+print(cloud.__dict__)
+# {'_TagCloud__tags': {'python': 3}}
+-------------------code----------------------  
+
+
+- So, in this class we have this attribute called "_TagCloud__tags".
+So when python interpreter runs this code, it automatically renames
+this attribute and prefixes it with the name of its class.
+
+So technically we can still access it.
+we're going to copy this name, and then show it in terminal
+-------------------code----------------------  
+print(cloud._TagCloud__tags)
+# {'python': 3}
+-------------------code----------------------  
+
+- We get the values.
+So, in python, unlike languages like C sharp or java, we don't really have the concept of private members.
+These private members are still accessible from the outside.
+
+- Using double underscores is more of a convention
+to prevent accidental access to prevent accidental access of these private members.

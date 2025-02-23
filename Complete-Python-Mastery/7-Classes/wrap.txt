@@ -159,3 +159,147 @@ print(isinstance(point, int))
 - but our point objects need some initial values like x and y
 to set these values we need a constructor.
 
+*** 3- Constructors ***
+So here when we create a point object, we want to supply initial
+values for x and y coordinates, like this.
+-------------------code----------------------
+ class Point:
+     def draw(self):
+         print("draw")
+
+point = Point(1, 2)
+-------------------code----------------------
+
+- To achieve this we need a constructor which is a special method that is called 
+when we create a new point object.
+
+- how to create a constructor.
+So, in our point class, we define a new function the name of this function should be 
+double underline init double underline "__init__".
+
+- This is a special method that we call
+a magic method. In python classes we have several
+magic methods, and we're going to learn more about them throughout this section.
+
+
+- So, this magic method is called a constructor, and it's executed
+when we create a new point object. Now earlier we told  that
+all the methods that we define in a class should have at least one parameter
+which we call self by convention. So, we add self, and then
+optionally we add any additional parameters for initializing a point object, like x
+and y.
+-------------------code----------------------
+def __init__(self, x, y):
+-------------------code----------------------
+
+- Now, what is this self?
+Self is a reference to the current point object.
+For example, when we call the point class, python will internally create
+a point object in memory and set self
+to reference that point object.
+
+Now, this point object has a bunch of methods that we have seen before
+for example, when we use the dot operator we can see all the methods
+in this point object.
+-------------------code----------------------
+point = Point(1, 2)
+point.
+
+=> __annotations__
+=> __str__
+-------------------code----------------------
+
+- But an object can also have attributes
+which are basically variables that include data about that object.
+For example, we can have attributes like x and y that we can easily print
+on the terminal.
+
+- In other words, a class run object bundles data
+and functions related to that data into one unit.
+think of a human. A human can have attributes like eye color, height,
+weight, and so on. As well as functions like walk, talk, and so on.
+
+- So, back to our constructor.
+we learned that self is a reference to the current object.
+So we can use that to set the x and y attributes
+like this.
+-------------------code----------------------
+def __init__(self, x, y):
+  self.x
+-------------------code----------------------
+
+- We can set it to some default value like 0.
+-------------------code----------------------
+self.x = 0
+-------------------code----------------------
+
+- or this x argument that we receive in this method.
+-------------------code----------------------
+self.x = x
+-------------------code----------------------
+
+- Similarly, let's set self dot y to y.
+-------------------code----------------------
+def __init__(self, x, y):
+        self.x = x
+        self.y = y
+-------------------code----------------------
+
+- Now with this code, when we use the dot operator
+look we have the draw method
+as well as the two new attributes x and y.
+
+- So, we can simply print
+point dot x on terminal.
+-------------------code----------------------
+point = Point(1, 2)
+print(point.x)
+# 1
+-------------------code----------------------
+
+
+- Now, back to our draw method.
+Here again we have this self parameter,
+so using this we have a reference to the current point object, and with that we can
+read the x and y values and print them on the terminal.
+
+- So here we're going to change this
+implementation, and pass a formatted string.
+-------------------code----------------------
+def draw(self):
+    print(f"Point ({self.x}, {self.y})")
+-------------------code----------------------
+
+- So using self, we can read attributes of the current object,
+or we can also call other methods in this object.
+
+- Now, let's simply call point dot draw.
+-------------------code----------------------
+point = Point(1, 2)
+point.draw()
+# Point (1, 2)
+-------------------code----------------------
+
+
+- Now what is interesting here is that when calling the draw method
+we didn't have to supply a value for the self parameter,
+because python does that by default.
+-------------------code----------------------
+point.draw(point) 
+
+point.draw()
+-------------------code----------------------
+
+- Now technically, we cana pass this point object as a reference
+to the current object, but this is really unnecessary,
+and it makes our code busy or noisy.
+
+
+- So, here's what we need to take away.
+
+1- The methods that we define in a class should have at least, one parameter
+which by convention is called "self", and this references
+the current point object that we're working with.
+
+2- When calling methods of an object, we never have to supply a value
+for this parameter, python interpreter does that for us.

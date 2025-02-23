@@ -80,3 +80,82 @@ Then we could create objects, like John, Mary, Jack, and so on.
 Now a lot of people use these terms interchangeably,
 but technically, a class and an object are different. 
 
+*** 2- Creating Classes ***
+- Alright, now let's see how we can create a point class in python.
+So we start with the class keyword, then we give our class
+a name, like point.
+-------------------code----------------------
+class Point
+-------------------code----------------------
+
+- Note that here we're using Pascal naming convention, which is different from the
+naming convention that we use for naming our variables and functions.
+
+- To name our variables and functions, we use all lowercase letters
+and we separate multiple words using an underscore. But to name
+our classes we use a different convention, which is called Pascal
+naming convention. And basically it says that the first letter
+of every word should be uppercase and we shouldn't use
+an underscore to separate multiple words. Here's an example
+we can call this class my point, we can see that the first letter
+of every word is uppercase and there is no underscore here.
+-------------------code----------------------
+class MyPoint
+-------------------code----------------------
+
+
+- after this we add a colon to indicate a block
+in this block we'll define all the functions related to points
+for example we can define functions for drawing a point for moving this point to a new location
+or getting the distance from this point and another point
+we define a function called draw parenthesis
+now all functions in our classes should have at least one parameter and by convention
+we call that parameter "self"  Now we add our colon
+and let's just print the word draw on the terminal
+-------------------code----------------------
+class Point:
+    def draw(self):
+        print("draw")
+-------------------code----------------------
+
+- so now we have a class or a blueprint for creating
+point objects every point object that we create will have this draw method
+
+- to create a point object we call this class like a function
+there we go now this returns a point object
+that we can assign to a variable like point so
+if we use the dot operator we can see we have the draw method
+as well as a bunch of other methods that we didn't define
+but our point object got these methods from another object in python
+through a mechanism called "inheritance" we'll look at that later in this section
+-------------------code----------------------
+point = Point()
+point.  => to see the draw method
+print(type(point))
+# <class '__main__.Point'>
+-------------------code----------------------
+
+
+- we get a class of main dot point this main we see here
+is the name of our "module" and we're going to look at that later in this section
+so this is the type function that we have seen before we have another useful function
+called "isinstance" sometimes we have an object and we want to know if this object
+is an instance of a given class.
+-------------------code----------------------
+print(isinstance(point, Point))
+# True
+-------------------code----------------------
+
+- however if we change this to int
+obviously our point object is not an instance of the int class
+so when we run this program we get false.
+-------------------code----------------------
+print(isinstance(point, int))
+# False
+-------------------code----------------------
+
+
+
+- but our point objects need some initial values like x and y
+to set these values we need a constructor.
+

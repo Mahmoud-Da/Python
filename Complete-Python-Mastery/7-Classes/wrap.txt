@@ -841,3 +841,248 @@ combined = point + other
 print(combined.x)
 # 2
 -------------------code----------------------
+
+*** 9- Making Custom Containers ***
+- Earlier in the course, we learned about the common data structures in python.
+You learned about lists, sets, dictionaries, and so on.
+
+- These data structures, or container types, are pretty useful
+and sufficient for most cases.
+
+- But there are times that we want to create our own
+custom container types. For example, here we have this class
+tag cloud, we're going to implement this from scratch.
+-------------------code----------------------
+class TagCloud:
+-------------------code----------------------
+- With this class, we can keep track of the number of various tags on
+a blog. For example, how many articles do we have that are tagged with python
+or javascript and so on. So, because this class represents
+a container, it supports various operations around
+containers.
+
+- Here are a few examples. Let me create an
+object, okay. Now, because this is a container,
+we can get the number of items in this container, we can also
+get an item by its key, for example, we can get
+the number of articles tagged with python,
+we can also set that, and finally we can iterate over this container, so
+for tag in cloud, we can print each tag
+and its count. These are the operations that are supported by this
+custom container type.
+-------------------code----------------------
+cloud = TagCloud()
+len(cloud)
+cloud["python"] = 10
+for tag in cloud:
+    print(tag)
+-------------------code----------------------
+
+
+- how to implement a class like this. We create a class, call it tag cloud,
+now internally we're going to use one or more
+of the built-in data structures like lists, dictionaries, and so on.
+In this case, we're going to use a dictionary because it allows us to quickly
+get the number of given tag.
+
+- So, first we define a constructor
+self and in this constructor we initialize tags attribute to
+an empty dictionary.
+-------------------code----------------------
+class TagCloud:
+    def __init__(self):
+        self.tags = {}
+-------------------code----------------------
+
+- Now we can optionally add a method like add
+that takes a tag now here we should check to see
+if we have this tag in our dictionary if we don't have it, we're going to set its
+value to one, otherwise we're going to increment it by one.
+
+- we use the get method to get an item
+by this key, and supply a default value if we don't have that. Now we get the
+count, increment it by one and finally we set the value
+for this key. So, self the tags of
+tag, we set it to this new value. 
+-------------------code----------------------
+def add(self, tag):
+    self.tags[tag] = self.tags.get(tag, 0) + 1
+-------------------code----------------------
+
+*******************************************************************************
+- The get method in Python dictionaries:
+The get method in Python dictionaries is used to retrieve the value associated with a specified key.
+It allows we to provide a default value that will be returned if the key does not exist in the dictionary. This is useful for avoiding errors that occur when trying to access a key that isn't present.
+
+Syntax
+-------------------code----------------------
+value = dictionary.get(key, default_value)
+-------------------code----------------------
+
+Parameters
+key: The key we want to look up in the dictionary.
+default_value (optional): The value to return if the key is not found.
+If not provided, it defaults to None.
+-------------------code----------------------
+my_dict = {'a': 1, 'b': 2}
+
+value_a = my_dict.get('a')  
+# Returns 1
+
+value_b = my_dict.get('b')  
+# Returns 2
+
+value_c = my_dict.get('c', 0)
+# Returns 0, since 'c' is not in the dictionary
+
+value_d = my_dict.get('d')  
+# Returns None, since 'd' is not in the dictionary
+-------------------code----------------------
+*******************************************************************************
+
+
+
+- Let's test our program up to this
+point. So, we're going to create a cloud
+object and then call the add method a few times. 
+-------------------code----------------------
+cloud = TagCloud()
+
+cloud.add("python")
+cloud.add("python")
+cloud.add("python")
+
+print(cloud.tags)
+# {'python': 3}
+-------------------code----------------------
+
+
+- Now we might be wondering why we created
+a custom class instead of using a plain old dictionary.
+The reason for this is because we want to make this a little bit smarter than a
+typical dictionary. What if we add a python tag
+with a capital P. Technically this is the same tag
+as the lower case python. We get two separate items. This is how a typical
+dictionary behaves.
+-------------------code----------------------
+cloud = TagCloud()
+
+cloud.add("Python")
+cloud.add("python")
+cloud.add("python")
+
+print(cloud.tags)
+# {'Python': 1, 'python': 2}
+-------------------code----------------------
+
+- in this class we're going to take care of case sensitivity.
+Whatever tag we receive here, we're going to convert it to
+lower case when setting it as well as when reading it.
+-------------------code----------------------
+def add(self, tag):
+    self.tags[tag.lower()] = self.tags.get(tag.lower(), 0) + 1
+-------------------code----------------------
+
+- Now save the changes, run the program one more time,
+the problem is gone.
+
+- So with this class, we're encapsulating the
+complexity around the case sensitivity of tags.
+
+- When using this class we no longer have to worry about
+lower case or upper case characters.
+-------------------code----------------------
+cloud.add("Python")
+cloud.add("python")
+cloud.add("python")
+
+print(cloud.tags)
+# {'python': 3}
+-------------------code----------------------
+
+- Now let's take this to the next level.
+we want to be able to read the count of a tag like this.
+Using square brackets.
+-------------------code----------------------
+cloud["python"]
+-------------------code----------------------
+
+- To do this we need to implement a magic method called
+get item.
+
+- So, define get item it should take self as well as a key.
+In this method we're going to return self.tags.get this tag, and if we don't
+have it we want to return 0 by default, and once again we should
+convert this to lower case.
+-------------------code----------------------
+def __getitem__(self, tag):
+    return self.tags.get(tag.lower(), 0)
+-------------------code----------------------
+
+- As we can see with this implementation
+we can easily get the number of a given tag. We can't do this
+with a typical dictionary. If we don't have the python tag, our dictionary
+would throw an error.
+-------------------code----------------------
+print(cloud["python"])
+# 3
+-------------------code----------------------
+ 
+- Now let's take this to the next level. With the current implementation
+we can only read the number of a given tag. We cannot
+set it like this.
+-------------------code----------------------
+cloud["python"] = 10
+-------------------code----------------------
+
+- To do that we need to implement another magic method called set item.
+It's pretty straightforward so, define
+set item it takes three parameters self, key and value. In this case our
+key is tag and our value is just count.
+-------------------code----------------------
+def __setitem__(self, tag, count):
+    self.tags[tag.lower()] = count
+-------------------code----------------------
+
+-  with this implementation we can set the number of a given tag.
+-------------------code----------------------
+cloud["python"] = 10
+print(cloud.tags)
+# {'python': 10}
+-------------------code----------------------
+
+- Now in order to be able to get
+the number of items in this tag cloud we should implement the len
+magic method.
+-------------------code----------------------
+def __len__(self):
+    return len(self.tags)
+-------------------code----------------------        
+
+- and finally to make this iterable so we can iterate over it using a for loop
+we need to implement another magic method that is iter.
+So define iter it takes self, now all we have to do is to use one of the built
+in functions to get an iterator
+object.
+
+
+- An iterator object is an object that walks
+a container and gets one item at a time. So we call
+iter, which is one of the built in functions
+what do we want to iterate over? In this case, self the tags.
+-------------------code----------------------  
+def __iter__(self):
+    return iter(self.tags)
+-------------------code----------------------  
+
+
+- So this function returns an iterator
+object which gives us one
+item at a time in a for loop.
+So we simply return it.
+-------------------code----------------------  
+for tag in cloud:
+    print(tag)
+
+# python
+-------------------code----------------------  

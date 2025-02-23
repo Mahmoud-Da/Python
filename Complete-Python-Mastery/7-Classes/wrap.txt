@@ -600,7 +600,7 @@ category. The first one, "___str__", is a really useful one,
 and this is called when we try to convert an object to a string.
 -------------------code----------------------
 __str__(self)
-Defines behavior for when str() is called on an instance of your class.
+Defines behavior for when str() is called on an instance of our class.
 -------------------code----------------------
 
 - how it works. So back to our code, we have this point
@@ -655,3 +655,116 @@ print(str(point))
 - init and stir are examples of two useful magic methods
 in python, over the next few lectures we're going to learn about
 other useful magic methods.
+
+
+*** 7- Comparing Objects ***
+- There are times that we need to compare two objects.
+For example, here we have this point object. If we define
+another point object with the exact same values.
+-------------------code----------------------
+point = Point(1, 2)
+other = Point(1, 2)
+
+print(point == other)
+# False
+-------------------code----------------------
+
+- We get false. What's going on here?
+The reason we get false is that by default this equality
+operator compares the references or addresses of these two objects in memory.
+
+- In this case, these two variables are referencing
+two different objects in memory and that's why they're not equal.
+
+- To solve this problem, we need a magic
+method. That magic method is called when we compare two objects. So back to this page.
+Here we have comparison magic methods.
+
+- in the previous lesson we check this site . we can look to methods we have for comparing two objects.
+
+-------------------code----------------------
+https://rszalski.github.io/magicmethods/
+-------------------code----------------------
+
+- For example, we have eq for testing equality
+we also have ne which is short for not equal we have lt which is short for less than
+greater than and so on.
+-------------------code----------------------
+__eq__(self, other)
+Defines behavior for the equality operator, ==.
+__ne__(self, other)
+Defines behavior for the inequality operator, !=.
+__lt__(self, other)
+Defines behavior for the less-than operator, <.
+__gt__(self, other)
+Defines behavior for the greater-than operator, >.
+__le__(self, other)
+Defines behavior for the less-than-or-equal-to operator, <=.
+__ge__(self, other)
+Defines behavior for the greater-than-or-equal-to operator, >=.
+-------------------code----------------------
+
+- back to our point class, we need to define
+eq magic method. on that page we can see that this method requires two parameters
+self and other.
+-------------------code----------------------
+def __eq__(self, other):
+-------------------code----------------------
+
+- Now in this method we need to return true
+if these two objects are equal, otherwise false.
+So we can write an expression like this.
+self.x equals other.x
+and self.y equals other.y
+so if this expression is evaluated to true
+these two objects are considered equal.
+-------------------code----------------------
+def __gt__(self, other):
+    return self.x > other.x and self.y > other.y
+-------------------code----------------------        
+
+
+- now we retest our comparison
+-------------------code----------------------
+point = Point(1, 2)
+other = Point(1, 2)
+
+print(point == other)
+# True
+-------------------code----------------------
+
+- Now what if we want to compare these two point objects like this?
+If point is greater than other.
+-------------------code----------------------
+print(point > other)
+# TypeError: '>' not supported between instances of 'Point' and 'Point'
+-------------------code----------------------
+
+- we get a type error because the greater than operator is not supported
+between instances of the point class.
+So, to solve this problem we need to define another magic method
+so define gt which is short for greater than once again we add two parameters
+self and other
+-------------------code----------------------
+def __gt__(self, other):
+    return self.x > other.x and self.y > other.y
+-------------------code----------------------
+
+- and we test our comparison.
+-------------------code----------------------
+point = Point(10, 20)
+other = Point(1, 2)
+
+print(point > other)
+# True
+-------------------code----------------------
+
+-  what if we change this to less than
+run the program we get false.
+-------------------code----------------------
+print(point < other)
+# False
+-------------------code----------------------
+so as we see we don't have to explicitly implement each of these operators
+when we implement the greater than magic method Python would automatically figure out
+what to do if we use the less than operator

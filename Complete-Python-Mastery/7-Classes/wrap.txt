@@ -303,3 +303,143 @@ the current point object that we're working with.
 
 2- When calling methods of an object, we never have to supply a value
 for this parameter, python interpreter does that for us.
+
+
+*** 4- Class vs Instance Attributes ***
+
+So in the last lecture we defined two attributes for our point
+objects in the constructor of the point class.
+-------------------code----------------------
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def draw(self):
+        print(f"Point ({self.x}, {self.y})")
+
+
+point = Point(1, 2)
+-------------------code----------------------
+
+
+- So now, whenever we create a new point object, this point object
+will have these attributes by default. 
+
+- We can also define an attribute after we create a point object, so here we can set
+point.z to 10, because objects in python are dynamic, similar to java script.
+-------------------code----------------------
+point.z = 10
+-------------------code----------------------
+- So we don't have to define all the attributes in a constructor. We can define them later whenever we need them.
+
+- Now here's what is important for we to understand. All these
+attributes we have defined so far, x, y, and z,
+these are instance attributes.
+
+- In other words, these are attributes that belong to point instances or
+point objects. So every point object can have different values
+for these attributes. 
+
+- Here's an example. We have one point object with these
+values, we can create another point object
+with different set of values.
+-------------------code----------------------
+another = Point(3, 4)
+another.draw()
+# Point (3, 4)
+-------------------code----------------------
+
+- When we run this, we can see we have two point objects
+and these are completely independent independent of each other.
+Each point has its own attributes, just like John
+and Mary can have different eye colors.
+-------------------code----------------------
+point = Point(1, 2)
+point.draw()
+# Point (1, 2)
+
+another = Point(3, 4)
+another.draw()
+# Point (3, 4)
+-------------------code----------------------
+
+- So these are instance attributes. But we can also
+define class attributes, and these are attributes that we define
+at the class level, and they are the same across
+all instances of a class.
+
+
+-  we can say all humans have two eyes and two ears,
+so these are the attributes that we define at the class level,
+and they are shared by all instances.
+
+- So, back to our point example, we can define a class level attribute
+in the body of this class.
+-------------------code----------------------
+class Point:
+    default_color = "red"
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def draw(self):
+        print(f"Point ({self.x}, {self.y})")
+-------------------code----------------------
+
+
+- So now we have a class level attribute, and we can
+read this via a class reference or an object reference.
+
+
+- We can use this object reference to get access to
+the default color attribute, and then print it.
+-------------------code----------------------
+print(point.default_color)
+# red
+-------------------code----------------------
+
+- But we can also use the point class to get access
+to this attribute. 
+-------------------code----------------------
+print(Point.default_color)
+# red
+-------------------code----------------------
+
+
+- Now as we told before, class attributes are shared across all
+instances of a class.
+-------------------code----------------------
+print(point.default_color)
+# red
+print(another.default_color)
+# red
+print(Point.default_color)
+# red
+-------------------code----------------------
+
+now if we change default_color  color to, let's say,
+yellow. Note that we using a class reference "Point", so we not working with any point
+objects, we working with the point class. Now,
+when we run this program, we can see that the default color of
+this point object is changed to yellow. 
+-------------------code----------------------
+Point.default_color = "Yellow"
+print(point.default_color)
+# Yellow
+print(another.default_color)
+# Yellow
+print(Point.default_color)
+# Yellow
+-------------------code----------------------
+
+
+- So, class level attributes are shared
+across all instances of a class. If we change their value,
+the change is visible to all objects of that type.
+
+- Now, in practical terms, we will be using
+instance attributes most of the time, but there are times
+that we may want to define a class variable attribute that is shared
+across all objects of a given type.

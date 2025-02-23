@@ -555,3 +555,103 @@ zero_point = Point.zero()
 zero_point.draw()
 # Point (0, 0)
 -------------------code----------------------
+
+*** 6- Magic Methods ***
+
+- Throughout this course we've mentioned magic methods a few times. These are the
+methods that have two underscores at the beginning and end of their name
+and they're called automatically by python interpreter
+depending on how we use our objects and classes.
+
+
+- For example, here we
+have this init magic method, we don't directly call it, it's called
+automatically by python interpreter when we create
+a new point object. 
+-------------------code----------------------
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def draw(self):
+        print(f"Point ({self.x}, {self.y})")
+
+
+point = Point(1, 2)
+-------------------code----------------------
+
+
+- Now we have quite a few magic methods in python
+over the next few lectures we're going to learn about the key ones. But if we want
+to see the complete list, simply search for python 3 magic methods. 
+-------------------code----------------------
+python3 magic methods
+-------------------code----------------------
+
+- we a guide to python's magic methods. On this page we can see various magic methods in different categories with examples.
+For example, look at the category of representing our classes.
+-------------------code----------------------
+https://rszalski.github.io/magicmethods/
+-------------------code----------------------
+
+- These are the magic methods that we have in this
+category. The first one, "___str__", is a really useful one,
+and this is called when we try to convert an object to a string.
+-------------------code----------------------
+__str__(self)
+Defines behavior for when str() is called on an instance of your class.
+-------------------code----------------------
+
+- how it works. So back to our code, we have this point
+object. If we print this on the terminal,
+see what we get?
+We get the name of our module, followed by the class name,
+and the address of this point object in memory.
+-------------------code----------------------
+print(point)
+# <__main__.Point object at 0x100656900>
+-------------------code----------------------
+
+- This is the default implementation of the stir magic method
+in our point object.
+So, if we type point. , we can see all magic methods that are available in our
+point object, we didn't explicitly create these methods, our point object
+inherited them from another object.
+-------------------code----------------------
+point.
+-------------------code----------------------
+
+- This is what we call "inheritance," and we're going to learn about that soon.
+
+- Now in this list, we can see we have this __str__ method.
+So by default, this returns the name of the class of this object
+followed by its memory address. Now let's re-implement this method
+to get a better result.
+
+- let's define this str method,
+underscore, str to underscore. Now just like before,
+the first parameter should be self. Now here we should simply return a string representation
+of this point object.
+-------------------code----------------------
+def __str__(self):
+        return f"({self.x}, {self.y})"
+-------------------code----------------------
+
+- Now, this point object, this is what we get. This is very useful.
+-------------------code----------------------
+point = Point(1, 2)
+print(point)
+# (1, 2)
+-------------------code----------------------
+
+- We get the same result, if we also try to convert a point object to a string
+using the stir function.
+-------------------code----------------------
+print(str(point))
+# (1, 2)
+-------------------code----------------------
+
+- init and stir are examples of two useful magic methods
+in python, over the next few lectures we're going to learn about
+other useful magic methods.

@@ -443,3 +443,115 @@ the change is visible to all objects of that type.
 instance attributes most of the time, but there are times
 that we may want to define a class variable attribute that is shared
 across all objects of a given type.
+
+*** 5- Class vs Instance Methods ***
+- In the last lecture we learned about instance versus class attributes. 
+We have the same concept around the methods that we define
+in a class. 
+
+- So we have instance method as well as class methods.
+In this example, both these methods that we have defined in the point class
+are instance methods, so we can call them using an instance of the point class,
+using an object.
+-------------------code----------------------
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def draw(self):
+        print(f"Point ({self.x}, {self.y})")
+-------------------code----------------------
+
+- Generally speaking, we use these instance methods whenever we need an object reference.
+For example, when drawing a point, we really need to work with a specific point object.
+That is why this draw method is defined as an instance method.
+
+- But there are times that we don't really need an existing object, and that's when we use a class
+method. For example, let's say in our program, there
+are a lot of cases where we want to create a point with these initial
+values. 0 and 0. This is one way to create a point object and that's perfectly fine, but we can
+come up with a different way to create a point object with these values.
+Like this.
+
+- so note that we're using a class reference. In this
+case, zero() is a method that is defined at the class level,
+and when we call it, it will return a point object initialized with (0, 0).
+-------------------code----------------------
+point = Point(0, 0)
+Point.zero()
+-------------------code----------------------
+
+-  So we can get this point object and assign it to this point variable.
+-------------------code----------------------
+point = Point.zero()
+-------------------code----------------------
+
+- Now in this example, we refer to this zero method as a factory
+method. Because it's like a factory, it creates a new object.
+
+- Now this example is pretty basic, creating a zero point
+with these initial values is not a big deal.
+
+- But there are times that initializing an object can be pretty complex.
+So every time we want to create an object of a given type, we might
+have to pass some magical values here, and we might have to repeat these in several places in our
+program.
+-------------------code----------------------
+Point(0, 0, 1, "a")
+-------------------code----------------------
+ 
+- In that case, instead of passing all these magical
+values to create an object, we can define a factory method that will return
+an object with these values, and this way we can move this complexity
+of creating this object into that factory method.
+
+
+
+- how we can define a method at the class level.
+So, back to our point class, we define
+a method, call it zero, and call its first parameter
+CLS, which is short for class. Again, this is
+purely convention, we can call this anything, but by convention,
+whenever we define a class method, we call its first parameter
+CLS. And as we can guess, this is a reference to the class
+itself, so here we are not working with a point object or a point
+instance.
+-------------------code----------------------
+def zero(cls):
+-------------------code----------------------
+
+- Now, to make this method a class method, we need to decorate
+it with something like "@classmethod" method. This is what we call a "decorator",
+and it's a way to extend the behavior of a method or a function.
+
+- We'll look at decorators and how they work internally later in this section.
+So, this is all we have to do to create a class
+method in python. Now, in this class method we have a reference to our class,
+so with that we can create a point object with initial
+values.
+-------------------code----------------------
+@classmethod
+def zero(cls):
+    return cls(0, 0)
+-------------------code----------------------
+
+- So we call CLS and give it these
+initial values. This is exactly like calling Point.zero
+and zero. The difference is that if we use CLS, at runtime when we call the zero method,
+python interpreter will automatically pass a reference to the
+point class to the zero method.
+-------------------code----------------------
+@classmethod
+    def zero(cls):
+        # same as Point(0, 0)
+        return cls(0, 0)
+-------------------code----------------------
+
+- So, we create a zero_point object and then
+return it. now we get a point with these initial values.
+-------------------code----------------------
+zero_point = Point.zero()
+zero_point.draw()
+# Point (0, 0)
+-------------------code----------------------

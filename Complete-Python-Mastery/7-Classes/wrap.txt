@@ -1,0 +1,82 @@
+*** 1- Classes ***
+
+- In this section, we're going to look at classes which are extremely important in Python programming,
+or in programming in general. 
+
+- So let's start with an example.
+we're going to define a list of numbers like this.
+-------------------code----------------------
+numbers = [1, 2]
+-------------------code----------------------
+
+- Now, we have learned that when we use the dot notation,
+we get access to all these functions, or more accurately,
+methods in list objects. 
+- So every list object in Python has these methods.
+-------------------code----------------------
+numbers = [1, 2]
+numbers.
+-------------------code----------------------
+
+
+
+- Now, wouldn't that be nice if we could create an object like shopping cart,
+and this object would have methods like add, remove, get total, like this. 
+-------------------code----------------------
+shopping_cart.add()
+shopping_cart.remove()
+shopping_cart.get_total()
+-------------------code----------------------
+
+- Or as another example,
+wouldn't that be nice if we could have a point object with methods like draw,
+move, or get distance,
+to get the distance between this point and another point.
+-------------------code----------------------
+point.draw()
+point.move()
+point.get_distance(1, 2)
+-------------------code----------------------
+
+- That's when classes come to the rescue.
+So a class is a blueprint for creating new objects. Throughout the course, 
+we have heard the term class.
+
+- For example, let's define a variable and set it to an integer,
+and then print its type.
+When we run this program, what do we see here?
+A class of int. So in Python,
+we have a class called int for creating integers.
+-------------------code----------------------
+x = 1
+print(type(x))
+
+# <class 'int'>
+-------------------code----------------------
+
+
+- Similarly, we have classes for creating booleans, lists, dictionaries, and so on.
+So every object that we have in Python is created using a class
+which is a blueprint for creating objects of that type.
+
+- In this section, we're going to learn how to create custom classes,
+like customer, shopping cart, point, and so on.
+
+
+- Now, before we get started, let's define a few terms.
+Once again, a class is a blueprint for creating new objects.
+An object is an instance of a class. As an example, we could have a class called human,
+and this class would define all the attributes of humans.
+Then we could create objects, like John, Mary, Jack, and so on.
+-------------------code----------------------
+# Class: blueprint for creating new objects
+# Object: instance of a class
+
+# Class: Human
+# Objects: John, Mary, Jack, and ....
+-------------------code----------------------
+
+- So this is the difference between classes and objects.
+Now a lot of people use these terms interchangeably,
+but technically, a class and an object are different. 
+

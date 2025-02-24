@@ -1188,3 +1188,344 @@ These private members are still accessible from the outside.
 
 - Using double underscores is more of a convention
 to prevent accidental access to prevent accidental access of these private members.
+
+*** 11- Properties ***
+
+- There are times that we want to have control over an attribute in a class.
+For example, here we have this product class, in the constructor
+we set the price attribute.
+-------------------code---------------------- 
+class Product:
+
+    def __init__(self, price):
+        self.price = price
+-------------------code---------------------- 
+
+
+- With this implementation, we can create a product object, and give it a
+negative price. And python interpreter will execute this
+without any problems. 
+-------------------code---------------------- 
+class Product:
+
+    def __init__(self, price):
+        self.price = price
+
+    def __str__(self):
+        return f"{self.price}"
+
+
+product = Product(-50)
+print(product)
+# -50
+-------------------code---------------------- 
+
+
+- This is not good. So how can we prevent
+this? How can we ensure that our products don't have a negative price?
+Here's one simple solution. We can make this field private, and then define two methods for getting and
+setting the value of this attribute.
+-------------------code---------------------- 
+class Product1:
+
+    def __init__(self, price):
+        # self.__price = price
+
+    def __str__(self):
+        return f"{self.__price}"
+-------------------code---------------------- 
+
+- So, we define a method called get underline price,
+here we simply return self.price.
+-------------------code---------------------- 
+def get_price(self):
+    return self.__price
+-------------------code---------------------- 
+
+ and similarly we define
+set underline price, that takes a value, now here first we check
+if value is less than zero, we can raise
+an exception of type value error, saying price
+cannot be negative.Otherwise, we set self that price to this new value.
+-------------------code---------------------- 
+def set_price(self, value):
+    if value < 0:
+        raise ValueError("Price can't be negative")
+    self.__price = value
+-------------------code---------------------- 
+
+- Now in another implementation, instead of raising this exception,
+we could just ignore setting the value
+if it's negative.
+-------------------code---------------------- 
+def set_price(self, value):
+    if value < 0:
+        value = -(value)
+    self.__price = value
+-------------------code---------------------- 
+
+- but for this demo we will use the raise. Now with these two methods in place,
+we go back to our constructor, instead of directly setting the price
+attribute, we call self.setPrice and give it this
+initial value. When we run this program, our data validation
+logic is going to kick in, and it will throw an exception.
+-------------------code---------------------- 
+class Product1:
+    def __init__(self, price):
+        self.set_price(price)
+-------------------code---------------------- 
+ 
+
+-  we test our implementation until this point.
+-------------------code---------------------- 
+class Product1:
+
+    def __init__(self, price):
+        self.set_price(price)
+
+    def __str__(self):
+        return f"{self.__price}"
+
+    def get_price(self):
+        return self.__price
+
+    def set_price(self, value):
+        if value < 0:
+            value = -(value)
+        self.__price = value
+
+
+product = Product1(-50)
+print(product)
+
+# raise ValueError("Price can't be negative")
+# ValueError: Price can't be negative
+-------------------code---------------------- 
+
+- So this was a simple solution, but it's kind of ugly. It's what we
+consider unpythonic.
+
+- Pythonic is one of those expressions that
+we hear a lot in the python community. When we say this code or this
+implementation is not pythonic, that means it's not using python's
+best practices. It's not using the python language features to the fullest potential. 
+This implementation is the kind of code that a java programmer learning python writes.
+
+
+- But in python, we have a better way to achieve the same result.
+That's when we use a property. A property is an object that sits in front of an attribute, and
+allows us to get or set the value
+of that attribute.
+
+- how to define a property here. So, in our product class,
+after we define these two methods,
+we define a class attribute
+with the ideal name. In that case, we want to call that
+price. Here we call the built-in property function. This function takes four parameters
+and all these parameters are optional.
+
+
+- The first parameter is a function for getting the value of an
+attribute. The second parameter is a function for setting the value of that attribute. The third parameter
+is a function for deleting that attribute.
+And the last parameter is for documentation.
+
+- In this case, we need to supply two arguments. The first one is going to be
+get price, and the second is going to be set price.
+-------------------code---------------------- 
+class Product2:
+
+    def __init__(self, price):
+        self.set_price(price)
+
+    def __str__(self):
+        return f"{self.__price}"
+
+    def get_price(self):
+        return self.__price
+
+    def set_price(self, value):
+        if value < 0:
+            raise ValueError("Price can't be negative")
+        self.__price = value
+
+    price = property(get_price, set_price)
+-------------------code---------------------- 
+
+- Note that we're not calling these methods, we're simply passing a
+reference to them. So when we call the built-in property function,
+with these arguments, this function will return a property object,
+that property object will use this function for reading
+the value of the price attribute.
+
+- Now, by adding this line,
+we can come back to our product. Let's set the initial price to
+10. Here, when we use the dot operator, we can see we have
+this price property and we can use it like a regular field. 
+-------------------code---------------------- 
+product = Product2(10)
+print(product.price)
+# 10
+-------------------code---------------------- 
+
+- and also we can set it but if we set it to a negative
+value, this will throw an exception. Let's run our program, value error.
+-------------------code---------------------- 
+product = Product2(10)
+product.price = -1
+print(product.price)
+# raise ValueError("Price can't be negative")
+# ValueError: Price can't be negative
+-------------------code---------------------- 
+
+- So a property looks like a regular attribute from the outside,
+but internally it has two methods that we call a getter and a setter.
+
+- Now, while this price property solved our problem,
+the two methods that we wrote are still accessible, so, if we type product dot,
+we can see we have get price and set price methods.
+-------------------code---------------------- 
+product.get_price
+product.set_price
+-------------------code---------------------- 
+
+-  These methods are polluting the interface of our object.
+As a metaphor, think of a remote control with 50 buttons.
+Nobody likes that kind of remote control, it's so confusing. It's much better to have
+a remote control with few buttons that can do a lot. We want our
+objects or our classes to be the same.
+We want them to have minimal number of functions or methods exposed to the outside.
+
+
+- So, to hide these, one solution, is to come
+back, and make them private, but again
+this adds extra noise in our code.
+-------------------code---------------------- 
+def __get_price(self):
+-------------------code---------------------- 
+
+- There is a better, shorter, and cleaner way to achieve the same result.
+We can use a decorator.
+PS: Earlier we used a decorator, called class method, to convert an
+instance method to a class method.
+
+- We have another decorator for creating a property.
+So, instead of explicitly calling the property function
+to create a property object, we can apply the property
+decorator to this method, then, we rename this method to the ideal name.
+
+- In this case we want to call it price.
+When python interpreter sees this code, it will automatically create
+a property object called price.
+-------------------code---------------------- 
+@property
+    def price(self):
+        return self.__price
+-------------------code---------------------- 
+ 
+- Now similarly, we need to apply another decorator
+to this method. The name of that decorator starts with the name of our property, in this case
+price, and then dot setter.
+-------------------code---------------------- 
+@price.setter
+    def price(self, value):
+        if value < 0:
+            raise ValueError("Price can't be negative")
+        self.__price = value
+-------------------code---------------------- 
+
+- Also, similarly we need to rename this method to price.
+So our implementation is cleaner, it's less noisy, we don't have that get
+underline and set underline, this is much better.
+Now, how this works internally is a little bit complicated,
+and we're going to look at that later in the future.
+
+- For now, all we need to take away is that with these two decorators,
+we can easily create a property.
+
+- Now there is one more place that we need to
+modify here, and that is our constructor, because we
+no longer have set price, but the good thing is that we can use
+our price property like a regular attribute. So we set
+self.price to price.
+-------------------code---------------------- 
+def __init__(self, price):
+    self.price = price
+-------------------code---------------------- 
+
+- With this new implementation, if we try to create a
+product with a negative price, our code will throw an exception.
+-------------------code---------------------- 
+class Product3:
+
+    def __init__(self, price):
+        self.price = price
+
+    def __str__(self):
+        return f"{self.__price}"
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        if value < 0:
+            raise ValueError("Price can't be negative")
+        self.__price = value
+
+
+product = Product3(-10)
+print(product.price)
+# raise ValueError("Price can't be negative")
+# ValueError: Price can't be negative
+-------------------code---------------------- 
+
+-  When defining properties, we don't always have to define a getter
+and a setter.
+
+-  In this case, if we comment out these few lines, we'll have a read
+only property, so we can only read the value of this price.
+-------------------code---------------------- 
+class Product3:
+
+    def __init__(self, price):
+        self.price = price
+
+    def __str__(self):
+        return f"{self.__price}"
+
+    # def __get_price(self):
+    @property
+    def price(self):
+        return self.__price
+
+    # @price.setter
+    # def price(self, value):
+    #     if value < 0:
+    #         raise ValueError("Price can't be negative")
+    #     self.__price = value
+
+-------------------code---------------------- 
+
+
+
+-  Once we set it, we cannot change it. So we can initially set it to, let's
+say 10.
+-------------------code---------------------- 
+product = Product3(10)
+print(product.price)
+# 10
+-------------------code---------------------- 
+
+
+- but if we try to update it later, we'll get an exception.
+So if we set product.price to 2, and run this program, we get an attribute error,
+because we can't set that attribute. So this is all about
+properties.
+-------------------code---------------------- 
+product = Product3(-10)
+product.price = 2
+print(product.price)
+# AttributeError: property 'price' of 'Product3' object has no setter
+-------------------code---------------------- 

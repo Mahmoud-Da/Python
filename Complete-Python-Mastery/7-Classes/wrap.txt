@@ -1743,3 +1743,169 @@ because mammal indirectly derives or inherits from the object class.
 print(issubclass(Animal, object))
 # True
 -------------------code---------------------- 
+
+*** 14- Method Overriding ***
+- In this example our animal class has this constructor where we initialize
+the age attribute to 1.
+-------------------code---------------------- 
+class Animal1:
+    def __init__(self):
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+
+class Mammal1(Animal1):
+
+    def walk(self):
+        print("walk")
+-------------------code---------------------- 
+
+- What if we want to add a
+constructor to the mammal class and initialize its weight.
+-------------------code---------------------- 
+class Animal1:
+    def __init__(self):
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+
+
+class Mammal1(Animal1):
+    def __init__(self):
+        self.wight = 2
+
+    def walk(self):
+        print("walk")
+-------------------code---------------------- 
+
+- now let's see the age and wight of the object of Mammal.
+-------------------code---------------------- 
+m = Mammal1()
+# print(m.age)
+AttributeError: 'Mammal' object has no attribute 'age'
+print(m.wight)
+# 2
+-------------------code---------------------- 
+
+- we got an attribute error, because mammal object has no attribute age.
+The reason this happened was because this constructor in the animal class was not
+executed. In other words, this constructor that we defined in the mammal class replaced
+the constructor in the base class. This is what we call method
+overriding.
+
+- So we are overriding or replacing a
+method in the base class. Now, what if we still want to execute
+this constructor and initialize
+the age of an animal? Here in the constructor of the mammal class, we can use the
+built-in super function. to get access to the super or base class, which is in this case
+animal.
+
+- So we have an access to the animal class, dot now we can call any of the
+methods in this class. So let's go ahead and call the
+init method.
+-------------------code---------------------- 
+class Animal2:
+    def __init__(self):
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+
+
+class Mammal2(Animal2):
+    def __init__(self):
+        super().__init__()
+        self.wight = 2
+
+    def walk(self):
+        print("walk")
+-------------------code---------------------- 
+
+
+
+-  Now to see the execution flow, we
+are going to add a print statement here and print mammal constructor
+Similarly, here in the constructor of the animal, we going to print
+animal constructor.
+-------------------code---------------------- 
+class Animal2:
+    def __init__(self):
+        print("Animal Constructor")
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+
+
+class Mammal2(Animal2):
+    def __init__(self):
+        super().__init__()
+        print("Mammal Constructor")
+        self.wight = 2
+
+    def walk(self):
+        print("walk")
+-------------------code---------------------- 
+
+
+- now we test our code first the constructor of the animal
+was called, so here we set the age to 1, then
+the constructor of the mammal was called, where we set the weight to 2, and finally we print
+1 and 2, which are the results of these two statements.
+-------------------code---------------------- 
+m = Mammal2()
+print(m.age)
+print(m.wight)
+# Animal Constructor
+# Mammal Constructor
+# 1
+# 2
+-------------------code---------------------- 
+
+- Now we can also change the order of these method calls.
+So we can call the constructor of the animal after we initialize a mammal object. 
+
+- So here in the mammal class, instead of calling super.init first we're going to do it after
+we do all the basic work in the mammal constructor. Let's
+save the changes and run the program.
+
+- as we can see, the constructor of mammal was called first, and then
+we have the constructor of the animal.
+-------------------code---------------------- 
+class Animal:
+    def __init__(self):
+        print("Animal Constructor")
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+
+
+class Mammal(Animal):
+    def __init__(self):
+        print("Mammal Constructor")
+        self.wight = 2
+        super().__init__()
+
+    def walk(self):
+        print("walk")
+
+
+m = Mammal()
+print(m.age)
+print(m.wight)
+# Mammal Constructor
+# Animal Constructor
+# 1
+# 2
+-------------------code---------------------- 
+
+- So to recap, method overriding means replacing or extending
+a method defined in the base class. In this implementation
+we're extending the init method that we have defined in the animal class
+because here, we do some work in the constructor of the
+mammal and then we call the constructor of the animal. If we
+didn't have this line here this implementation would completely
+replace the init method in the animal class.

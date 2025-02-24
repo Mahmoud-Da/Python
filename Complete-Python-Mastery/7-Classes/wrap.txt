@@ -1529,3 +1529,131 @@ product.price = 2
 print(product.price)
 # AttributeError: property 'price' of 'Product3' object has no setter
 -------------------code---------------------- 
+
+*** 12- Inheritance  ***
+- As we build various classes, we may notice that some of these classes might have
+one or more features or functions in common.
+
+- Here's an example. we're going to create a class called mammal.
+All mammals should be able to eat, right? So let's define a function
+called eat, and in this function we simply print eat. Now all mammals, as far as we know,
+should be able to walk. So, let's define another method walk, and in this method we print walk.
+-------------------code---------------------- 
+class Mammal1:
+    def eat(self):
+        print("eat")
+
+    def walk(self):
+        print("walk")
+-------------------code---------------------- 
+
+- Now, we're going to duplicate this class.
+Now, let's rename this second class fish. As we know, all fish should be
+able to eat, but fish don't walk, they swim. So, let's change the second method to swim
+as well as this message that we print.
+-------------------code---------------------- 
+class Fish1:
+    def eat(self):
+        print("eat")
+
+    def swim(self):
+        print("swim")
+-------------------code---------------------- 
+
+- Now, what is going on here?
+As we can see, we have repeated or duplicated the eat method
+in both these classes.
+
+- Now in this implementation, our eat method is only a single line of code,
+but in a real world program, we might have a method that is 5 or
+10 lines of code, and we might have repeated that in multiple classes.
+This is bad, because if there is a bug in one of these methods, we have to fix it
+in multiple places.
+
+- Or similarly, if we need to change the behavior of this
+method, then again we have to do it in multiple places. In programming
+we have this concept called "DRY", which stands for "don't repeat yourself".
+ 
+- So, we don't want to repeat ourselves. To solve this problem,
+we have two solutions. We can use inheritance or composition.
+
+- In this lecture, we're going to look at inheritance, and we're going to
+talk about composition later in this section.
+
+- Inheritance is a mechanism that allows us to define the common behavior or common functions
+in one class, and then inherit them in other classes.
+
+- Here's how it works. So, we're going to define a separate class called animal,
+and then move the eat method in this class.
+-------------------code---------------------- 
+class Animal2:
+    def eat(self):
+        print("eat")
+-------------------code---------------------- 
+
+- Now we can see our mammal class is simpler. So, to have it inherit
+the eat method from the animal class, we simply add
+parentheses, and then specify the animal class.
+-------------------code---------------------- 
+class Animal2:
+    def eat(self):
+        print("eat")
+
+
+class Mammal2(Animal2):
+    def walk(self):
+        print("walk")
+
+
+class Fish2(Animal2):
+    def swim(self):
+        print("swim")
+-------------------code---------------------- 
+
+- This is inheritance in action. We say the mammal class
+is an animal, so it inherits all the features or all the methods
+of the animal class.
+
+- In this situation, we refer to the animal class, as the parent or base class,
+and mammal as the child or sub class.
+
+- We get rid of the eat method, and add animal as the base class.
+Now, when we create a mammal object like m, we can see this
+mammal has both the eat and walk methods.
+-------------------code---------------------- 
+m = Mammal2()
+m.eat()
+m.walk()
+# eat
+# walk
+-------------------code---------------------- 
+
+-  Now this inheritance is not limited to
+methods, we can also inherit the attributes of a base class.
+For example, back to our animal class, we're going to define a
+constructor, and in this constructor, let's
+set age to 1.
+-------------------code---------------------- 
+class Animal:
+    def __init__(self):
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+-------------------code---------------------- 
+
+- Now, when we create a mammal object, our mammal object will automatically
+have the age attribute initialized to 1.
+-------------------code---------------------- 
+m = Mammal()
+print(m.age)
+# 1
+-------------------code---------------------- 
+
+
+- Now, in real programs, we don't build animals or mammals or
+fish, unless we're building a game. But we use this as an example,
+because it's easier to understand the relationship between a mammal and
+an animal. Later in this section, we're going to give we a real world example
+of inheritance in our programs.
+

@@ -1657,3 +1657,89 @@ because it's easier to understand the relationship between a mammal and
 an animal. Later in this section, we're going to give we a real world example
 of inheritance in our programs.
 
+
+*** 13- The Object Class  ***
+- So in the last lecture we defined this mammal object, we see
+a couple of useful built in functions.
+
+- We have this function is instance, and it tells us if an object is
+an instance of a given class.
+
+- So if we pass m and mammal here, obviously this m object is
+an instance of mammal, so when we print the result we should see true.
+-------------------code---------------------- 
+class Animal:
+    def __init__(self):
+        self.age = 1
+
+    def eat(self):
+        print("eat")
+
+
+class Mammal(Animal):
+    def walk(self):
+        print("walk")
+
+
+class Fish(Animal):
+    def swim(self):
+        print("swim")
+
+
+m = Mammal()
+print(isinstance(m, Mammal))
+# True
+-------------------code---------------------- 
+
+- What if we pass animal here? Let's run the program, we still get true.
+Because mammal inherits from animal, so an instance
+of the mammal class is also an animal.
+-------------------code---------------------- 
+print(isinstance(m, Animal))
+# True
+-------------------code---------------------- 
+
+- Now This animal class that we defined here inherits from another class called object.
+Even though we didn't add that here.
+-------------------code---------------------- 
+class Animal(object):
+-------------------code---------------------- 
+
+- So we have a class called object, and that is the base class for all
+classes in python. So every class that we have, directly or indirectly derives from the object class.
+
+- Let's see if m is an instance of object.
+So mammal inherits from animal, which inherits from object.
+-------------------code---------------------- 
+print(isinstance(m, object))
+# True
+-------------------code---------------------- 
+
+- We also have this built-in function for creating an empty object.
+Now, if we inspect this object, we can see all these magic methods.
+-------------------code---------------------- 
+o = object()
+o.
+-------------------code---------------------- 
+
+- These are the magic methods that every class in python has.
+So if we type m dot, we can see our mammal class or our mammal object also has these methods.
+Because it inherited them from the base object class.
+-------------------code---------------------- 
+m.
+-------------------code---------------------- 
+
+- We have another built-in function that we might find useful in certain situations.
+And that is, is subclass. And with this we can see if a class derives from another class.
+So let's see if mammal is a subclass of animal.
+-------------------code---------------------- 
+print(issubclass(Mammal, Animal))
+# True
+-------------------code---------------------- 
+
+- Now if we change animal to object, we still get true,
+because mammal indirectly derives or inherits from the object class.
+-------------------code---------------------- 
+print(issubclass(Animal, object))
+# True
+-------------------code---------------------- 

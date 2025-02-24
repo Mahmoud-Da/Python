@@ -844,7 +844,7 @@ print(combined.x)
 
 *** 9- Making Custom Containers ***
 - Earlier in the course, we learned about the common data structures in python.
-You learned about lists, sets, dictionaries, and so on.
+we learned about lists, sets, dictionaries, and so on.
 
 - These data structures, or container types, are pretty useful
 and sufficient for most cases.
@@ -1909,3 +1909,87 @@ because here, we do some work in the constructor of the
 mammal and then we call the constructor of the animal. If we
 didn't have this line here this implementation would completely
 replace the init method in the animal class.
+
+
+*** 15- Multi-level Inheritance ***
+- So we have seen that inheritance is a good thing, it prevents code duplication
+and allows us to reuse code.
+
+- For example, here we have this bird class that inherits from the animal, so it inherits all the
+features of this animal class.
+-------------------code---------------------- 
+class Animal:
+    def eat(self):
+        print("'eat")
+
+
+class Bird(Animal):
+    def fly(self):
+        print("fly")
+-------------------code---------------------- 
+
+-  In this case, we are reusing the eat method here. That's pretty good. However, too much of a good
+thing is a bad thing, and that's very true about inheritance.
+
+- Because too much inheritance between classes can increase complexity
+and introduce various kinds of issues.
+
+- an example. Here we're going to define a class called chicken,
+well, a chicken is a bird, so we can inherit it from the bird class,
+and here we're going to use the pass statement to define an empty class.
+-------------------code---------------------- 
+class Animal:
+    def eat(self):
+        print("'eat")
+
+
+class Bird(Animal):
+    def fly(self):
+        print("fly")
+
+
+class Chicken(Bird):
+    pass
+-------------------code---------------------- 
+
+-PS: So as we've told before, pass is a statement that doesn't do anything.
+ We just use it to make python interpreter happy, because we cannot have a class without anything in it.
+We need to have at least one statement. So here we have the pass class.
+
+
+- But, there is a problem in this code. What is the problem? Well,
+the chicken class inherits all the features of the bird class,
+but a chicken cannot fly. So with this implementation,
+we can create a chicken object, and call the fly method on it.
+So this is an example of inheritance abuse.
+
+- Another example of inheritance abuse is around
+the concept of employees. So, some people say, well,
+an employee is a person, and a person is a
+living creature, which is a thing, blah blah blah.
+-------------------code---------------------- 
+# Employee - Person - LivingCreature - Thing
+-------------------code---------------------- 
+
+- This is what we call multi-level inheritance, which can significantly
+increase the complexity of our software. To tell we a little story,
+in one of my previous jobs, we had this consultant, and he was charging like
+$150 an hour or more.
+
+- And he came up with a huge inheritance hierarchy like this,
+in fact, three times bigger than this. There were so many levels, and he essentially
+tried to model the entire universe.
+This is really, really bad. Just because an employee
+is a person, and a person is a living creature in the real world, doesn't mean we should have
+classes like this in our software.
+
+- The methods we add in our classes are there to solve a business problem.
+That is the focus of our software.
+
+- So just because an animal can eat in the real world, doesn't mean our animal
+class should also have the eat method.
+
+- we got the point, right?
+So this is multi-level inheritance, and we should avoid it at all times. If we want
+to use inheritance, limit it to one or two levels. Going beyond that,
+trust me, we're going to shoot ourself in the foot.

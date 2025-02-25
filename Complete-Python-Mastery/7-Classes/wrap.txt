@@ -2121,3 +2121,152 @@ class Swimmer:
 class FlyingFish(Flyer, Swimmer):
     pass
 -------------------code---------------------- 
+
+
+*** 17- A Good Example of Inheritance ***
+- Now, let's look at a good example of inheritance.
+Let's imagine we want to model the concept of a stream of data.
+
+*********************************************************************************
+what is stream of data?
+A stream of data is a continuous flow of information that can be processed in 
+real-time. Think of it like a water stream: just as water flows from one place to another,
+data flows from one source to a destination.
+
+In computing, a stream can represent various types of data, such as audio, video, or text, 
+and it allows programs to read or write this data in a sequential manner.
+
+This means you can start processing the data as soon as you receive the first part, 
+rather than waiting for the entire dataset to be available.
+
+For example, when you watch a video online, the video is streamed to your device, 
+allowing you to start watching it while the rest of the video is still being downloaded.
+*********************************************************************************
+
+- We can read a stream of data from a file, from a network, or from the memory. All these streams
+have a few things in common. We can open them, we can close them, we can read data
+from them, but how we read data from a stream is dependent
+upon the type of the stream.
+
+- Because reading data from a file is different from reading it from a network. 
+
+- So let's start by defining a base class called stream in this class we're going to define methods like open
+and close.
+-------------------code---------------------- 
+class Stream:
+
+-------------------code---------------------- 
+
+
+- So define open now here let's say we need a flag to know if the stream is
+open or not. So we can define a constructor
+and in this constructor, we can set the opened flag initially to false. 
+-------------------code---------------------- 
+class Stream:
+
+    def __init__(self):
+        self.opened = False
+-------------------code---------------------- 
+
+- When we call the open method we can set opened to true.
+-------------------code---------------------- 
+def open(self):
+        self.opened = True
+-------------------code---------------------- 
+
+- Now what if we try to open a stream that is already open?
+That is an invalid operation. So perhaps we want to raise an exception.
+So we can check if self that opened, we want to raise an exception.
+-------------------code---------------------- 
+def open(self):
+        if self.opened:
+            raise 
+        self.opened = True
+-------------------code---------------------- 
+
+- What kind of exception? Well, we don't want to do a value error because here we're not dealing with a value.
+In this example, we can create a custom exception called invalid operation error. We don't have this in Python.
+In this case, we can create a custom exception called invalid operation error.
+Because we don't have a built-in exception in Python that represents this concept. So on the top, let's create another class, invalid operation error. So by convention, all custom exceptions should end with error. Now we want to derive this from the base exception class in Python. So every time we want to create a custom exception, we want to create a custom exception.
+So every time we want to create a custom exception, we should derive our class from the exception class.
+Now here we don't need any code, so we simply add a pass statement.
+-------------------code---------------------- 
+class InvalidOperationError(Exception):
+    pass
+-------------------code---------------------- 
+
+- Back to our open method, if the stream is already open, we want to raise an invalid operation error, 
+and here we can give a friendly message like stream. is already open.
+-------------------code---------------------- 
+def open(self):
+    if self.opened:
+        raise InvalidOperationError("Stream is already opened")
+    self.opened = True
+-------------------code---------------------- 
+
+- So this is our open method. Now let's define the close method.
+That's going to be very similar, so to save time, we're going to copy
+these few lines, and rename this method to close.
+Now here we want to check, if the stream is already closed, we want to raise an invalid operation error.
+So, if not self.opened, we should raise this exception, 
+and change the error message to stream is already closed. Finally, here we set open to false.
+-------------------code---------------------- 
+def close(self):
+    if not self.opened:
+        raise InvalidOperationError("Stream is already closed")
+    self.opened = False
+-------------------code---------------------- 
+
+- So these are the common features that we need in every stream.
+Now let's go ahead and implement a file stream.
+
+- So we define another class, file stream, which inherits from our stream class.
+Now as we told we before, how we read data from a file is different from how we read it from a network.
+So we're going to define a method called read, and for simplicity let's just print reading data from a file.
+-------------------code---------------------- 
+class FileStream(Stream):
+    def read(self):
+        print("Reading data from a file")
+-------------------code---------------------- 
+
+- Now create a network stream class. Network stream,
+and we should also change the message to reading data from a network.
+-------------------code---------------------- 
+class NetworkStream(Stream):
+    def read(self):
+        print("Reading data from a Network")
+-------------------code---------------------- 
+
+- This is a good example of inheritance. Because first of all, we don't have multi-level inheritance,
+we only have one or two levels depending on how we want to calculate it.
+So we have the stream class on top of our hierarchy, and below that we have two subclasses,
+file and network stream.
+Now it's okay if we add another level of inheritance here, but we shouldn't go beyond that.
+Also as we can see, we don't have multiple inheritance, so our subclasses don't have multiple parents.
+-------------------code---------------------- 
+class Stream:
+
+    def __init__(self):
+        self.opened = False
+
+    def open(self):
+        if self.opened:
+            raise InvalidOperationError("Stream is already opened")
+        self.opened = True
+
+    def close(self):
+        if not self.opened:
+            raise InvalidOperationError("Stream is already closed")
+        self.opened = False
+
+
+class FileStream(Stream):
+    def read(self):
+        print("Reading data from a file")
+
+
+class NetworkStream(Stream):
+    def read(self):
+        print("Reading data from a Network")
+-------------------code----------------------
+ 

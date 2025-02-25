@@ -2442,3 +2442,139 @@ class MemoryStream(Stream):
     def read(self):
         print("Reading data from a memory stream.")
 -------------------code----------------------
+
+
+*** 19- Polymorphism ***
+So in the last lecture we learned about abstract based classes.
+As another example here we have defined an abstract based class called
+UI control.
+-------------------code----------------------
+from abc import ABC, abstractmethod
+
+
+class UIControl(ABC):
+    @abstractmethod
+    def draw(self):
+        pass
+
+
+class TextBox(UIControl):
+    def draw(self):
+        print("TextBox")
+
+
+class DropDownList(UIControl):
+    def draw(self):
+        print("DropDownList")
+-------------------code----------------------
+ 
+- This class has an abstract method called draw and as we can see this method has no
+implementation. So this class only defines the contract or the
+interface that all its derivatives should follow.
+
+ 
+- Now, here we have two classes that derive from
+UI control, one is text box and the other is drop down list.
+Both these classes implement the draw method. Here
+we simply print text box and in the drop down list class
+we print drop down list.
+-------------------code----------------------
+class TextBox(UIControl):
+    def draw(self):
+        print("TextBox")
+
+
+class DropDownList(UIControl):
+    def draw(self):
+        print("DropDownList")
+-------------------code----------------------
+
+- So nothing new so far.
+Now, here we also have a function called draw that takes a UI control object and calls the
+draw method on it.
+-------------------code----------------------
+def draw(control):
+    control.draw()
+-------------------code----------------------
+
+- So with this we can create a drop down list object
+drop down list and pass it to this draw function like this.
+-------------------code----------------------
+ddl = DropDownList()
+draw(ddl)
+-------------------code----------------------
+
+- This should be perfectly fine because the drop down list is an instance of
+the UI control class. To verify this, let's call is instance
+function and pass and pass this DDL object as well as the UI control class.
+-------------------code----------------------
+print(isinstance(ddl, UIControl))
+# True
+-------------------code----------------------
+
+- a drop down list object is an instance of UI control
+and that means wherever we expect a UI control object, we can pass any
+of its derivatives like a text box
+or a drop down list.
+
+- we call the draw function with this DDL object.
+We see a drop down list.
+-------------------code----------------------
+draw(ddl)
+DropDownList
+-------------------code----------------------
+
+- Now what if we pass a text box to this function? 
+So we going to create a text box like this and then pass it
+to this draw function.
+we get text box.
+-------------------code----------------------
+text_box = TextBox()
+draw(text_box)
+# TextBox
+-------------------code----------------------
+
+
+- Now we might ask, what is the point of this?
+Well, let's take this to the next level and make it more interesting.
+we want to change this draw function so instead of getting a control
+object, we wanted to get a list or a tuple of controls.
+
+- So, let's rename the parameter to controls, and 
+we'll use a for loop to iterate over this controls object.
+-------------------code----------------------
+def draw(controls):
+    for control in controls:
+        control.draw()
+-------------------code----------------------
+
+- Now, we're going to pass a list of two objects,
+a drop down list, and a text box. 
+-------------------code----------------------
+draw([ddl, text_box])
+# DropDownList
+# TextBox
+-------------------code----------------------
+
+- we get two messages drop down list and text box.
+So using this approach, we can render the user interface
+of an application. 
+
+- Imagine we have a form with a bunch of text boxes,
+drop down lists, radio buttons, and so on. We could have a list of all
+these objects, and pass that list to a function like draw,
+and that function would take care of rendering
+the entire form. 
+
+- What is interesting here, is that our draw function
+doesn't know what kind of control it's working with. This is determined
+at runtime. It simply iterates over the list of controls, and
+calls the draw method of each control object.
+
+- This is what we call "polymorphism".
+Poly means many, morph means form. So polymorphism
+means many forms. In this example, our draw method
+is taking many different forms, and this
+is determined at runtime. We could be calling the draw method on a text box,
+or a drop down list, or a radio button,
+and so on. So this is the classic example of polymorphism.

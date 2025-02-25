@@ -1993,3 +1993,131 @@ class should also have the eat method.
 So this is multi-level inheritance, and we should avoid it at all times. If we want
 to use inheritance, limit it to one or two levels. Going beyond that,
 trust me, we're going to shoot ourself in the foot.
+
+
+*** 16- Multiple Inheritance ***
+- In Python a class can have multiple base classes, so here we have this
+manager class that has two base classes, employee, and
+person. This is what we call multiple inheritance, and similar
+to multi-level inheritance, it's a source of issues.
+-------------------code----------------------
+class EmployeeA:
+    pass
+
+
+class PersonA:
+    pass
+
+
+class ManagerA(EmployeeA, PersonA):
+    pass
+-------------------code---------------------- 
+
+- If we don't use it properly, we're going to introduce all sorts of bugs in our programs.
+
+- Let's take a look at an example. So, in this employee
+class, we have a greet method, and in this method we simply print
+employee greet. Our person class also has the exact same method, 
+but here we print a different message.
+-------------------code---------------------- 
+class Employee:
+    def greet(self):
+        print("Employee Greet")
+
+
+class Person:
+    def greet(self):
+        print("Person Greet")
+
+
+class Manager(Employee, Person):
+    pass
+-------------------code---------------------- 
+
+- Now, our manager class currently has no implementation,
+it simply inherits all the features of the person and employee classes.
+Now, let's see what happens when we create a manager object
+and call the greet method. Which greet method do we think is going to get called?
+-------------------code---------------------- 
+manger = Manager()
+manger.greet()
+# Employee Greet
+-------------------code---------------------- 
+
+
+- We get employee greet, because we added the employee class first.
+So when Python interpreter tries to execute this line,
+-------------------code---------------------- 
+class Manager(Employee, Person):
+-------------------code---------------------- 
+
+- first, it looks at the manager class to see if it has a method called
+greet. If it doesn't, it will look at its first base class.
+Does the employee have a greet
+method?  If the employee class doesn't have the greet method, then
+it will look at the person class.
+
+- So why is this an issue? Because if tomorrow another programmer joins our team,
+and for whatever reason they decide to change the order of these
+base classes, our program will have a different behavior. So if
+they move this person class over here, and run the program,
+now, we get a different output.
+-------------------code---------------------- 
+class Manager(Person, Employee):
+    pass
+-------------------code---------------------- 
+
+- So similar to multi level inheritance, multiple inheritance
+can create all sorts of issues in our programs, we will end up with
+classes that inherit features that they shouldn't, like a chicken that flies.
+
+- So if multiple inheritance is a bad thing, why does python
+support it? Well, multiple inheritance is not always a bad thing.
+It's bad if we don't use it properly. 
+
+- If these classes that we have, they're small classes,
+and they have absolutely nothing in common, and we want to inherit their
+features in a separate class, that's perfectly fine to use multiple inheritance.
+Things start to get complicated when these classes have things in
+common, like the greet method.
+
+- a good example of multiple inheritance.
+Here we could have a class called flyer,
+it's any object that knows how to fly. So let's
+add fly here.
+-------------------code---------------------- 
+class Flyer:
+    def fly(self):
+        pass
+-------------------code---------------------- 
+
+- So it's a very simple abstract concept.
+Similarly, we could have another class called swimmer.
+It's an object that knows how to swim.
+-------------------code---------------------- 
+class Swimmer:
+    def swim(self):
+        pass
+-------------------code---------------------- 
+
+-  Now, as we see, these two classes
+are very small and abstract, they have nothing in common.
+Now we can combine the features of these two classes, so we can create
+a flying fish, that knows how to fly and how to swim.
+So it's a flyer, and also a swimmer.
+This is a good example of multiple inheritance.
+
+-------------------code---------------------- 
+class Flyer:
+    def fly(self):
+        pass
+
+
+class Swimmer:
+    def swim(self):
+        pass
+
+
+class FlyingFish(Flyer, Swimmer):
+    pass
+-------------------code---------------------- 

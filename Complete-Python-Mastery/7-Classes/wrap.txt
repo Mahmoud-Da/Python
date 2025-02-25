@@ -2136,11 +2136,11 @@ data flows from one source to a destination.
 In computing, a stream can represent various types of data, such as audio, video, or text, 
 and it allows programs to read or write this data in a sequential manner.
 
-This means you can start processing the data as soon as you receive the first part, 
+This means we can start processing the data as soon as we receive the first part, 
 rather than waiting for the entire dataset to be available.
 
-For example, when you watch a video online, the video is streamed to your device, 
-allowing you to start watching it while the rest of the video is still being downloaded.
+For example, when we watch a video online, the video is streamed to our device, 
+allowing we to start watching it while the rest of the video is still being downloaded.
 *********************************************************************************
 
 - We can read a stream of data from a file, from a network, or from the memory. All these streams
@@ -2269,4 +2269,176 @@ class NetworkStream(Stream):
     def read(self):
         print("Reading data from a Network")
 -------------------code----------------------
+
+
+*** 18- Abstract Base Classes ***
+
+- We're going to continue with the example from the last lecture. There are a couple of
+issues with this implementation. The first issue is that we can create 
+a stream object and call the open method.
+-------------------code----------------------
+class InvalidOperationError(Exception):
+    pass
+
+
+class Stream:
+
+    def __init__(self):
+        self.opened = False
+
+    def open(self):
+        if self.opened:
+            raise InvalidOperationError("Stream is already opened")
+        self.opened = True
+
+    def close(self):
+        if not self.opened:
+            raise InvalidOperationError("Stream is already closed")
+        self.opened = False
+
+
+class FileStream(Stream):
+    def read(self):
+        print("Reading data from a file")
+
+
+class NetworkStream(Stream):
+    def read(self):
+        print("Reading data from a Network")
+
+
+stream = Stream()
+stream.open()
+-------------------code----------------------
+
+- Why is this an issue? Because this stream class is an abstract
+concept. What does it mean to open a stream? Are we working with
+a file stream here? A network stream? What kind of stream? So we shouldn't be able
+to directly create an instance of the stream class.
+We should always subclass it and then create an instance
+of the subclass. 
+
+- That is the first issue. So we only created
+this stream class as a base class to provide some
+code that we're going to reuse across different kinds of streams.
+This is the first issue. 
+
+- Now the second issue. If we look at the implementation of file stream and
+network stream classes, we can see both these classes
+have a read method. If tomorrow we decide to create a different kind of stream,
+we should remember to implement this read method and call it exactly read. If we call it read
+line or read str or read whatever, it's not going to be
+consistent with the other kinds of streams that we have here. In other
+words, currently there is no way to enforce a common interface across different kinds
+of streams.
+
+- This is more of a convention we have used here. It would be nice
+to have a common contract or a common interface across these different types of streams.
+
+- So how can we solve these problems?
+That's when we use an abstract base class. An abstract
+base class is like a half-baked cookie. It's not ready to be eaten,
+it's half-baked, it's half-cooked. It's purpose is to provide some
+common code to its derivatives.
+
+- So here we want to make this stream class an abstract base class.
+To do that we go on the top and from abc module, which
+stands for abstract base class, we import the abc class and
+abstract method function, which we are going to
+use as a decorator.
+
+- So make sure to type this exactly like what we see here, so the name of the module
+is all lowercase and the name of the class is all
+uppercase. 
+-------------------code----------------------
+from abc import ABC, abstractmethod
+-------------------code----------------------
+
+- Now, to make this stream class abstract, we should derive it from the abc
+class. Abstract base class.
+-------------------code----------------------
+class Stream(ABC):
+-------------------code----------------------
+
+- The second step is to define the common interface
+for all streams. We want all streams to have a read method and potentially
+a write method in the future.
+
+- So, here we define a read method.
+This method has no implementation. So we simply pass.
+Now, we need to decorate this method with abstract method decorator.
+-------------------code----------------------
+@abstractmethod
+    def read(self):
+        pass
+-------------------code----------------------
+
+- With these two simple steps, we fix both the problems we talked about
+in this lecture. So now, if we save the changes, and
+try to run the program, we can see we immediately have this
+red underline, with abstract methods instantiated.
+-------------------code----------------------
+stream = Stream()
+stream.open()
+
+# Abstract class 'Stream' with abstract methods instantiated
+-------------------code----------------------
+
+- Basically, when a class has an abstract method, it's considered
+an abstract class, and we cannot instantiate them. Which means we cannot
+create an instance of them.
+
+
+- Now let's look at the second problem. So, let's say tomorrow we're going to create
+a new kind of stream, we call it memory stream, and 
+we derive it from the stream class. For now, let's just pass,
+and create a memory stream object.
+-------------------code----------------------
+class MemoryStream(Stream):
+    pass
+-------------------code----------------------
+
+- Once again, we can see we have a red
+underline, abstract class with abstract methods
+instantiated.
+-------------------code----------------------
+memory_stream = MemoryStream()
+memory_stream.open()
+# TypeError: Can't instantiate abstract class MemoryStream without an implementation for abstract method 'read'
+-------------------code----------------------
+
+- What's going on here? In our stream class, we
+defined an abstract method called read. Let's take a
+look. Here's our abstract method. If a class
+derives from the stream class, it
+has to implement this method, otherwise, that class will also be considered abstract.
  
+- -So, in this example, our new class, memory stream is also
+abstract. If we want to make this a concrete class, so we can instantiate
+it, we'll have to implement the read method. So,
+define, read, and here we print reading data from
+a memory stream.
+-------------------code----------------------
+class MemoryStream(Stream):
+    def read(self):
+        print("Reading data from a memory stream.")
+-------------------code----------------------
+
+- Now, this memory stream is a concrete class,
+we can instantiate it here, and it also follows the contract or the interface
+of the stream class. So, all our streams now have a read method. method.
+-------------------code----------------------
+class FileStream(Stream):
+    def read(self):
+        print("Reading data from a file")
+
+
+class NetworkStream(Stream):
+    def read(self):
+        print("Reading data from a Network")
+
+
+class MemoryStream(Stream):
+    def read(self):
+        print("Reading data from a memory stream.")
+-------------------code----------------------

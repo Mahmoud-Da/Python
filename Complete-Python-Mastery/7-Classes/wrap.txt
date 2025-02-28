@@ -2578,3 +2578,98 @@ is taking many different forms, and this
 is determined at runtime. We could be calling the draw method on a text box,
 or a drop down list, or a radio button,
 and so on. So this is the classic example of polymorphism.
+
+
+*** 20- Duck Typing ***
+- What we saw in the last lecture was the classic example of polymorphism.
+So to achieve polymorphic behavior, we start by defining a base
+class, and in this class we define the common behavior
+or the common methods that we need in its derivatives or children.
+-------------------code----------------------
+from abc import ABC, abstractmethod
+
+
+class UIControl(ABC):
+    @abstractmethod
+    def draw(self):
+        pass
+
+
+class TextBox1(UIControl):
+    def draw(self):
+        print("TextBox")
+
+
+class DropDownList1(UIControl):
+    def draw(self):
+        print("DropDownList")
+
+
+def draw1(controls):
+    for control in controls:
+        control.draw()
+-------------------code----------------------
+
+- With this, we achieve polymorphic
+behavior in our draw function. So depending on the type of control object that we're working with at runtime,
+this draw method takes a different form. It might be the draw method in a text
+box, or a drop down list, or radio button, and so on.
+
+- So this is how polymorphism works in pretty much all languages that support classes.
+But because python is a dynamically typed language, we don't necessarily need this UI control 
+as the base class. In other words, if we get rid of this class. We should also delete it where we inherit it.
+With this change, we can still achieve polymorphic behavior.
+-------------------code----------------------
+class TextBox():
+    def draw(self):
+        print("TextBox")
+
+
+class DropDownList():
+    def draw(self):
+        print("DropDownList")
+
+
+def draw(controls):
+    for control in controls:
+        control.draw()
+-------------------code----------------------
+
+- Why? Here is the reason. Looking controls parameter.
+Nowhere here, we have specified the type of this parameter.
+Right? This is purely a label, a name. We can pass any kind of
+objects to this draw function. As long as that object is
+iterable, python will be happy. 
+-------------------code----------------------
+def draw(controls):
+-------------------code----------------------
+
+- Because here here, we are looping over that object. So that object has to be iterable.
+So technically, we can pass a string, a list, a
+tuple, a dictionary, anything that is iterable here.
+By the same token, that iterable object,
+its individual parts, should have a draw method.
+-------------------code----------------------
+for control in controls:
+-------------------code----------------------
+
+- So python doesn't care if these objects derive from the UI control class.
+As long as these objects have a draw method, python will be happy.
+This is what we call "duck typing".
+
+- So if it walks like a duck, and quacks like a duck, it is a duck.
+That is how python works. 
+
+- Because python is a dynamically typed language, and it doesn't check the type of objects.
+It only looks for the existence of certain methods in our objects.
+In other words, in this case, on line 16, it only looks for the existence of the draw method.
+So if this object has a draw method, python assumes it's a UI control.
+It's exactly like saying, if it walks like a duck, and quacks like a duck, it is a duck.
+
+- So, to achieve polymorphic behavior, we don't necessarily need a base class like UI control,
+because python supports duck typing.
+Having said that, having that UI control as an abstract base class is a good practice,
+because it enforces a common interface,
+or a common contract across all its derivatives. With this, we'll make sure
+that every kind of UI control will have a draw method.
+

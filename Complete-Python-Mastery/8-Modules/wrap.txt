@@ -1,0 +1,112 @@
+*** 1- Creating Modules ***
+
+- So far we have written all our code in one file, app.py
+But that's not how we build real programs, because a real program can contain
+tens of thousands of lines of code. We don't want to write all that
+code in one file. 
+
+- That is like going to a supermarket without any
+sections. All products are in one place. Finding a product in a
+supermarket like that is really hard, right? That's why in supermarkets
+we have various aisles or sections or departments.
+
+- We have the same concept in programming. So as our program grows, we should split
+our code across multiple files. We refer to each file a
+module. So a module is a file that contains some python code.
+
+- Now here's a question, how do we decide what functions or what classes
+we should put in what modules? Once again, let's go back to our supermarket
+example. In a supermarket, each section contains highly
+related products. So when we go to the fruit section, we only see fruits.
+You don't see cleaning products there, right?
+By the same token, a module should contain highly related objects.
+
+- These objects can be functions, classes, variables, and so on.
+So here, as an example, we have defined two functions. These functions have
+no implementation, but they are both highly related to the concept of sales.
+-------------------code----------------------
+def calc_tax():
+    pass
+
+
+def calc_shipping():
+    pass
+-------------------code----------------------
+
+- We have calculate tax and calculate shipping. So let's go ahead
+and put these functions in a separate
+module called sales  Here in the project folder, we're going to add a new file
+and call it sales.py and This is our sales module.
+
+- Note that in terms of naming convention, just like variables and functions,
+we use all lowercase letters, and if we have multiple words, we separate them
+using an underscore.
+
+- Now, back to app.py, let's get all this
+code, and move it to sales module. Okay, now back to the app module. We need to import
+one or two functions from our sales module.
+
+- There are a couple of different ways to achieve this. You have seen one way
+before, so we start with from, then we add the name of our module, which is sales.
+
+- Note that it's not sales.py, it's only the name of the file.
+So from sales import, now if we press control
+and space here, we can see all the objects defined in this
+module. Currently we have these
+two functions, as well as a bunch of variables that python automatically
+creates. We'll look at these later.
+
+- So let's say we want to import the calculate shipping function, there we
+go. Now we can call this function just like a function that we have defined
+in our app module. So calculate shipping. As simple as that.
+-------------------code----------------------
+from sales import calc_shipping
+
+calc_shipping()
+calc_tax()
+-------------------code----------------------
+ 
+- Now if we want to import multiple objects from a module,
+we can separate them using a comma.
+-------------------code----------------------
+from sales import calc_shipping, calc_tax
+-------------------code----------------------
+
+- So here we can also import calculate tags, and then
+call it here. Now there are some tutorials out there that teach us a
+shortcut to import multiple objects using an asterisk.
+-------------------code----------------------
+from app1_sales import *
+-------------------code----------------------
+
+- While this makes our code shorter, it's actually a bad practice.
+Because in that module we could have several different functions or variables,
+and if we blindly import them into the current module, some of those
+objects may overwrite the objects with the same name in the
+current module. 
+So don't import all objects like this. Only import the stuff that we need.
+
+-   There is also another way to import
+a module. Instead of starting with from, we start with import,
+and then we add the name of the module. Now
+in this module we have an object called sales, and we can use
+the dot operator to access
+its members. 
+-------------------code----------------------
+import sales
+-------------------code----------------------
+
+- So our calculate shipping function is now a method
+in this object. And we call it like this.
+-------------------code----------------------
+sales.calc_shipping()
+sales.calc_tax()
+-------------------code----------------------
+
+- So basically we can either import the entire module as an object,
+or we can import specific objects from that module. What approach
+we choose is purely our personal preference, there is no right or wrong here. There's
+not even a performance difference.
+ Because whenever we want to import one object from a module, that entire module needs
+to be loaded. Now we can pick one object, or every object in that module.
+

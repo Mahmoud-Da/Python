@@ -2742,3 +2742,137 @@ custom_list = TrackableList()
 custom_list.append("1")
 # Append Called
 -------------------code----------------------
+
+*** 22- Data Classes ***
+- So we have learned that we use classes to bundle data and functionality
+into one unit. Now as we work on larger programs, we may come across
+classes that don't have any behavior, they don't have any methods, they
+only have data.
+
+- Here's an example, we have this point class that has
+two attributes, x and y, it doesn't have any methods. Now with this we can create two point objects, so p1
+we set it to point of 1 and 2, and p2
+the same.
+-------------------code----------------------
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+-------------------code----------------------
+ 
+- Now when we compare these two objects and print the result, we get false
+because these two objects are stored in different locations in
+memory. So by default, Python compares objects based
+on where they are stored in memory. If two variables are
+referencing the same object in memory, they are considered equal. 
+-------------------code----------------------
+p1 = Point(1, 2)
+p2 = Point(1, 2)
+
+print(p1 == p2)
+# False
+-------------------code----------------------
+
+- In this example, our point objects are in two different locations even
+though they have the same attributes. So to prove this to we, we're going to call this built
+in id function, this returns the address of the memory location
+where an object is stored. So let's look at the address of p1
+and also p2, as we can see these objects are in two different locations in memory. 
+-------------------code----------------------
+print(id(p1))
+# 4369148160
+
+print(id(p2))
+# 4370467408
+-------------------code----------------------
+
+- So to solve the issue with comparing point objects
+we need to come back here and implement a magic method
+eq this method takes self and other and here we should compare
+x and y  now when we compare these two objects p1 and p2, we get true.
+-------------------code----------------------
+def __eq__(self, other):
+    return self.x == other.x and self.y == other.y
+
+print(p1 == p2)
+# True
+-------------------code----------------------
+
+- So the problem is solved. However,
+writing all this code for data classes is a little bit tedious.
+If we're dealing with classes that have no behavior, no methods, they only
+have data, we can use a named tuple instead. 
+
+- how that works. So let's delete this on the top from the collections module
+we should import the named tuple function.
+-------------------code----------------------
+from collections import namedtuple
+-------------------code----------------------
+
+- We call this function as a first argument, we specify the
+name for this new type we want to create. So we're going to call that point.
+
+- So note that we're passing a string here.
+Now as a second argument, we pass an array of field names
+or attribute names. We want our point objects to have two attributes
+x and y. So this returns a name tuple that we can store.
+-------------------code----------------------
+Point1 = namedtuple("Point1", ["x", "y"])
+new_p1 = Point1(1, 2)
+new_p2 = Point1(1, 2)
+-------------------code----------------------
+
+- Note that we're using Pascal naming convention because point here represents a type
+like a class. So, we can call it to create a new point object. However,
+instead of passing these arbitrary values here, we should pass keyword arguments.
+So we set x to 1 and y to 2. The first improvement here is that our code
+is more clear and less ambiguous.
+-------------------code----------------------
+new_p1 = Point1(x=1, y=2)
+new_p2 = Point1(x=1, y=2)
+-------------------code----------------------
+
+- We don't have to wonder, what are these values? Now point is a
+simple concept, it's easy to guess that 1 and 2 represent x and y
+here. But sometimes when creating objects, we might have to pass some magical
+values, and someone else reading that code they don't know what these values represent.
+So, these keyword arguments make our code more clear.
+
+- The second benefit is that we don't have to explicitly
+implement a magic method to compare two objects. So if we have
+two point objects with the exact same attribute, we can easily
+compare them, and we get the result that we expect.
+-------------------code----------------------
+print(new_p1 == new_p2)
+# True
+-------------------code----------------------
+
+
+- So if we're working with classes that have only data and
+no methods, we might want to use a name tuple instead. You will write less
+code. And these name tuples are better than regular tuples, because
+here we'll have attributes in this point object, just like the attributes we
+have in our classes.
+
+- So if we print new_p1.x we see 1.
+-------------------code----------------------
+print(new_p1.x)
+# 1
+-------------------code----------------------
+
+- Just be aware that these name tuples are immutable,
+which means, once we create them we cannot modify them, we cannot mutate
+them. So, if I set new_p1.x to a new value, and run the program, we get an attribute error
+because we can't set an attribute of a name tuple after we initialize it. 
+-------------------code----------------------
+new_p1.x = 10
+# can't set attribute
+-------------------code----------------------
+
+- So if we really need to modify one of these values,
+we need to create a new point object. So we set p1 to a new point
+with x set to 10 and y set to 2.
+-------------------code----------------------
+new_p1 = Point1(x=1, y=2)
+new_p1 = Point1(x=10, y=2)
+-------------------code----------------------

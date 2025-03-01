@@ -110,3 +110,56 @@ not even a performance difference.
  Because whenever we want to import one object from a module, that entire module needs
 to be loaded. Now we can pick one object, or every object in that module.
 
+*** 2- Compiled Python Files ***
+- So these are the files or modules we currently have in this folder. We have
+app.py which is our main module or the entry point to our program
+as well as the sales module.
+
+- Now when we run this program.
+-------------------code----------------------
+python3 app2.py
+-------------------code----------------------
+
+- we will see a new folderSo python app.py
+There we go. We have this new folder pycache and in this folder we have the compiled version
+of the modules that we import into our program.
+
+
+- So currently we have the compiled version of the sales module. The reason
+python stores these compiled files in this folder is to speed up module
+loading. So next time we run our program, python will look at the content
+of this folder and if we do have the compiled version of the sales
+module, python will simply load that compiled version. So it will skip
+that compilation step and this will result in faster
+loading of the sales module. 
+
+- Note that it only speeds up the loading of this module, not the actual
+performance of the application. Now how does python know if this compiled
+version is up to date with the latest code in the sales module? Well,
+it basically checks the date time of these two files "sales.py" and "app2.py", the
+compiled version as well as the source code. 
+
+- If the date time of this source file is newer, it
+realizes that our source code is changed so it will recompile it and store it
+in this pycache folder.
+
+- So that's the basic idea. Now this c python 313 we see in the file name here
+represents the python implementation used to compile this file.
+-------------------code----------------------
+sales.cpython-313.pyc
+-------------------code----------------------
+
+- So we have compiled this file using c python version 3.13 In this file we have
+python bytecode, So when we click on the compiled file, by default
+vscode doesn't show the content of this file because it's binary.
+
+- But if we click "Open anyway", we can see the python bytecode
+representation of our sales module.
+
+- Now back to this pycache folder, note that we don't have the compiled version
+of the app module, because python always re-compiles the module
+that we load directly from the command line.
+
+- So in this demo we passed
+app2.py as the entry point to python and that's the reason python didn't
+cache the compiled version of this module.

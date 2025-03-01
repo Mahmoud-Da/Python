@@ -163,3 +163,46 @@ that we load directly from the command line.
 - So in this demo we passed
 app2.py as the entry point to python and that's the reason python didn't
 cache the compiled version of this module.
+
+*** 3- Module Search Path ***
+- So here in app3.py, we're currently importing the sales module.
+-------------------code----------------------
+import sales
+-------------------code----------------------
+-  When python sees this, it will look for a file called sales.py in the current directory.
+
+- If it doesn't find this file, it will look in a bunch of predefined directories that
+come with python installation. 
+
+- to see that, So, we have a built-in module called path, let's import that.
+In this module, we have a variable, path, which returns the list of directories that python will look at to find a module.
+Let's print this on the terminal.
+-------------------code----------------------
+import sys
+
+print(sys.path)
+# ['Python/Complete-Python-Mastery/8-Modules', '/Library/Frameworks/Python.framework/Versions/3.13/lib/python313.zip', '/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13', '/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/lib-dynload', '/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages']
+-------------------code----------------------
+
+- So as we see, we get an array of strings, the first element in this array represents the current folder.
+-------------------code----------------------
+'Python/Complete-Python-Mastery/8-Modules'
+-------------------code----------------------
+
+- After that, we have library, frameworks, python framework, version 3.13.
+-------------------code----------------------
+'/Library/Frameworks/Python.framework/Versions/3.13/lib/python313.zip'
+'/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13'
+'/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/lib-dynload'
+'/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages'
+-------------------code----------------------
+
+- Again, this is going to be different on our machine depending on our operating system. we're using mac, so this is the address of python installation on macOS.
+On windows, we're probably going to get something like c drive, backslash program files, python, blah, blah, blah.
+
+- So when python sees an import statement, it will search all these directories to find this module.
+As soon as it finds the module, the search stops there.
+
+- Now, we might be curious how we can import a module from a subdirectory.
+Well, to do that, we need to look at packages, and that's the topic for the next lecture.
+For the next lecture.

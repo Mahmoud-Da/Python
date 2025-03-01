@@ -206,3 +206,70 @@ As soon as it finds the module, the search stops there.
 - Now, we might be curious how we can import a module from a subdirectory.
 Well, to do that, we need to look at packages, and that's the topic for the next lecture.
 For the next lecture.
+
+*** 4- Packages ***
+
+- Currently all our files or modules are in this folder, but as our application
+grows, we probably want to organize these files into subdirectories.
+
+- Otherwise we'll end up with hundreds or even thousands of python files or
+python modules in one folder. That is not good.
+So in this demo, we want to move this sales module to a subdirectory called "ecommerce". 
+
+- So we're going to add a new subdirectory, ecommerce, and then drag and drop this module
+right here. Now back to app4.py, we can see we have a red underline here, because python cannot find
+a sales module. 
+-------------------code----------------------
+import sales
+-------------------code----------------------
+
+- To fix this issue, we should come back to our ecommerce folder and add a new file called
+double underscore __init__py. When we add this file here, python would treat
+the ecommerce folder as a package. 
+
+- So a package is a container for one or more modules.
+In file system terms, a package is mapped to a directory, and a module is mapped
+to a file. 
+
+- So, now we can go back to app4.py, and prefix the name of this
+module with the name of its package. That is ecommerce.sales .
+-------------------code----------------------
+import ecommerce.sales
+-------------------code----------------------
+
+- Now to use any of the objects in the sales module, we need to prefix
+them with the name of their package and modules.
+-------------------code----------------------
+ecommerce.sales.calc_shipping()
+-------------------code----------------------
+
+- So, ecommerce dot sales
+dot calc_shipping. Obviously, this is going to make our code
+a little bit noisy, because every time we want to use one of the objects in the
+sales module, we'll have to type ecommerce dot sales dot. That is tedious.
+
+- A better approach is to use the from statement. So,
+we change this to from, ecommerce dot sales, import,
+calculate, tax. Now we can simply call this function like a function defined
+in app module, that is better.
+-------------------code----------------------
+from ecommerce.sales import calc_shipping
+
+calc_shipping()
+-------------------code----------------------
+
+- But what if we want to use multiple objects in the sales module?
+Well, we can list them all here.
+-------------------code----------------------
+from ecommerce.sales import calc_shipping, calc_tax
+-------------------code----------------------
+
+-  but if that ends up being too noisy, we can
+take a different approach. So, we can type from ecommerce import sale.
+So we're importing the sales module as an object and then we can use the dot
+operator to access all the members of this module.
+-------------------code----------------------
+from ecommerce import sales
+
+sales.calc_shipping()
+-------------------code----------------------

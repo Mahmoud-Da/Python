@@ -2673,3 +2673,72 @@ because it enforces a common interface,
 or a common contract across all its derivatives. With this, we'll make sure
 that every kind of UI control will have a draw method.
 
+*** 21- Extending Built-in Types ***
+- In Python, we can also use inheritance with the built-in types.
+For example, we can create a class called text, and have it inherit
+from the built-in string class.
+-------------------code----------------------
+class Text(str)
+-------------------code----------------------
+
+- With this, our text class will inherit all the features of Python strings, but
+we can also add additional features to it. For example, we can add
+the ability to summarize it, or duplicate it, and so on.
+
+- So, let's define a method called duplicate, that takes
+self, and in this method we simply return self plus self. 
+-------------------code----------------------
+class Text(str):
+    def duplicate(self):
+        return self + self
+-------------------code----------------------
+
+- what's going on here. As we told we before, self represents the current object
+which is in this case an instance of a string class.
+So here we're concatenating a string with itself.
+
+- Now we can easily use our text class, so let's add Python
+store the result in this variable. Look, our text object
+has all the methods of Python strings. So we can convert
+it to lowercase, and print it, and here's the result. 
+-------------------code----------------------
+text = Text("Python")
+print(text.lower())
+# python
+-------------------code----------------------
+- But we can also duplicate it. So,
+when we duplicate it, we get a new string, which is Python Python.
+-------------------code----------------------
+print(text.duplicate())
+# PythonPython
+-------------------code----------------------
+
+- As another example, we can also extend Python lists.
+So, let's define a new class, call it trackable list. That inherits from
+the built-in list class.
+-------------------code----------------------
+class TrackableList(list)
+-------------------code----------------------
+
+- Now here we want to override the append method.
+So every time, we want to append an object to this list,
+we want to print a message on the terminal. Perhaps for logging.
+So, let's print append called Now we want to call the append method of the super class,
+the base class. So here technically we're extending the append
+method of the list class.
+-------------------code----------------------
+class TrackableList(list):
+    def append(self, object):
+        print("Append Called")
+        super().append(object)
+-------------------code----------------------
+
+- We are not replacing it. Okay? Now, we can create
+a list object using trackable list. Call the append method.
+And when we run this program, we can see this message on the terminal.
+So, as we see, extending built-in types in Python is really easy.
+-------------------code----------------------
+custom_list = TrackableList()
+custom_list.append("1")
+# Append Called
+-------------------code----------------------

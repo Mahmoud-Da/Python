@@ -273,3 +273,26 @@ from ecommerce import sales
 
 sales.calc_shipping()
 -------------------code----------------------
+
+*** 5- Sub-packages ***
+- as our programs grow, we may want to break down a package into sub packages.
+For example, let's imagine our e-commerce package has grown
+a lot, we have so many files and modules here, so we decide to
+break this package into a few sub packages.
+
+- So we're going to add a new folder inside ecommerce folder, call it shopping,
+and then move the sales module in this folder.
+
+- So on the top we have the ecommerce package,
+and under that we have the shopping package. Now currently shopping
+is not a package because in this folder we don't have the init file.
+
+
+- Now back to app5.py, once again Python cannot find our sales module,
+so to fix this issue, we need to add the name of our new sub package
+here. So ecommerce.shopping.
+-------------------code----------------------
+from ecommerce.shopping import sales
+
+sales.calc_shipping()
+-------------------code----------------------

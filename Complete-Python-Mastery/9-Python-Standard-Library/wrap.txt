@@ -325,3 +325,140 @@ print(py_files)
 #  PosixPath('ecommerce/customer/__init__.py'),
 #  PosixPath('ecommerce/customer/contact.py')]
 -------------------code----------------------
+
+*** 4- Working with Files ***
+- In this lecture we're going to learn about the useful
+methods to work with files. 
+
+- So here we have a pass object that references
+a file, we can check to see if this file exists.
+-------------------code----------------------
+from pathlib import Path
+
+path = Path("ecommerce/__init__.py")
+path.exists()
+-------------------code----------------------
+
+- we can rename it to let's say init.txt.
+-------------------code----------------------
+path.rename("init.txt")
+-------------------code----------------------
+
+- we can delete it by calling the unlink method.
+-------------------code----------------------
+path.unlink()
+-------------------code----------------------
+
+- we also have the stat method that returns information about this file.
+-------------------code----------------------
+print(path.stat())
+# os.stat_result(st_mode=33188,
+#                st_ino=22143237,
+#                st_dev=16777233,
+#                st_nlink=1,
+#                st_uid=501,
+#                st_gid=20,
+#                st_size=31,
+#                st_atime=1740950939,
+#                st_mtime=1740950938,
+#                st_ctime=1740950938)
+-------------------code----------------------
+
+
+- We get a stat result object
+with these attributes, for example, st underline size
+returns the size of this file in bytes, we can also get
+the last access time, the last modify time, and the creation time.
+
+- Now all these time values are in seconds after epic, which is
+the start of time on a computer, and that is platform dependent, for example
+on unix systems, the epic time is January 1st 1970.
+
+- So to print the human readable time
+on the top from the time module we need to import the ctime function.
+-------------------code----------------------
+from time import ctime
+-------------------code----------------------
+
+- now from this stat object we can
+pick st underline ctime, that is the creation time, and then pass it
+to the ctime function.
+-------------------code----------------------
+print(ctime(path.stat().st_ctime))
+# Mon Mar  3 06:28:58 2025
+-------------------code----------------------
+
+- We also have a couple methods for reading data from a file, so
+pass the read bytes, which returns the content of the file as a bytes
+object for representing binary data.
+-------------------code----------------------
+path.read_bytes()
+-------------------code----------------------
+
+- We also have read text, which returns the content of the file
+as a string. So we can simply print the result here,
+and this is the content of __init__.py file. 
+-------------------code----------------------
+print(path.read_text())
+# print("Ecommerce initialized")
+-------------------code----------------------
+
+- Now using this method is easier than the built-in open function
+that we've mentioned throughout the course. With the open function,
+we'll have to specify the file name, let's say init.py,
+then we need to specify the mode, now this returns a file object,
+so we're going to make sure to close it, so as a best practice, we should use the
+with statement, then get the file object like this,
+and then do something with it.
+-------------------code----------------------
+with open("ecommerce/__init__.py", "r") as file:
+    file.read()
+-------------------code----------------------
+
+- In contrast, when we use read text, all this magic
+happens inside of this method, so we no longer have to worry about
+opening a file, closing it, and so on. Similar to read text and read bytes,
+we have write text, so we can call it to write some textual
+data to a file, or pass.write bytes, again, both these methods take care of
+opening and closing a file.
+-------------------code----------------------
+path.write_text("....")
+path.write_bytes()
+-------------------code----------------------
+
+- So with this path object, we can do all kinds of operations with a file.
+However, when it comes to copying a file, this path object
+is not the ideal way to copy a file.
+
+- So, we're going to comment out this few lines, let's say we want to copy this file
+to a different location, so we're going to rename this path to source,
+then, we're going to create a target path, which would be, let's say the current
+directory, plus __init__.py.
+-------------------code----------------------
+source = Path("ecommerce/__init__.py")
+target = Path() / "__init__.py"
+-------------------code----------------------
+
+- Now, to copy this file, we'll have to write code like this.
+First, we need to read the content of the source, so read
+text, then we need to write it to the target, so target.write text
+like this.
+-------------------code----------------------
+target.write_text(source.read_text())
+-------------------code----------------------
+
+- It's a little bit tedious, there is a better way. We have a module called
+shutil, or shell utilities, and this module provides
+a number of high-level operations for copying and moving files and
+directories. 
+
+- So, on the top, let's import shutil.
+-------------------code----------------------
+import shutil
+-------------------code----------------------
+
+- now with this module, we can easily copy source to target.
+This approach is cleaner and easier than using a pass object.
+-------------------code----------------------
+shutil.copy(source, target)
+-------------------code----------------------

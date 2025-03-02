@@ -332,3 +332,51 @@ from ..customer import contact
 and that's what PEP 8 also recommends. But if our absolute import
 gets really verbose, like a dot b dot c dot d dot e, then we might be able to simplify the import statement
 by using a relative import.
+
+*** 7- The dir Function ***
+- In this lecture we're going to look at a powerful
+built in function called dir. With this function we can get the list of
+attributes and methods defined in an object.
+
+- So in this example we're importing the sales module, as we learned earlier, now
+sales is an object, so we can use the dot operator to access all the
+methods and attributes defined in this object.
+-------------------code----------------------
+from ecommerce.shopping import sales
+-------------------code----------------------
+
+- As we work on large projects, there are times that things don't work as we expect, so we can use the
+dir function for debugging. 
+
+- When we run this program, we get an array of
+strings, in this array we have all the attributes
+and methods defined in an object.
+-------------------code----------------------
+print(dir(sales))
+# ['__builtins__', '__cached__', '__doc__', '__file__',
+ '__loader__', '__name__', '__package__', '__spec__',
+  'calc_shipping', 'calc_tax', 'contact']
+-------------------code----------------------
+
+- So as we see in our sales module we have these two functions,
+calculate shipping and tax, as well as
+these magic attributes that are automatically created
+for us. 
+
+- Let's take a look at a few of these. So we're going to comment out this line
+and print sales dot name, that returns the name of our module, we can also get
+the name of the package, as well as the file name, as well as the address of its file.
+So, let's run this program. 
+-------------------code----------------------
+print(sales.__name__)
+# ecommerce.shopping.sales
+print(sales.__package__)
+# ecommerce.shopping
+print(sales.__file__)
+# /Complete-Python-Mastery/8-Modules/ecommerce/shopping/sales.py
+-------------------code----------------------
+
+- So here's the name of our module, as we can see it's
+fully qualified with the name of its packages, after that we have the name of
+our package, so the sales module is defined in ecommerce.shopping
+package. And below that we have the path to this file file on file system.

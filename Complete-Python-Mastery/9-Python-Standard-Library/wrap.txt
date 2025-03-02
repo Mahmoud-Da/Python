@@ -462,3 +462,118 @@ This approach is cleaner and easier than using a pass object.
 -------------------code----------------------
 shutil.copy(source, target)
 -------------------code----------------------
+
+*** 5- Working with Zip Files ***
+- In this lecture we're going to learn how to work with zip files in python.
+
+
+- So, from the zip file module, let's import the zip file class. 
+-------------------code----------------------
+from zipfile import ZipFile
+-------------------code----------------------
+
+- Now we create a zip file object let's call that files.zip. Then as the second
+argument we pass w short for write, because we're going to
+write to the zip file. So this statement will create this file
+in our current folder. Let's get a reference to this zip file and store it
+here, or we could call it zip, that is shorter.
+-------------------code----------------------
+zip_file = ZipFile("files.zip", "w")
+-------------------code----------------------
+
+- Now let's say we want to get all the files in this ecommerce directory
+and write them to this zip file. That is pretty easy. So
+we create a pass object to reference the ecommerce directory
+and then call rglob method to recursively find all the files in this
+directory and all its children. As we know this returns a
+generator, so we iterate over it for pass in and then call zip.write pass
+and finally we should call the close method.
+-------------------code----------------------
+zip_file = ZipFile("files.zip", "w")
+
+for path in Path("ecommerce").rglob("***"):
+    zip_file.write(path)
+
+zip.close()
+-------------------code----------------------
+
+- Now if something goes wrong here, chances are this statement may not be called.
+So we should either use a try finally block or the with
+statement, which is shorter and cleaner. So with this zip file
+as zip_file now we indent everything here and then we don't need to call the close
+method.
+-------------------code----------------------
+with ZipFile("files.zip", "w") as zip_file:
+    for path in Path("ecommerce").rglob("***"):
+      zip_file.write(path)
+-------------------code----------------------
+
+-  Let's save the changes
+and run this program. Now we have a zip file here "files.zip", so let's go ahead and
+read its content. So back in app.py, we're going to comment
+out these few lines. This time we're going to create a
+zip file that is files.zip, but we're not going to open
+this in the right mode because we only want to read from it, right?
+So this object has a method called name list
+which returns the list of all the files
+in this zip file. so these are all the files
+we have in this zip file.
+-------------------code----------------------
+with ZipFile("files.zip") as zip_file:
+    print(zip_file.namelist())
+
+# ['ecommerce/shopping/',
+#  'ecommerce/sales.py',
+#  'ecommerce/__init__.py',
+#  'ecommerce/__pycache__/',
+#  'ecommerce/customer/',
+#  'ecommerce/shopping/sales.py',
+#  'ecommerce/shopping/__init__.py',
+#  'ecommerce/shopping/__pycache__/',
+#  'ecommerce/__pycache__/__init__.cpython-313.pyc',
+#  'ecommerce/customer/__init__.py',
+#  'ecommerce/customer/__pycache__/',
+#  'ecommerce/customer/contact.py',
+#  'ecommerce/customer/__pycache__/contact.cpython-313.pyc',
+#  'ecommerce/customer/__pycache__/__init__.cpython-313.pyc',
+#  'ecommerce/shopping/__pycache__/sales.cpython-313.pyc',
+#  'ecommerce/shopping/__pycache__/__init__.cpython-313.pyc']
+-------------------code----------------------
+
+
+- we can get information about any of these files for example
+pass the address of this file this returns an info object
+from this we can print info.file size we also have info.compress size
+let's look at the result
+-------------------code----------------------
+with ZipFile("files.zip") as zip_file:
+    print(zip_file.namelist())
+
+    info = zip_file.getinfo("ecommerce/__init__.py")
+    print(info)
+    print(info.file_size)
+    print(info.compress_size)
+# <ZipInfo filename='ecommerce/__init__.py' filemode='-rw-r--r--' file_size=31>
+
+# 31
+# 31
+-------------------code----------------------
+
+- so in this case we don't have compression because we're dealing with a really simple file
+
+- now finally to extract all the files from the zip file
+we call zip.extract_all and optionally specify a different
+directory to extract to so here let's extract this
+into this extract directory now here we have this extract directory
+with the content of the ecommerce directory that we compressed
+into a zip file.
+-------------------code----------------------
+with ZipFile("files.zip") as zip_file:
+    print(zip_file.namelist())
+
+    info = zip_file.getinfo("ecommerce/__init__.py")
+    print(info)
+    print(info.file_size)
+    print(info.compress_size)
+    zip_file.extractall("extract")
+-------------------code----------------------

@@ -1,0 +1,16 @@
+*** 1- Python Standard Library ***
+
+- Python has a batteries included philosophy, which means it comes with a comprehensive library of
+packages and modules that provide common features that we need when building real applications.
+
+- So in this section, we're going to explore Python standard library. More specifically,
+we're going to learn how to work with files and directories, SQLite databases,
+date and time objects, generate random values, send emails, and so on.
+
+- As we go through this section, don't worry about memorizing anything. Just try to get an idea what is where and what we
+can do. we can always come back to this section and treat it as a reference. 
+
+- For example, if in the future we want to generate random values, we can come back and watch the corresponding lecture.
+
+
+-------------------code----------------------

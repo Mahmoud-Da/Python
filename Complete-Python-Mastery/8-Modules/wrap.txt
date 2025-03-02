@@ -275,6 +275,7 @@ sales.calc_shipping()
 -------------------code----------------------
 
 *** 5- Sub-packages ***
+
 - as our programs grow, we may want to break down a package into sub packages.
 For example, let's imagine our e-commerce package has grown
 a lot, we have so many files and modules here, so we decide to
@@ -296,3 +297,38 @@ from ecommerce.shopping import sales
 
 sales.calc_shipping()
 -------------------code----------------------
+
+*** 6- Intra-package References ***
+
+- There are times that we want to import modules from sibling packages.
+For example, here in our ecommerce package, we have added a new sub package
+customer, in this package we have this contact module
+for contacting our customers. 
+-------------------code----------------------
+def contact_customer():
+    pass
+-------------------code----------------------
+
+- Now let's say, in our sales module
+we want to use the contact module in the customer package.  how to do this.
+So we open this, to import a module from another package
+we can use an absolute or relative import statement.
+
+- absolute import
+-------------------code----------------------
+from ecommerce.customer import contact
+
+contact.contact_customer()
+-------------------code----------------------
+
+- We can also use a relative import. So, from, dot, this represents the current package.
+Dot dot takes us one level up, so now we are at the ecommerce package level
+in this package we have two sub packages, customer and shopping.
+-------------------code----------------------
+from ..customer import contact
+-------------------code----------------------
+
+- As a best practice, prefer to use absolute imports
+and that's what PEP 8 also recommends. But if our absolute import
+gets really verbose, like a dot b dot c dot d dot e, then we might be able to simplify the import statement
+by using a relative import.

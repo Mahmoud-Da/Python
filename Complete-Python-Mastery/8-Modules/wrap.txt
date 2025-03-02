@@ -380,3 +380,99 @@ print(sales.__file__)
 fully qualified with the name of its packages, after that we have the name of
 our package, so the sales module is defined in ecommerce.shopping
 package. And below that we have the path to this file file on file system.
+
+
+*** 8- Executing Modules as Scripts ***
+
+- Here in our sales module, currently we have defined two functions. But we can also write any statements and these statements will be executed
+the first time this module is loaded. So if we import this module
+in a few different modules in our program, Python will load this module only once
+and then cache it in memory. So the statements that we write here will be executed once.
+-------------------code----------------------
+from ecommerce.shopping import sales
+-------------------code----------------------
+
+- As an example, let's print something like sales initialized.
+
+-------------------code----------------------
+from ecommerce.customer import contact
+from ..customer import contact
+
+print("Sales initialized")
+-------------------code----------------------
+
+-  Now let's go back to our app8.py module. Now when we run this program
+we can see our sales module is initialized. 
+-------------------code----------------------
+from ecommerce.shopping import sales
+
+# Sales initialized
+-------------------code----------------------
+
+- Using the same technique
+we can write the initialization code for our packages inside the ecommerce/__init__py.
+-------------------code----------------------
+print("Ecommerce initialized")
+-------------------code----------------------
+
+- Run the program again. As we see, first our e-commerce package
+and then the sales module are initialized.
+-------------------code----------------------
+from ecommerce.shopping import sales
+
+# Ecommerce initialized
+# Sales initialized
+-------------------code----------------------
+ 
+ 
+- Now let's take this to the next level. Let's go to our sales module and print the name of this module.
+So as we learned in the last lecture, every module
+has a built-in name attribute that is automatically created for us.
+-------------------code----------------------
+from ecommerce.customer import contact
+from ..customer import contact
+
+print("Sales initialized", __name__)
+-------------------code----------------------
+
+- back to app module. Let's run our program. So as we see, here is the name of our module
+that is e-commerce.shopping.sales.
+-------------------code----------------------
+from ecommerce.shopping import sales
+
+# Ecommerce initialized
+# Sales initialized ecommerce.shopping.sales
+-------------------code----------------------
+- However, if we go to sales.py and run this file the name of our module is changed
+to main.
+-------------------code----------------------
+from ecommerce.customer import contact
+from ..customer import contact
+
+print("Sales initialized", __name__)
+# Sales initialized __main__
+-------------------code----------------------
+
+- So the name of the module that starts our program
+is always main. Now we can do something interesting.
+
+After we our functions, we're going to write some code like this.
+If name equals main with two underscores we're going to print sales started
+and then call the calculate tax function.
+-------------------code----------------------
+if __name__ == "__main__":
+    print("Sales started")
+    calc_tax()
+-------------------code----------------------
+
+- with this code we can make this file usable as a script
+as well as a reusable module that we can import into another module.
+
+So if we run this file directly the name of this module will be main
+and here we can have any initialization code
+or we can call one of the existing functions in this module.
+
+- However,
+if we import this module into another module this code will not be executed
+because at that point the name of this module will no longer be main
+it will be ecommerce.shopping.sales

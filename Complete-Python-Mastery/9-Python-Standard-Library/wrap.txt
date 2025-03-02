@@ -13,4 +13,185 @@ can do. we can always come back to this section and treat it as a reference.
 - For example, if in the future we want to generate random values, we can come back and watch the corresponding lecture.
 
 
+*** 2- Working With Paths ***
+
+- Over the next few lectures, we're going to learn how to work with files and directories in Python.
+In this lecture we're going to look at the path class, because that's the
+foundation to work with files and directories. 
+
+
+- So,
+let's import the path class, now we can create a path object in a few different ways.
 -------------------code----------------------
+from pathlib import Path
+-------------------code----------------------
+
+- We can create an absolute path, for example, if we're on windows
+we can create a path object like this. C drive,
+backslash, program files, backslash, Microsoft
+or whatever.
+-------------------code----------------------
+Path("C:\\Program Files\\Microsoft")
+-------------------code----------------------
+ 
+- Now when working with a long path, these double backslash
+get a little bit ugly, so we can simplify this by using a raw
+string. In a raw string, backslash is not an escape character,
+it's taken literally as is. So, we prefix
+this with an R, now we have a raw string, so we can get rid of
+the second backslash, like this.
+
+-------------------code----------------------
+Path(r"C:\Program Files\Microsoft")
+-------------------code----------------------
+
+- Now if we're on mac or linux, we can create
+an absolute path like this slash user, slash local,
+slash bin.
+-------------------code----------------------
+Path("/usr/local/bin")
+-------------------code----------------------
+
+- we can also create a path object that
+represents the current folder.
+-------------------code----------------------
+Path()
+-------------------code----------------------
+
+- or we can use a relative path here,
+so current folder, let's go to the ecommerce
+subfolder, and then pick init.py.
+-------------------code----------------------
+Path("ecommerce/__init__.py")
+-------------------code----------------------
+
+- we can also combine path objects
+together, for example we can have one path object, and then using
+a slash, combine it
+with another path.
+-------------------code----------------------
+Path() / Path("ecommerce")
+-------------------code----------------------
+
+- or we can also combine a path object
+with a string, so here we can
+have a string.
+-------------------code----------------------
+Path() / "ecommerce"
+-------------------code----------------------
+
+- and then again we can combine
+this with another string. 
+-------------------code----------------------
+Path() / "ecommerce" / "__init__.py"
+-------------------code----------------------
+
+- We can also get the home directory of the current user,
+so this path class
+has a class method called home, that returns the home directory
+of the current user. 
+-------------------code----------------------
+Path.home()
+-------------------code----------------------
+
+- So these
+are various ways to create the path object, in this demo, we're going to use
+what we have here, and store the result in variable we called path.
+-------------------code----------------------
+path = Path("ecommerce/__init__.py")
+-------------------code----------------------
+
+- Now this path object has quite a few useful members,
+and in this lecture we're going to show we the most
+important ones, but if we want to see the
+comprehensive list, simply search for 
+-------------------code----------------------
+python3 pathlib
+-------------------code----------------------
+
+
+- So with this path object we can call the exist method
+to see if this file or directory exists or not
+-------------------code----------------------
+path.exists()
+-------------------code----------------------
+
+- to see if this path represents a file we call is file,
+-------------------code----------------------
+path.is_file()
+-------------------code----------------------
+
+- we also have is directory.
+-------------------code----------------------
+path.is_dir()
+-------------------code----------------------
+
+
+- we can also extract individual
+components in this path which is extremely useful, for example, let's
+print path.name so this returns only the file name in this path.
+-------------------code----------------------
+print(path.name)
+# __init__.py
+-------------------code----------------------
+
+- We also have path.stem which returns the file name without the extension.
+-------------------code----------------------
+print(path.stem)
+# __init__
+-------------------code----------------------
+
+- If we want to get the extension, we can access the suffix attribute,
+so this returns .py.
+-------------------code----------------------
+print(path.suffix)
+# .py
+-------------------code----------------------
+
+
+- we can
+also get the parent of this path, so path.parent and this returns
+the parent folder, ecommerce.
+-------------------code----------------------
+print(path.parent)
+# ecommerce
+-------------------code----------------------
+
+- Now here we have a couple other useful methods, one of them is with name, so
+path.with name. And we can use this to create a new path object based on this existing path
+but only change the name and the extension of the file.
+So if we pass, let's say file.txt we get a new path object here. 
+-------------------code----------------------
+path = path.with_name("file.txt")
+print(path)
+# ecommerce/file.txt
+-------------------code----------------------
+
+
+- we can also get the absolute value of this path, so
+path.absolute let's run the program so here's the absolute value
+of this file.
+-------------------code----------------------
+print(path.absolute())
+# /Python/ecommerce/file.txt
+-------------------code----------------------
+
+- Obviously this file doesn't exist yet, they're only
+representing its path. 
+
+- Now similar to this with name
+we have another method with suffix
+and we use that to change the extension
+of a file. So with suffix
+-------------------code----------------------
+path = path.with_suffix(".py")
+print(path)
+# ecommerce/file.py
+-------------------code----------------------
+
+- note that here we have not renamed the file
+we're only representing a path object. Over the next couple
+lectures we will show we how to rename files
+and directories. So these are the important members
+of the path class that we should know
+in the next lecture we'll look at working with directories.

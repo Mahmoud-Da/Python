@@ -195,3 +195,133 @@ lectures we will show we how to rename files
 and directories. So these are the important members
 of the path class that we should know
 in the next lecture we'll look at working with directories.
+
+*** 3- Working with Directories ***
+- So here we have a path object that represents a directory.
+A few useful methods that we need to be aware of are
+exists, that returns a boolean, mkdir
+to create this directory, rmdir to remove it,
+and rename to rename it to a new name.
+-------------------code----------------------
+from pathlib import Path
+
+path = Path("ecommerce")
+path.exists()
+path.mkdir()
+path.rmdir()
+path.rename("ecommerce2")
+-------------------code----------------------
+
+- so in this lecture we're not going to look at these, instead
+we're going to look at another method that is iter, dir.
+-------------------code----------------------
+print(path.iterdir())
+# <map object at 0x102d8fcd0>
+-------------------code----------------------
+
+- With this method we can get the list of files and directories in this path.
+So let's print the result and see what we get.
+We get a generator object. Remember generator objects?
+A generator object, as the name implies, returns a new value
+every time we iterate it. So when we're working with a large list of items,
+instead of storing all those items in the memory, we use a generator object.
+we iterate it and get a new value every time. This is more efficient.
+So that's the reason this method returns
+a generator object, because when working with files
+and directories, it is possible that we can have
+a directory with a million files in it.
+
+- So, now we can iterate over this, let's say for p,
+and then print p. Let's run the program. So on my machine, we have one file
+and three directories at this path. As we can see, this method returns
+both the files and directories.
+-------------------code----------------------
+for p in path.iterdir():
+    print(p)
+
+# ecommerce/shopping
+# ecommerce/sales.py
+# ecommerce/__init__.py
+# ecommerce/__pycache__
+# ecommerce/customer
+-------------------code----------------------
+
+- Now, if we're working with a directory that doesn't have
+a million files in it, we can convert this generator
+to a list using a list comprehension expression.
+So, instead of iterating over this generator, we can use
+a list comprehension, which is pretty similar to what we have here.
+We add the square brackets.
+-------------------code----------------------
+paths = [p for p in path.iterdir()]
+print(paths)
+# [PosixPath('ecommerce/shopping'),
+#  PosixPath('ecommerce/sales.py'),
+#  PosixPath('ecommerce/__init__.py'),
+#  PosixPath('ecommerce/__pycache__'),
+#  PosixPath('ecommerce/customer')]
+-------------------code----------------------
+
+- Now, we get all these paths and we can print them.
+Let's see what we get. We get an array of POSIX path objects.
+What is this? Well, this path class that we imported on the top,
+this is the base class for two different classes. POSIX path and windows path.
+POSIX is the standard use in Unix-like operating systems, so because
+we're using a Mac, here we have a list of POSIX path objects.
+
+- If we're on windows, we see a list of windows path objects. Okay?
+Now here we can take this comprehension expression to the next level and apply filtering.
+Let's say we only want to get the directories. So here are the three directories
+that we have inside of the e-commerce directory.
+-------------------code----------------------
+paths = [p for p in path.iterdir() if p.is_dir()]
+print(paths)
+# [PosixPath('ecommerce/shopping'),
+#  PosixPath('ecommerce/__pycache__'),
+#  PosixPath('ecommerce/customer')]
+-------------------code----------------------
+
+- So, this method is pretty useful to get the list of files and directories
+in a path, but it has two limitations. One is that
+we cannot search by a pattern, and second is that it doesn't search
+recursively.
+
+- So, for those scenarios we need to use a different method.
+That is glob. this method takes a pattern so we can search for all files
+or let's say all py files, similar to the other method
+this returns a generator. So, we can use it an expression
+like this.
+-------------------code----------------------
+py_files = [p for p in path.glob("*.py")]
+print(py_files)
+# [PosixPath('ecommerce/sales.py'),
+#  PosixPath('ecommerce/__init__.py')]
+-------------------code----------------------
+
+- Now, to search recursively we need to change this pattern
+to something like this. 
+-------------------code----------------------
+py_files = [p for p in path.glob("**/*.py")]
+print(py_files)
+# [PosixPath('ecommerce/sales.py'),
+#  PosixPath('ecommerce/__init__.py'),
+#  PosixPath('ecommerce/shopping/sales.py'),
+#  PosixPath('ecommerce/shopping/__init__.py'),
+#  PosixPath('ecommerce/customer/__init__.py'),
+#  PosixPath('ecommerce/customer/contact.py')]
+-------------------code----------------------
+
+The other option is to use the r glob
+method. So, we remove the pattern and use r glob short for recursive glob
+now when we run this program we get all the pi files
+in the e-commerce directory and all its children.
+-------------------code----------------------
+py_files = [p for p in path.rglob("*.py")]
+print(py_files)
+# [PosixPath('ecommerce/sales.py'),
+#  PosixPath('ecommerce/__init__.py'),
+#  PosixPath('ecommerce/shopping/sales.py'),
+#  PosixPath('ecommerce/shopping/__init__.py'),
+#  PosixPath('ecommerce/customer/__init__.py'),
+#  PosixPath('ecommerce/customer/contact.py')]
+-------------------code----------------------

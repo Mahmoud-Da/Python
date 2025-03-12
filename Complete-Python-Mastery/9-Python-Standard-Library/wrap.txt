@@ -577,3 +577,137 @@ with ZipFile("files.zip") as zip_file:
     print(info.compress_size)
     zip_file.extractall("extract")
 -------------------code----------------------
+
+*** 6- Working with CSV Files ***
+- In this lecture we're going to learn how to work with csv files in python.
+
+- csv stands for comma separated value, and it's like a simplified spreadsheet
+stored as a plain text file.
+
+- So on the top, we import the csv module.
+-------------------code----------------------
+import csv
+-------------------code----------------------
+
+- first we need to open a file, so for this we need to use
+the built-in open function, we cannot use the path class,
+so open, let's call this file data.csv.
+Now we want to open this in the right mode, because we want to write data to it.
+This returns a file object, so when we are done, we should make sure
+to close it.
+-------------------code----------------------
+file = open("data.csv", "w")
+file. close()
+-------------------code----------------------
+
+- or as we told before, a better approach is to use the
+with statement. So, with open
+as file. Now we don't need to close the file, that is better.
+-------------------code----------------------
+with open("data.csv", "w") as file:
+-------------------code----------------------
+
+- So this csv module has a method for creating a csv writer.
+We call this and pass our file object.
+So look at the first parameter here, it has to be a file object, that's why
+we cannot use the pass class. So we pass the file object here,
+and this gives us a csv writer. And with this we can simply
+write tabular data to our csv file.
+-------------------code----------------------
+with open("data.csv", "w") as file:
+    writer = csv.writer(file)
+    writer.writerow(["transaction_id", "product_id", "price"])
+    writer.writerow([1000, 1, 51])
+    writer.writerow([1001, 2, 15])
+-------------------code----------------------
+
+- Now let's save the changes and run this
+program, okay. So here in our project folder, we have data.csv
+as we can see, this is like a simplified spreadsheet. 
+So we have a table of data, each line represents a row, and our cells are
+separated using a comma. This is a very simple way to store data and transfer it from one
+machine to another. 
+
+-  how to read a csv file. So let's
+say we have a csv file called data.csv Now we should open this file
+in the read mode, so we don't want to supply this second argument. Next,
+instead of a csv writer, we need a csv reader.
+-------------------code----------------------
+with open("data.csv") as file:
+-------------------code----------------------
+
+- So let's call the reader method, and rename this variable to reader.
+Now we can call the list function to get all the data
+in the csv file and convert it to a list object.
+-------------------code----------------------
+with open("data.csv") as file:
+    reader = csv.reader(file)
+    print(list(reader))
+    # [['transaction_id', 'product_id', 'price'], ['1000', '1', '51'], ['1001', '2', '15']]
+-------------------code----------------------
+
+
+- as we see we get a list of lists,
+so each line in our csv file is a list of objects.
+Note that the value of each cell is represented as a string even if we're dealing with a number.
+So we have to manually convert these strings
+to integers, floats, and so on.
+
+- We can also iterate over this reader object
+because it's iterable. So for row
+in reader, let's print row. Run the program, now we don't see anything here.
+We only see the output of line 5 where we convert this reader to a list object.
+-------------------code----------------------
+with open("data.csv") as file:
+    reader = csv.reader(file)
+    print(list(reader))
+    # [['transaction_id', 'product_id', 'price'], ['1000', '1', '51'], ['1001', '2', '15']]
+
+    for row in reader:
+        print(row)
+-------------------code----------------------
+
+- So what happened to these two lines?
+Well, this reader object has an index or a position that is initially set to the beginning of the file.
+When we convert this reader to a list, that position goes to the end of the file.
+So at that point, when we iterate over it,
+we are already at the end of the file.
+That is why we cannot iterate this reader twice.
+
+So let comment out line 5,
+and run the program one more time. There we go. Now we have three rows,
+each row is an array of strings.
+-------------------code----------------------
+with open("data.csv") as file:
+    reader = csv.reader(file)
+    # print(list(reader))
+
+    for row in reader:
+        print(row)
+    # ['transaction_id', 'product_id', 'price']
+    # ['1000', '1', '51']
+    # ['1001', '2', '15']
+
+-------------------code----------------------
+
+- So as we see working with csv files
+is pretty easy in python.
+With these objects we can do some interesting things.
+For example, let's say we have a directory
+of a hundred or a thousand csv files.
+
+- We can iterate this directory, open each csv file,
+and remove the first row, which is the header row.
+Or perhaps we want to combine these csv files into one file,
+we can easily do that here.
+
+- Another interesting thing we can do is
+to summarize the value of these csv files.
+Let's say we have 10 csv files,
+and each csv file represents the transactions
+for a given product.
+With only a few lines of code,
+we can read all these csv files,
+and calculate the sum of sales for each product,
+and then store the result in another csv file.
+The possibilities are endless.

@@ -822,3 +822,220 @@ print(movies[0]["title"])
 # Terminator
 -------------------code----------------------
 
+*** 8- Working with a SQLite Database ***
+
+- In this lecture we're going to learn how to work with sqlite in python.
+
+- sqlite is a very lightweight database that we use for storing data
+of an application. It's often the technology of choice for smaller applications
+like the apps that we run on phones and tablets. So it allows
+us to easily store our data in a structured format like a table of rows
+and columns.
+
+- So, let's start by importing the sqlite 3 module.
+-------------------code----------------------
+import sqlite3
+-------------------code----------------------
+
+- Now in the last lecture we created this movies.json file, so let's
+go ahead, read all the movies from this json file, and store them
+in our sqlite database. So,
+back in app.py, we should also import the json
+module, and from the pathlib module, we should import the pass class. 
+-------------------code----------------------
+import sqlite3
+import json
+from pathlib import Path
+-------------------code----------------------
+
+- Now, we create a pass object to load movies
+that json file, read all its content, this
+will give us a string, so we can pass that to json
+dot loads, and this will give us the list of movies.
+-------------------code----------------------
+movies = json.loads(Path("movies.json").read_text())
+-------------------code----------------------
+
+- Now, before going any further, let's print
+this movies object and see if everything is working
+up to this point. So, let's run the application.
+-------------------code----------------------
+movies = json.loads(Path("movies.json").read_text())
+print(movies)
+# [{'id': 1, 'title': 'Terminator', 'year': 1989},
+#  {'id': 2, 'title': 'Kindergarten Cop', 'year': 1993}]
+-------------------code----------------------
+
+- now we want to store this list in a database. So,
+this sqlite object has a method called connect.
+We pass the name of our database file here, let's call it db
+dot sqlite 3.
+-------------------code----------------------
+connection = sqlite3.connect("db.sqlite3")
+-------------------code----------------------
+
+- We could call it anything, it doesn't matter.
+Now, if this file doesn't exist, this
+method will create it for us.
+So, it will return a connection object, this connection object,
+similar to files, should be closed when
+we're done with it. So, a better approach, is to use the
+with statement, and then get the connection.
+-------------------code----------------------
+with sqlite3.connect("db.sqlite3") as conn:
+-------------------code----------------------
+
+- Next, we need to create a command. This command is basically the
+instruction we send to the database, for creating data, updating data,
+deleting it, and so on. Quite often we use a language called sql,
+that is beyond the scope of this course, so if
+we're not familiar with it, don't worry. It's pretty easy to learn, in fact,
+it's far easier than python.
+
+- so we're assuming we have a table called
+movies, where we store all our movies. Then we add values,
+parenthesis, and in parenthesis we add three question
+marks, separated by a comma. So, these question marks 
+are placeholders for the values that we're going to supply in the next step. 
+-------------------code----------------------
+command = "INSERT INTO Movies VALUES(?, ?, ?)"
+-------------------code----------------------
+
+- So, here's an example. we're going to create a
+command, and set it to a string like this. Insert
+into, movies, So our table of movies will have three columns,
+id, title, and year.
+
+- So next, we need to iterate over our movies list,
+now we need to execute this command. So we use our connection object,
+this has a method called execute, as the first argument
+we pass our command, and as the second argument
+we need to pass the actual values. So each movie object
+in this for loop is a dictionary,
+it has key value pairs like id, title,
+and year. All we want here is the actual values.
+so, we call "movie.values" now we need to get
+these values, and put them in a tuple, so
+we use the built in tuple function like this.
+-------------------code----------------------
+for movie in movies:
+    conn.execute(command, tuple(movie.values()))
+-------------------code----------------------
+
+- So here we're iterating over our movies
+list, for each movie we execute this command, when we're done
+we should call connection
+dot commit. At this point all these changes
+will be written to the database. Let's save the changes,
+now if we run this program,
+we're going to get an error, there we go, operational error,
+no such table, movies.
+-------------------code----------------------
+with sqlite3.connect("db.sqlite3") as conn:
+    command = "INSERT INTO Movies VALUES(?, ?, ?)"
+
+    for movie in movies:
+        conn.execute(command, tuple(movie.values()))
+    conn.commit()
+
+# sqlite3.OperationalError: no such table: Movies
+-------------------code----------------------
+
+- Because here we're dealing with an empty
+database, this database doesn't have any tables, so we need to create the movies
+table first. Here on google, if we search for
+-------------------code----------------------
+db browser for sqlite
+-------------------code----------------------
+
+- we will find this website,
+-------------------code----------------------
+https://sqlitebrowser.org/
+-------------------code----------------------
+
+
+- On this website we can find an application
+to open a sqlite database and look at its content. As we can see
+on the right side we have executables
+for various operating systems, so go ahead and download the right executable
+for our operating system.
+
+- When we open db browser we're going to see something like this.
+So on the top, let's go to open database, here in our project
+directory, let's open our database file,
+there we go, so as we see we don't have any
+tables here.
+
+- Let's go ahead and create a table,
+we're going to call that "Movies", and then we need to add
+three fields, or three columns to it. So add field, the first one
+is id, the type of this column should be integer,
+and we're going to mark this as primary key, which means we're going to
+use the value of this column as a unique identifier for each movie.
+We want to make sure each movie has a
+unique id. Okay? Now let's add another
+field, we're going to call that title, the type of this column
+should be text. And finally another field,
+we're going to call that year, once again the type of this is going to be integer,
+because here we're going to store values like
+1984. So, this is how we create a table, as we can see
+that's pretty easy. 
+
+- finally now we need to click, "write changes", beautiful,
+so, back to our program, let's run it one more time,
+okay, this time we didn't get
+an error, so back to db browser, now if we select the movies
+table, and go to browse data, we can see, both our movies ended
+up here, they're stored in a structured format, so we have a table with
+columns and rows, it's beautiful.
+
+- Now how to read data from this database.
+to read data from a database, first we need to connect to it.
+-------------------code----------------------
+with sqlite3.connect("db.sqlite3") as conn:
+-------------------code----------------------
+
+- instead of inserting a movie into the movies table, we're going to select
+all the movies. 
+The command that we should write is select star from movies.
+-------------------code----------------------
+command = "SELECT * FROM Movies"
+-------------------code----------------------
+
+- Now, we don't need to iterate
+over the movies object, we simply need to execute this
+command, so, connection dot execute, we pass the
+command, and this will return a "cursor", so when we read data
+from a database, we'll get a "cursor", let's store that here, a cursor
+is an iterable object, so we can iterate over it, and get one
+row at a time, for row in cursor.
+-------------------code----------------------
+with sqlite3.connect("db.sqlite3") as conn:
+    command = "SELECT * FROM Movies"
+    cursor = conn.execute(command)
+    for row in cursor:
+        print(row)
+
+    # (1, 'Terminator', 1989)
+    # (2, 'Kindergarten Cop', 1993)
+-------------------code----------------------
+
+- We also have this method, so
+fetch all, that will return all the rows in this table in one go.
+So, here we'll get a list, let's call that movies,
+and then print it on the terminal. Now, if we run this, we're not
+going to get any result, because after we iterate over this cursor,
+we'll get to the end of the cursor, so we won't be able to read it again.
+So, we're going to comment out these two lines, save the changes, and run the
+program.
+-------------------code----------------------
+with sqlite3.connect("db.sqlite3") as conn:
+    command = "SELECT * FROM Movies"
+    cursor = conn.execute(command)
+    # for row in cursor:
+    #     print(row)
+
+    movies = cursor.fetchall()
+    print(movies)
+    # [(1, 'Terminator', 1989), (2, 'Kindergarten Cop', 1993)]
+-------------------code----------------------

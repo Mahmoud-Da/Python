@@ -711,3 +711,114 @@ we can read all these csv files,
 and calculate the sum of sales for each product,
 and then store the result in another csv file.
 The possibilities are endless.
+
+*** 7- Working with JSON Files ***
+In this lecture we're going to learn how to work with json files in python.
+- json stands for javascript object notation, and it's a popular
+way to format data in a human readable way. These days
+it's very important to know json, because a lot of popular websites like
+facebook, twitter, yelp, youtube, and so on, provide their data
+in json format. Also, if we have a website, we can provide our
+data in json format.
+
+- So, how to work with
+json files. On the top, we import the json module.
+-------------------code----------------------
+import json
+-------------------code----------------------
+
+- Now let's create an array of movie objects.
+So movies, we set it to an array. Each item in this array
+is going to be a dictionary, because each movie object has properties like id,
+title, year, and so on. So each movie object is essentially
+a collection of key value pairs. 
+-------------------code----------------------
+movies = [
+    {"id": 1, "title": "Terminator", "year": 1989},
+    {"id": 2, "title": "Kindergarten Cop", "year": 1993}
+]
+-------------------code----------------------
+
+- So here we have a movies object, now we can call json
+dot dumps, pass this movies object here,
+and get a string that includes our movies data formatted as json.
+-------------------code----------------------
+data = json. dumps(movies)
+print(data)
+
+# [{"id": 1, "title": "Terminator", "year": 1989},
+# {"id": 2, "title": "Kindergarten Cop", "year": 1993}]
+-------------------code----------------------
+
+- So this is an example of json data.
+Now in this case, what we see here
+happens to be identical to the syntax that we use
+to define an array of dictionaries in python. But this is not the case
+when working with other languages.
+
+- Now, back here, so we have this data variable which is a
+simple string, now we can write it to a file. So on the top,
+-------------------code----------------------
+from pathlib import Path
+-------------------code----------------------
+
+- then instead of printing this
+on the terminal, we're going to create a pass object,
+let's say, movies dot json.
+And then call, write
+text on it, and pass this data string.
+-------------------code----------------------
+Path("movies.json").write_text(data)
+-------------------code----------------------
+
+- now here in our project folder we have, movies dot json,
+beautiful.
+
+- So we learn how to write data to a json file.
+
+- Now let's imagine we get this json file from somewhere else, this could be the data
+we get from facebook, twitter, imdb, yelp,
+youtube, and so on. So we should be able to read this data in python.
+
+- Back to app.py. we're going to delete this movies array,
+as well as the line where we dump it to a json string.
+So we start with this file, movies dot json,
+and read all
+its text, and store it in this variable.
+-------------------code----------------------
+data = Path("movies.json").read_text()
+-------------------code----------------------
+
+- So now data is a string that includes data formatted as json.
+Next we need to parse this string into an array of objects.
+
+**************************************************************
+Parsing in IT refers to the process of analyzing a text or structured data according
+to specific rules to convert it into a format that computers can understand and process.
+**************************************************************
+
+- So we call json dot loads past this string here,
+and this will return an array of dictionaries.
+-------------------code----------------------
+movies = json.loads(data)
+print(movies)
+# [{'id': 1, 'title': 'Terminator', 'year': 1989},
+#  {'id': 2, 'title': 'Kindergarten Cop', 'year': 1993}]
+-------------------code----------------------
+
+- So we can simply get any items in this array.
+Here's the first movie, now we have a dictionary, using square brackets
+we can get the value of any of these keys.
+-------------------code----------------------
+print(movies[0])
+# {'id': 1, 'title': 'Terminator', 'year': 1989}
+-------------------code----------------------
+
+For example, let's get the title of the first movie
+around the program, we get terminator. So this is all about
+working with json files in python.
+-------------------code----------------------
+print(movies[0]["title"])
+# Terminator
+-------------------code----------------------
+

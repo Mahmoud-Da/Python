@@ -1453,3 +1453,30 @@ print(numbers)
 # [3, 4, 2, 1]
 -------------------code----------------------
 
+*** 13- Opening the Browser ***
+- in this lecture we're going to learn how to open a web browser in a python script.
+
+- this is particularly useful if we're building an automation script
+that does a bunch of tasks and at the end we want to open up a browser window
+for example, let's say we're building a script to deploy our website
+so we build our website locally on our development machine, when we're done
+we want to run this script to deploy it to a web server, at the end we will have to
+open a browser window, type the address of our website and press enter
+this is manual and we can automate it. so we can have our python script
+open up a web browser at the end of deployment, so here let's print
+deployment completed.
+
+- now to open a web browser, we need to import the web browser
+module, this module has this method called open, we simply pass the url
+of the target website, let's say google.com
+now, when we run this program
+we see this message here
+and a browser window opens
+pointing to google.com, so we don't have to manually type this
+button on our website, the explorer window
+-------------------code----------------------
+import webbrowser
+
+print("Deployment completed")
+webbrowser.open("http://google.com")
+-------------------code----------------------

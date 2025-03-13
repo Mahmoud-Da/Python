@@ -1053,7 +1053,7 @@ look at the time module, and we'll look at the date time module next.
 import time
 -------------------code----------------------
 
-- So, this time module has a method called time, that returns the current date time as a time stamp, let me show we.
+- So, this time module has a method called time, that returns the current date time as a time stamp,
 So print, the result this is what we get.
 -------------------code----------------------
 print(time.time())
@@ -1204,7 +1204,7 @@ https://docs.python.org/3/library/datetime.html
 and we can store it. We can also convert a timestamp
 into a datetime object.
 
-So on the top, let me import the time module,
+So on the top, let us import the time module,
 we call time the time, let's say we have this timestamp somewhere in our program,
 perhaps we read it from a file.
 Now, we want to convert it to a datetime object.
@@ -1305,7 +1305,7 @@ Now in case we're wondering why we don't have month or year here, the reason is 
 have a varying amount of time in a month or in a year.
 That's why we only have days, seconds, and microseconds.
 
-- Now we can also add a time delta object to a date time object, let me show we.
+- Now we can also add a time delta object to a date time object,
 So, for our first date time, we're going to add a time delta
 of one day.
 
@@ -1375,7 +1375,7 @@ print(random.choices([1, 2, 3, 4], k=2))
 -------------------code----------------------
 
 - Now, with this choices method, we can generate
-a random password. Let me show we. So, let's duplicate this line,
+a random password. So, let's duplicate this line,
 set k to 4, let's say we want a password
 of 4 characters. Now, instead of an array,
 we should pass a string. So, A, B, C, D, E, F, G, H, whatever. Basically,
@@ -1479,4 +1479,147 @@ import webbrowser
 
 print("Deployment completed")
 webbrowser.open("http://google.com")
+-------------------code----------------------
+
+*** 14- Sending Emails ***
+- In this tutorial we're going to learn how to send emails in python. This is
+particularly useful if we have a database of customers and we want to send them various
+emails based on their interests. 
+
+- how to send emails in python. Basically we need to import a couple of classes,
+one to create email messages and the other to connect with an
+SMTP server for sending emails. 
+-------------------code----------------------
+from email.mime.multipart import MIMEMultipart
+-------------------code----------------------
+
+- What is going on here? So basically we have this email package in
+python standard library, in this package we have a sub package called mime.
+Mime stands for multipurpose internet mail extensions
+and this is a standard that defines the format for email messages.
+This has nothing to do with python, it's purely a standard for defining the format of emails.
+In this package we have another sub package that is multipart
+that exposes a class called mime multipart.
+
+- With this object, we can send an email message that includes both
+html and plain text content. So when the email client of the receiver receives this email message,
+if it supports html, it will render the html content, otherwise it will render plain text content.
+So, now let's go ahead and create a mime multipart object.
+So mime multipart
+
+- we store it here in message Now we need to set
+various headers, so message we use square brackets to set from  and similarly we set to and 
+ we need to set the subject so
+-------------------code----------------------
+message["from"] = "Moody"
+message["to"] = "test@gmail.com"
+message["subject"] = "This is a test"
+-------------------code----------------------
+
+- let's say this is a test so these are various headers
+supported by mime multipart objects but we don't have a header called body
+so to set the body we need to attach it to this message
+so this message object has a method called attach that gets a payload. This payload
+can be text, image, or or other types supported by the mime protocol
+so on the top we import MIMEText
+-------------------code----------------------
+from email.mime.text import MIMEText
+-------------------code----------------------
+
+- now to set the body of this message
+we need to create a mime text object
+so mime text and include our text here
+so let's say body now by default we can see the value of the second parameter
+is set to plain which refers to plain text if we want to pass html content
+we should set this to html and pass an actual html text
+-------------------code----------------------
+message.attach(MIMEText("Body", "html"))
+-------------------code----------------------
+
+- but we''re going to leave that to the next lecture
+so for now let's just send plain text content.
+-------------------code----------------------
+message.attach(MIMEText("Body"))
+-------------------code----------------------
+
+- so here we have a mail message object now we need to send this using an
+smtp server so on the top, let's import the smtplib module
+-------------------code----------------------
+import smtplib
+-------------------code----------------------
+
+this module has a class called smtp now here we need to pass
+two keyword arguments the first one is host i'm going to set that to smtp.gmail.com
+and port to 587 the values we set here depends on the smtp server we use
+now this returns an smtp object
+when we're done with it we should make sure to close it to release this resource.
+-------------------code----------------------
+smtp = smtplib.SMTP(host="smtp.gmail.com", port=587)
+smtp.close()
+-------------------code----------------------
+
+- so we would prefer to use the with statement and get that
+smtp object here alright.
+-------------------code----------------------
+with smtplib.SMTP(host="smtp.gmail.com", port=587) as smtp:
+-------------------code----------------------
+
+
+- now, there are a few steps that we need to follow before we send an email
+first we need to call smtp dot hello hello well this is spelled differently but this is a hello message
+or greeting to the smtp server
+basically we're telling the smtp server hey, i'm a client
+i want to send an email and this is part of the smtp protocol
+so the communication between a client and an smtp server should start with the hello message.
+-------------------code----------------------
+smtp.ehlo()
+-------------------code----------------------
+
+- next minute to call smtp start tls
+and this puts the smtp connection in tls mode tls
+stands for transport layer security with this all the commands that we send to the smtp server
+will be encrypted.
+-------------------code----------------------
+smtp.starttls()
+-------------------code----------------------
+
+- now we're ready to login so we call smtp
+dot login we pass our user and password.
+-------------------code----------------------
+smtp.login("set_email", "set_password")
+-------------------code----------------------
+
+- and finally we call smtp dot send message
+and pass our email message object, that's all we have to do
+now for confirmation let's print sent.
+-------------------code----------------------
+smtp.send_message(message)
+print("Sent...")
+-------------------code----------------------
+
+- in a real world application various things could go wrong
+so make sure to handle exceptions using a try block.
+
+- now here on my email client we can see i've got a message
+with the right subject and body
+let's take this to the next level we want to attach an image to this message
+so, just like how we attach text to this message
+we can also attach image on the top
+-------------------code----------------------
+from email.mime.image import MIMEImage
+-------------------code----------------------
+
+
+- we set any picture then we're going  message
+dot attach create a mime image object here we need to pass our image data
+in binary so we need to import
+-------------------code----------------------
+from pathlib import Path
+-------------------code----------------------
+
+- now we create a pass object and load our image
+as we learned before this has a method read bytes
+so this returns all the data in a file in binary.
+-------------------code----------------------
+message.attach(MIMEImage(Path("image").read_bytes()))
 -------------------code----------------------

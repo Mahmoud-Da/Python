@@ -232,7 +232,7 @@ and directories, it is possible that we can have
 a directory with a million files in it.
 
 - So, now we can iterate over this, let's say for p,
-and then print p. Let's run the program. So on my machine, we have one file
+and then print p. Let's run the program. So on our machine, we have one file
 and three directories at this path. As we can see, this method returns
 both the files and directories.
 -------------------code----------------------
@@ -1062,7 +1062,7 @@ print(time.time())
 
 - this floating point number represents the number of seconds
 from the beginning of time, no we're not talking about big bang here, that is the beginning
-of time on your operating system. On Unix that is January 1st
+of time on our operating system. On Unix that is January 1st
 1970, on windows honestly we're not sure, so this floating
 point number we see here, is the number of seconds after
 January 1st 1970, which is referred to as Unix epic time.
@@ -1111,3 +1111,142 @@ or any other programming languages,
 we will realize that there are multiple
 ways to solve a problem.
 So these are timestamps in Python.
+
+*** 10- Working with DateTimes ***
+
+- In this lecture we're going to learn how to work with
+datetime objects in python. So on the top, let's import
+the datetime module.
+-------------------code----------------------
+import datetime
+-------------------code----------------------
+
+- This module has a class called
+datetime. There are a few different ways to create a datetime object.
+-------------------code----------------------
+datetime.datetime()
+-------------------code----------------------
+
+- Here's one way. We can pass the year, the month,
+and the day, and optionally we can pass the hour, minute,
+and second as well. So this returns
+a datetime object, let's call that dt.
+-------------------code----------------------
+dt = datetime.datetime(2018, 1, 1)
+-------------------code----------------------
+
+- Now what we don't like about this code that we see in a lot of tutorials
+is this datetime.datetime. That is just ugly. It is better to import the datetime
+class from this module. 
+-------------------code----------------------
+from datetime import datetime
+
+dt = datetime(2018, 1, 1)
+print(dt)
+# 2018-01-01 00:00:00
+-------------------code----------------------
+
+-  So this is a method defined in the datetime class.
+And this returns the current datetime.
+-------------------code----------------------
+dt = datetime.now()
+print(dt)
+# 2025-03-13 10:02:31.675504
+-------------------code----------------------
+
+- We also have datetime.strip time. That is for parsing or converting
+a datetime string. This is particularly useful
+when we get input from the user or read it from a file.
+-------------------code----------------------
+dt = datetime.strptime()
+-------------------code----------------------
+
+- In both these scenarios, we're dealing with strings.
+So our datetime values are represented as strings
+and we need to convert them to datetime objects.
+So, let's say we have a string like this.
+2018, 01, 01.
+-------------------code----------------------
+dt = datetime.strptime("2018/01/01")
+-------------------code----------------------
+
+- Now we need to tell python how to parse
+or how to convert this string into a datetime object.
+So we need to tell it what parts represent
+the year, the month, and the day.
+For that, we use directives. So, as the second argument, we pass
+a format string that includes the directives that specify various components of this datetime string.
+So we use a percent capital Y to represent a four digit year.
+Then we have a slash
+percent lowercase m to represent a two digit month
+and percent d to represent a two digit day.
+We also have directives for hour, minute, and second.
+-------------------code----------------------
+dt = datetime.strptime("2018/01/01", "%Y/%m/%d")
+print(dt)
+# 2018-01-01 00:00:00
+-------------------code----------------------
+
+- Now don't worry about memorizing any of these,
+we can always find this in the documentation. So if we search 
+-------------------code----------------------
+python3 strptime
+-------------------code----------------------
+
+- on this page, down the bottom, we have this table of directives,
+so we can see various directives and their meaning.
+-------------------code----------------------
+https://docs.python.org/3/library/datetime.html
+-------------------code----------------------
+
+
+- Now back to our code, so this method returns a datetime object
+and we can store it. We can also convert a timestamp
+into a datetime object.
+
+So on the top, let me import the time module,
+we call time the time, let's say we have this timestamp somewhere in our program,
+perhaps we read it from a file.
+Now, we want to convert it to a datetime object.
+So, this datetime class has another class method called
+from timestamp. You can pass this timestamp,
+this returns a datetime object, so we store it.
+
+- and now let's print it to see what we get.
+So this is the current datetime on our machine.
+-------------------code----------------------
+dt = datetime.fromtimestamp(time.time())
+print(dt)
+# 2025-03-13 11:20:19.657717
+-------------------code----------------------
+
+
+- So these are a few different ways to create a datetime object.
+Now, our datetime object has attributes like year, month, day, and so on.
+So, we can print a formatted string.
+-------------------code----------------------
+dt = datetime.fromtimestamp(time.time())
+
+print(f"{dt.year}/{dt.month}")
+# 2025/3
+-------------------code----------------------
+
+-  We also have a method for formatting datetimes.
+This method is the opposite of strftime. So, with this method,
+we convert a string into a datetime object.
+With strftime, we convert a datetime object into a string.
+So, we need to specify our directives.
+-------------------code----------------------
+print(dt.strftime("%Y/%m"))
+# 2025/03
+-------------------code----------------------
+
+
+- We can also compare datetime objects
+for example. We can see if dt2 is greater than dt1.
+-------------------code----------------------
+dt1 = datetime(2018, 1, 1)
+dt2 = datetime.now()
+print(dt2 > dt1)
+# True
+-------------------code----------------------

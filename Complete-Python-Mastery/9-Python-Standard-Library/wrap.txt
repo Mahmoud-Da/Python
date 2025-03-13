@@ -1209,7 +1209,7 @@ we call time the time, let's say we have this timestamp somewhere in our program
 perhaps we read it from a file.
 Now, we want to convert it to a datetime object.
 So, this datetime class has another class method called
-from timestamp. You can pass this timestamp,
+from timestamp. we can pass this timestamp,
 this returns a datetime object, so we store it.
 
 - and now let's print it to see what we get.
@@ -1767,3 +1767,60 @@ name equals john.
 body = template.substitute(name="John")
 -------------------code----------------------
 So this is all about templates in python.
+
+*** 16- Command-line Arguments ***.
+- we might want to create a python program that expects command line arguments.
+Just like this python program itself that receives the name of our python file
+as an argument. 
+-------------------code----------------------
+$python3 app16.py
+-------------------code----------------------
+
+- Now we can extend this, take it to the next level
+and supply additional arguments here. These arguments can be the
+name of a user, their email, their password, whatever.
+
+- So, on the top, we import the sys module. This
+module has an attribute called ARGV, short
+for argument variables. So let's print that on the terminal.
+-------------------code----------------------
+import sys
+
+print(sys.argv)
+-------------------code----------------------
+
+- Now, back on the terminal, let's execute
+this command. We get an array of four items. The first
+item is always the name of our python program. So even if we don't
+supply any arguments, we'll get an array of one item.
+After that we have all these arguments represented as separate
+items.
+-------------------code----------------------
+$ python3 app16.py -a -b -c
+# ['app16.py', '-a', '-b', '-c']
+-------------------code----------------------
+
+- With this we can do something interesting like this.
+We can get the length of
+this array, and if it equals to one, that means the user has not supplied
+any arguments. Because as we told we, this array always has at least
+one item, and that is the name of our file. So we can print
+a usage message Otherwise,
+assuming that the user has supplied this argument, and then we can print it on the
+terminal, like this.
+-------------------code----------------------
+if len(sys.argv) == 1:
+    print("USAGE: python3 app-py <password>")
+else:
+    password = sys.argv[1]
+    print("Password", password)
+-------------------code----------------------
+
+- Back on the terminal,
+-------------------code----------------------
+$ python3 app16.py
+# USAGE: python3 app-py <password>
+
+$ python3 app16.py 1234
+# Password 1234
+-------------------code----------------------

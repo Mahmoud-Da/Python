@@ -1332,3 +1332,124 @@ print(dt1)
 # 2018-01-02 00:16:40
 -------------------code----------------------
 
+*** 12- Generating Random Values ***
+
+- In this lecture we're going to learn how to generate random values in Python.
+
+- So on the top we import the random module. This module has
+a method called random that generates a random value between 0
+and 1. we get a floating point number. Every time we run
+this program, we get a different value.
+-------------------code----------------------
+import random
+
+print(random.random())
+# 0.7764312619933015
+-------------------code----------------------
+
+- Now, we also have another method, rand-int
+that generates a random integer between two numbers, let's say 1
+and 10. So we get 10, now we get 2, 8, and so on.
+-------------------code----------------------
+print(random.randint(1, 10))
+# 9
+-------------------code----------------------
+
+- We have another
+super useful method called choice, that takes an array,
+let's say an array of numbers, and randomly picks one of the items
+in this array. 
+-------------------code----------------------
+print(random.choice([1, 2, 3, 4]))
+# 2
+-------------------code----------------------
+
+- Now we have a similar method, choices, that selects multiple
+values from this array. So here as the second argument, after
+this array, we need to supply a keyword argument, that is k,
+we set it to 2, and this returns two random items from
+our original array. 
+-------------------code----------------------
+print(random.choices([1, 2, 3, 4], k=2))
+# [4, 2]
+-------------------code----------------------
+
+- Now, with this choices method, we can generate
+a random password. Let me show we. So, let's duplicate this line,
+set k to 4, let's say we want a password
+of 4 characters. Now, instead of an array,
+we should pass a string. So, A, B, C, D, E, F, G, H, whatever. Basically,
+we can pass any sequence to this method, and it will pick 4 items
+from that sequence.
+-------------------code----------------------
+print(random.choices("abcdefghi", k=4))
+# ['i', 'c', 'i', 'd']
+-------------------code----------------------
+
+- So, to generate a password, we should combine
+all these items in this array into a string.
+To do that, we create an empty string, and call
+the join method on it, and this will join all the items
+in an array using an empty string as a separator.
+-------------------code----------------------
+print("".join(random.choices("abcdefghi", k=4)))
+# cddg
+-------------------code----------------------
+
+- So, when we run the program, we get a string instead of an array.
+Now, if we use a comma in the string, that comma will be used
+as the separator when joining the
+items of this array.So, let's run the program one more time.
+See what we get? We don't want that. We want an empty string. that's why we used 
+empty string with join method.
+-------------------code----------------------
+print(",".join(random.choices("abcdefghi", k=4)))
+# c,b,c,b
+-------------------code----------------------
+ 
+-  Now the only issue we have here
+is the limited choice of characters. Now one way is to type all the lowercase
+and uppercase as well as digits,
+but that is tedious. There is a better way. We have this string module,
+let's import that. 
+-------------------code----------------------
+import string
+-------------------code----------------------
+
+- This module has a few interesting attributes.
+Let's print string.ascii letters. This returns a string
+that includes all the lowercase and uppercase letters.
+We also have ascii lowercase, uppercase, as well as digits.
+-------------------code----------------------
+print(string.ascii_lowercase)
+# abcdefghijklmnopqrstuvwxyz
+
+print(string.digits)
+# 0123456789
+-------------------code----------------------
+
+- Take a look. So we get all the numbers
+from 0 to 9.
+Now, instead of passing
+a string in choices method, we can pass string dot ascii letters plus string
+dot digits.
+And here's our random password.
+-------------------code----------------------
+print("".join(random.choices(string.ascii_lowercase + string.digits, k=9)))
+# 9qd99f64n
+-------------------code----------------------
+
+
+- We also have another useful method
+for shuffling an array. So let's say we have an array of numbers.
+One, two, three, four.
+We can call random.shuffle and pass this array here.
+Now, when we print this, the order of these items
+are randomly changed.
+-------------------code----------------------
+numbers = [1, 2, 3, 4]
+random.shuffle(numbers)
+print(numbers)
+# [3, 4, 2, 1]
+-------------------code----------------------
+

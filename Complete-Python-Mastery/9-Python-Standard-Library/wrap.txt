@@ -1824,3 +1824,286 @@ $ python3 app16.py
 $ python3 app16.py 1234
 # Password 1234
 -------------------code----------------------
+
+*** 17- Running External Programs ***
+
+- In this tutorial, we're going to learn how to call external programs from your python scripts.
+This is particularly useful as part of an automation script.
+For example, let's say, we want your python program
+to run the ls command and capture the output.
+
+- On mac and linux, this command lists the files and directories
+in the current directory. This is equivalent to the dir
+command on windows. So in this lecture, we're going to learn how to run
+any of the operating system commands as well as external programs.
+-------------------code----------------------
+$ ls
+app10.py        app12.py        app14.py        app16.py        app3.py         app5.py         app7.py         app9.py         db.sqlite3      extract         movies.json     wrap.txt
+app11.py        app13.py        app15.py        app2.py         app4.py         app6.py         app8.py         data.csv        ecommerce       files.zip       template.html
+-------------------code----------------------
+
+- For example, we can have your python script execute another python script.
+For that, we need to run 
+-------------------code----------------------
+$ python3 other.py
+-------------------code----------------------
+
+- how to achieve this. On the top, we import the subprocess module.
+With this module, we can spawn a child process. A process
+is basically an instance of a running program. So with this module, we can run other programs.
+-------------------code----------------------
+import subprocess
+-------------------code----------------------
+
+- Now in this module,
+we have a bunch of functions or methods  All these methods are helper methods
+Now, these methods have been around for a long time,
+and they're kind of considered legacy.
+-------------------code----------------------
+subprocess.call
+subprocess. check_call
+subprocess.check_output
+subprocess.Popen
+-------------------code----------------------
+
+- There is a newer method, and that is the preferred
+approach to create an instance of the popen class.
+That method is called run.
+-------------------code----------------------
+subprocess.run()
+-------------------code----------------------
+
+- So if we look at other tutorials or courses
+and they talk about these methods, remember, there is a better approach,
+so don't waste your time on these methods.
+
+- Now let's see how we can use the run method to run an external program.
+The first argument of this method is an array of strings.
+Here is an example. Let's say we want to run the ls command.
+-------------------code----------------------
+subprocess.run(["ls"])
+
+# app10.py        app13.py        app16.py        app3.py         app6.py         app9.py         ecommerce       movies.json
+# app11.py        app14.py        app17.py        app4.py         app7.py         data.csv        extract         template.html
+# app12.py        app15.py        app2.py         app5.py         app8.py         db.sqlite3      files.zip       wrap.txt
+-------------------code----------------------
+
+- Now if we want to supply any arguments to this command, we add them
+as items in this array. So let's say ls-l
+which gives us a detailed view of the files and directories in the current directory.
+-------------------code----------------------
+subprocess.run(["ls", "-l"])
+# total 328
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    535 Mar 13 11:36 app10.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    506 Mar 13 11:49 app11.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    642 Mar 13 12:05 app12.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff     86 Mar 13 17:17 app13.py
+# -rw-r--r--  1 mahmouddabbbagh  staff    683 Mar 13 19:35 app14.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    748 Mar 13 19:45 app15.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    326 Mar 13 20:12 app16.py
+# -rw-r--r--  1 mahmouddabbbagh  staff    541 Mar 13 20:17 app17.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    645 Mar  2 21:07 app2.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff   1522 Mar  3 06:28 app3.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    902 Mar  3 06:49 app4.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff   1289 Mar  3 07:07 app5.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    579 Mar 13 07:35 app6.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    641 Mar 13 07:55 app7.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    860 Mar 13 08:49 app8.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    233 Mar 13 08:59 app9.py
+# -rw-r--r--@ 1 mahmouddabbbagh  staff     55 Mar 13 07:35 data.csv
+# -rw-r--r--@ 1 mahmouddabbbagh  staff   8192 Mar 13 08:49 db.sqlite3
+# drwxr-xr-x@ 7 mahmouddabbbagh  staff    224 Mar  3 06:28 ecommerce
+# drwxr-xr-x@ 3 mahmouddabbbagh  staff     96 Mar  3 07:07 extract
+# -rw-r--r--@ 1 mahmouddabbbagh  staff   4315 Mar  3 07:07 files.zip
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    102 Mar 13 07:55 movies.json
+# -rw-r--r--@ 1 mahmouddabbbagh  staff    268 Mar 13 19:45 template.html
+# -rw-r--r--@ 1 mahmouddabbbagh  staff  71005 Mar 13 20:13 wrap.txt
+-------------------code----------------------
+
+
+- As we can see, our program
+executed ls-l
+command, and this is the output
+printed on the terminal window.
+Now let's look at the return value of this method.
+So, let's call the result and print its type.
+-------------------code----------------------
+result = subprocess.run(["ls", "-l"])
+print(type(result))
+# <class 'subprocess.CompletedProcess'>
+-------------------code----------------------
+
+
+- So let's rename this variable to completed.
+-------------------code----------------------
+completed = subprocess.run(["ls", "-l"])
+-------------------code----------------------
+
+
+- Now, look at the attributes
+of this object. We have args, return code, standard error,
+and standard output. Let's inspect each of these attributes.
+So we're going to print this. Also, for clarity,
+we would like to add a label. After that, let's print return code
+and change the label accordingly.
+
+- Let's run the program and see what we get.
+So args is an array that includes the command that we executed.
+Return code is zero, which means success. Any non-zero values
+indicates an error.
+
+- Now in this case,
+because we don't have any errors,
+standard error is none.
+Otherwise, we would have an error message here.
+And standard output is also none,
+because we are not capturing the output.
+The output is automatically printed
+on the terminal window.
+-------------------code----------------------
+completed = subprocess.run(["ls", "-l"])
+print("args", completed.args)
+# ['ls', '-l']
+
+print("returncode", completed.returncode)
+# returncode 0
+
+print("stderr", completed.stderr)
+# stderr None
+
+print("stdout", completed.stdout)
+# stdout None
+-------------------code----------------------
+
+- Sometimes we want to read the output
+of another program and do something with it.
+Perhaps we want to save it to a file.  how to do that. This run method
+takes quite a few keyword arguments and all of these have default values.
+The one we're going to use now is capture output. If we set this to true,
+when we run this program, the output will not be printed on the terminal.
+It will be available in this attribute, standard output.
+
+- in the result we don't see the list of files
+and directories here. The output is available
+in this attribute. So let's print that and see what we get.
+There we go.
+-------------------code----------------------
+completed = subprocess.run(["ls", "-l"], capture_output=True)
+print("args", completed.args)
+# ['ls', '-l']
+
+print("returncode", completed.returncode)
+# returncode 0
+
+print("stderr", completed.stderr)
+# stderr None
+
+# args ['ls', '-l']
+# returncode 0
+# stderr b''
+-------------------code----------------------
+
+Now note that this string is prefixed with B,
+which represents a binary object.
+-------------------code----------------------
+stderr b''
+-------------------code----------------------
+
+- To convert this to a string, we need to pass
+another argument to the run method. So we're going to break this down
+into multiple lines for clarity.
+
+Now when we run this program,
+we no longer see that b prefix, so here we have a regular string object.
+-------------------code----------------------
+completed = subprocess.run(["ls", "-l"],
+                           capture_output=True,
+                           text=True)
+
+print("stdout", completed.stdout)
+# stdout total 328
+-------------------code----------------------
+
+- As another example here,
+let's run another python script. So we're going to create
+a separate file here. and print a message.
+-------------------code----------------------
+print("Here is a complicated script.")
+-------------------code----------------------
+
+- Now back to app17.py,
+we can simply run this script as a child process. So instead of ls,
+we want to execute python or python3, and as the argument,
+we pass other.py. save the changes,
+run the program, so as we see,
+the other script was executed and here's the output that we captured.
+-------------------code----------------------
+completed = subprocess.run(["python3", "other.py"],
+                           capture_output=True,
+                           text=True)
+
+print("stdout", completed.stdout)
+# stdout Here is a complicated script.
+-------------------code----------------------
+
+- Now note that here we're executing
+this other python script as a child process,
+so it's going to be in a completely different memory space.
+This is different from importing that script and executing it here.
+So these two scripts will be in two different processes, and they will not share the same variables.
+So this is the basic of running child processes. And one last thing before we finish this lecture.
+
+
+- Earlier we told we that any non-zero return code
+indicates an error. So let's take a look at a real example.
+We have this command called false, we're not entirely sure if this is available on windows or not,
+So, let's run this program and see what happens.
+As we see, our return code is one,
+because this false program always exits with one as the return code
+to indicate an error.
+-------------------code----------------------
+completed = subprocess.run(["false"],
+                           capture_output=True,
+                           text=True)
+
+print("returncode", completed.returncode)
+# returncode 1
+-------------------code----------------------
+
+- Now, it's our job to check for this error,
+so one way is to check if completed that return code is not zero,
+then perhaps we want to print completed.standard error.
+-------------------code----------------------
+if completed.returncode != 0:
+    print(completed.stderr)
+-------------------code----------------------
+
+The other approach is to pass another keyword argument here, check, we set this to true.
+When we do that, if there is an error, this method will automatically raise an exception.
+-------------------code----------------------
+completed = subprocess.run(["false"],
+                           capture_output=True,
+                           text=True,
+                           check=True)
+# subprocess.CalledProcessError: Command '['false']' returned non-zero exit status 1.
+-------------------code----------------------
+
+- As we can see, we have an exception of type called process error.
+And this class is defined in this subprocess module.
+With this change, we don't have to check for errors like this,
+so we can wrap this code in a try block,
+and then add the except clause. The exception we want to capture
+is subprocess.called process error. We can get the exception in this object,
+and then simply print it on the terminal.
+-------------------code----------------------
+try:
+    completed = subprocess.run(["false"],
+                               capture_output=True,
+                               text=True,
+                               check=True)
+except subprocess.CalledProcessError as ex:
+    print(ex)
+-------------------code----------------------
+
+So this is all about running external programs
+in your python scripts.

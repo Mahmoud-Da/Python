@@ -1623,3 +1623,147 @@ so this returns all the data in a file in binary.
 -------------------code----------------------
 message.attach(MIMEImage(Path("image").read_bytes()))
 -------------------code----------------------
+
+*** 15- Templates ***
+
+- In the last lecture, we added the body of our email right here.
+-------------------code----------------------
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from pathlib import Path
+import smtplib
+
+message = MIMEMultipart()
+
+
+message["from"] = "Moody"
+message["to"] = "test@gmail.com"
+message["subject"] = "This is a test"
+message.attach(MIMEText("Body"))
+message.attach(MIMEImage(Path("image").read_bytes()))
+
+
+with smtplib.SMTP(host="smtp.gmail.com", port=587) as smtp:
+    smtp.ehlo()
+    smtp.starttls()
+    smtp.login("set_email", "set_password")
+    smtp.send_message(message)
+    print("Sent...")
+-------------------code----------------------
+
+- But that's not how we build real applications. Because in a real application,
+the body of an email can be several lines of text. We don't want to write all that text
+here. Quite often, we put that text in a separate file as a
+template. And we use html to build that template. 
+
+- html is the language of the web. That's the language that we use to build web pages.
+We use it to present content.  So, in our project folder, we're going to add a new file
+and call it template.html. Now in a real application, we often have different templates for different scenarios, such as
+when a user signs up or attempts to reset their password or places an order,
+these are various scenarios. So we need different templates for these scenarios.
+And we should name our template files based on those scenarios.
+
+- In this demo, we're just going to go with a simple name like template.html.
+using "!" So now we have a basic html template.
+
+- When sending emails, we don't need anything in the head
+section, so let's delete all this. In the body, we're going to type something
+like this. Hi user, this is our test email.
+Now what if we want to dynamically replace this with the name of the recipient.
+So let's define a parameter that we can replace later.
+-------------------code----------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Hi $name, this is our test email.
+  </body>
+</html>
+-------------------code----------------------
+
+-  Back to our app15.py. Here on the top,
+from the string module, we need to import the template class.
+-------------------code----------------------
+from string import Template
+-------------------code----------------------
+
+- We use this class to replace these parameters in the
+template string. how that works. So back to app15.py.
+Let's create a template object. Here we need to pass our template as a string.
+
+- So, we're going to create a path object
+to load template.html. Here we call read text.
+This returns the entire content of this file as a string.
+-------------------code----------------------
+template = Template(Path("template.html").read_text())
+-------------------code----------------------
+
+
+- Now we have a template object. This template object
+has a method called substitute. With this method we can replace parameters
+dynamically. 
+
+- how that works. So,  Where we're attaching
+the body of this message. Instead of hard coding this body here,
+let's call template.substitute. Now here we can pass a dictionary that contains key value pairs
+for parameters in our template or we could pass keyword arguments.
+Now to make this code a little bit cleaner,we put this on a separate line.
+-------------------code----------------------
+body = template.substitute(name="John")
+
+message. attach(MIMEText(body, "plain"))
+-------------------code----------------------
+
+- In this dictionary we should have
+a key called name. And let's set that to john.
+This substitute method will return a string.
+
+And finally we change plane to html.
+-------------------code----------------------
+message. attach(MIMEText(body, "html"))
+-------------------code----------------------
+
+
+- Now this email message is pretty simple.
+It doesn't use any of the features of html. So let's go back to our template
+and make the name of the user bold. So here in our template file
+we're going to add a strong tag around the name parameter. This will make the name of the user bold.
+-------------------code----------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Hi <strong>$name</strong>, this is our test email.
+  </body>
+</html>
+-------------------code----------------------
+
+
+- now the name of the user is bold.
+So this is the benefit of using html over plain text.
+
+- Now back to this substitute method.
+As we told we, we can pass a dictionary.
+S
+o we might have a dictionary
+that includes all the values
+that we want to replace dynamically.
+If that's the case, pass a dictionary object here.
+Alternatively, we can pass
+keyword arguments here.
+So instead of passing a dictionary
+we can pass the keyword argument
+name equals john.
+-------------------code----------------------
+body = template.substitute(name="John")
+-------------------code----------------------
+So this is all about templates in python.

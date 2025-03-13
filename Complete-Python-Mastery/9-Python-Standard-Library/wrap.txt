@@ -1250,3 +1250,85 @@ dt2 = datetime.now()
 print(dt2 > dt1)
 # True
 -------------------code----------------------
+
+*** 11- Working with Time Deltas ***
+- In the last lecture we learned about date time objects, these objects represent
+a point in time. In the date time module we also have a class called
+time delta, which represents a duration.
+-------------------code----------------------
+from datetime import datetime, timedelta
+-------------------code----------------------
+
+- Now when we subtract these two dates, we get a time delta object.
+So let's add duration to dt2 minus dt1 and print it on the terminal.
+-------------------code----------------------
+dt1 = datetime(2018, 1, 1)
+dt2 = datetime.now()
+
+duration = dt2 - dt1
+print(duration)
+# 2628 days, 11:38:36.052896
+-------------------code----------------------
+
+- Now this time delta object has a few interesting attributes. We have
+duration, the days, let's print that on the terminal
+and add a label for clarity. We also
+have seconds, let's take a look,
+and run the program. 
+
+- 11 hours and 38 minutes is equivalent to 41,970 seconds.
+-------------------code----------------------
+print(duration)
+# 2628 days, 11:38:36.052896
+
+print("days", duration.days)
+# days 2628
+
+print("seconds", duration.seconds)
+# seconds 41970
+-------------------code----------------------
+
+
+- We also have a method called total seconds. This is a method,
+not an attribute. Let's see what this returns.
+So this value we see here is the total
+duration represented as seconds. So if we calculate
+the number of seconds in
+2628 days, 11 hours and 38 minutes, we get this value "227101230.113785".
+-------------------code----------------------
+print("total_seconds", duration.total_seconds())
+# total_seconds 227101230.113785
+-------------------code----------------------
+
+- So these are a few interesting members of the time delta class.
+Now in case we're wondering why we don't have month or year here, the reason is that we can
+have a varying amount of time in a month or in a year.
+That's why we only have days, seconds, and microseconds.
+
+- Now we can also add a time delta object to a date time object, let me show we.
+So, for our first date time, we're going to add a time delta
+of one day.
+
+Now if we print
+dt1,
+we get
+January the 2nd.
+And the difference is 323 days.
+-------------------code----------------------
+dt1 = datetime(2018, 1, 1) + timedelta(1)
+print(dt1)
+# 2018-01-02 00:00:00
+-------------------code----------------------
+
+- However,
+someone else looking at this code may not be quite sure what this one here represents.
+Is it one day, one hour, one second?
+So it's better to use keyword arguments here for clarity.
+We set days to one. We can also set seconds
+to a thousand.
+-------------------code----------------------
+dt1 = datetime(2018, 1, 1) + timedelta(days=1, seconds=1000)
+print(dt1)
+# 2018-01-02 00:16:40
+-------------------code----------------------
+

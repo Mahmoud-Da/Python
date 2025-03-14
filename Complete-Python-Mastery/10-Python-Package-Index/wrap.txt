@@ -443,3 +443,127 @@ Because earlier we installed this globally, and now it's not available in this i
 So we need to go ahead and install it.
 Alright, the error is gone.
 
+*** 6- Pipfile ***
+
+- Let me install a package using pipenv, two files get automatically created.
+pipfile and pipfile.lock. These two files are
+used to keep track of the dependencies of our project and their version.
+
+- So first we're going to open up pipfile. Here we
+have four sections. The first one is "source", that specifies the
+address of the repository where these packages are downloaded from.
+Below that we have "dev" or development packages.
+These are the packages that we use as part of our development, such as packages
+that we use for automated testing. They're only used during development.
+So they don't have to exist for our application to run. Below
+that, we've got the packages that our application is dependent on.
+In this case we're dependent on the "request" package, and this
+asterisk we see , because we didn't specify a version when installing this
+package. This asterisk means the latest version. If we
+specify the version.
+-------------------code----------------------
+[packages]
+requests = "*"
+-------------------code----------------------
+
+- And finally, below that we've got
+requires, that specifies the version of Python we need to run this application.
+So this is our pip file. Now let's look at pipfile.lock. This is a JSON file that lists the
+dependencies of our application and their exact version.
+we've got this section called meta, don't worry about that. Below
+that we have default, and inside of the default we've got all the dependencies of our
+application and their exact version. "certify" Now we didn't explicitly install
+this package, this is one of the dependencies of the requests package.
+
+- So all the packages that we installed and their dependencies and their
+dependencies are listed in this file. So the version that is installed on my machine
+is this version.
+
+- Now if we scroll down, we can find the requests package, and here's the
+version that is installed on our machine.
+-------------------code----------------------
+"requests": {
+            "hashes": [
+                "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760",
+                "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==2.32.3"
+}
+-------------------code----------------------
+
+- Now with all the information stored in
+this file, we can take our source code put it on another machine, like
+a production environment, and reproduce
+this exact execution environment. And this minimizes or
+eliminates the situation where our application runs on our machine, but
+doesn't run on another machine, because
+there's a different version of one of these dependencies on that machine.
+
+- Now to see this workflow in action.
+So here on the terminal, let's find the virtual environment
+for this project.
+-------------------code---------------------- 
+$ pipenv --venv
+# /Users/mahmouddabbbagh/.local/share/virtualenvs/10-Python-Package-Index-Aaz2bPmn
+-------------------code----------------------
+
+
+- Next we're going to delete this directory
+to simulate the scenario where we copy our project onto another machine.
+On that machine, this virtual environment does not exist. All we have
+is the source code of our application.
+-------------------code----------------------
+$ rm -rf /Users/mahmouddabbbagh/.local/share/virtualenvs/10-Python-Package-Index-Aaz2bPmn
+-------------------code----------------------
+
+- So now if we run pipenv, dash dash venv
+one more time, it tells us that no virtual environment has been created
+for this project yet.
+-------------------code---------------------- 
+$ pipenv --venv
+No virtualenv has been created for this project yet!
+Aborted!
+-------------------code---------------------- 
+
+- All we have is this source code
+and our pip files that specify the dependencies of our application.
+So now we need to install all these dependencies.
+And that is very easy. We run pipenv install without any additional arguments.
+When we run this command, pipenv will look at our pip file
+and install all the dependencies of our application.
+-------------------code---------------------- 
+$ pipenv install
+-------------------code---------------------- 
+
+- Now, let's run pipenv, dash dash venv. We can see we have this virtual
+environment, and in this virtual environment
+we've got all the dependencies of this project.
+-------------------code---------------------- 
+$ pipenv --venv
+# /Users/mahmouddabbbagh/.local/share/virtualenvs/10-Python-Package-Index-Ssz2bPmn
+-------------------code----------------------
+
+- Now these dependencies are installed
+based on the version specified here.
+So, for the request package, we're asking for the very latest version.
+However, on my machine at the time of development,
+we've been using version 2.32.3. So chances are in the future
+when we put this project on a different machine and install the dependencies,
+we might have a newer version of the request package.
+
+- In that case, those dependencies installed on that machine
+will be different from the dependencies on my development machine.
+If we want to install the exact same versions listed here, we should tell pipenv to ignore the pip file
+and use pip file.lock. So back on the terminal,
+we run pipenv install, and then supply an additional parameter,
+dash dash, ignore, dash, pip file.
+
+-------------------code----------------------
+$ pipenv install --ignore-pipfile
+-------------------code----------------------
+
+- As we can see, this time pipenv installed the dependencies
+from pip file.lock.
+

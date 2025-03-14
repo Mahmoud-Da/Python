@@ -1,0 +1,12 @@
+*** 1- Introduction ***
+- In this section we're going to look at some of the most
+popular packages in the Python community. So we're going to learn how to work with
+Excel spreadsheets, PDF files, send text messages,
+automate browsers, scrape websites, and so on.
+
+- These have a lot of applications in the real world. Now before we get started, we just
+want to let we know that we're only going to look at the basics of these packages because
+each of these packages has so much detail that goes beyond the scope of this course.
+
+- we need to look at their documentation to learn these additional details on our own.
+So in this section we just want to know what is out there for us and how we can use it.

@@ -69,3 +69,50 @@ we can see a preview of this web page.
 with Yelp API to search for businesses
 based on some criteria.
 
+*** 3- Yelp API ***
+
+- In this lecture we're going to have a quick look
+at Yelp API. So if we search for Yelp API, we can find
+this website, yelp.com slash developers. 
+-------------------code----------------------
+yelp api
+-------------------code----------------------
+
+- Let's have a quick look here. So we have this Yelp
+Fusion, which is the rest API for Yelp.
+When working with APIs, quite often we see this term rest,
+which is basically a technical jargon that stands for representational
+state transfer. Basically, it's a bunch of conventions and rules that we have to follow
+to build or consume APIs for exchanging data.
+-------------------code----------------------
+Yelp Fusion
+-------------------code----------------------
+
+- So let's take a look at this Yelp Fusion.
+On this page, we should see this documentation
+link. Here we have various endpoints for working with businesses. For example, we have endpoints for
+finding businesses by keyword, location, category, or
+using a phone number. We also have an endpoint for getting
+details about a particular business or
+reviews. 
+
+- These are all business endpoints.
+Now on the left side, if we look, we also
+have endpoints for working with events
+as well as categories. So there are so many different
+things that we can do with Yelp API. Now,
+to get started, first we should create an app.
+
+
+- So, let's give our application a name. we're going to call this
+pyyelp. Now if we do have a website, we can put that here, but in this case
+we don't have a website, we simply have a python program.
+Next we need to specify the industry for this application.
+we're going to set that to business.
+The next piece of information that we need to supply is the contact email
+and some description. 
+
+- for this demo i will use jason place holder instead cause it's free
+-------------------code----------------------
+https://jsonplaceholder.typicode.com/
+-------------------code----------------------

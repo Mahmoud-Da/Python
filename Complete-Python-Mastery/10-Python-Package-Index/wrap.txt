@@ -656,3 +656,224 @@ requests==2.32.3
 ├── idna
 └── urllib3
 -------------------code----------------------
+
+*** 8- Publishing Packages ***
+
+- In this lecture we're going to show we how to publish our own packages to
+pypi.org. The first step is to create a new account.
+
+- Next here on the terminal, we need to install
+three tools globally. So pip, or pip3, install, setup tools, wheel,
+and twine. You will see these in action momentarily.
+-------------------code----------------------
+$ pip3 install setuptools wheel twine
+-------------------code----------------------
+
+- So let's go ahead. Alright, now we're going to start with a brand new project, let's say
+we're going to create a package to work with pdf files. So we're going to create
+a new directory, call it moody pdf.
+-------------------code----------------------
+$ mkdir moody_pdf
+-------------------code----------------------
+
+- Now let's go to this directory, and open vscode.
+Now as a best practice, we should create a high level directory with the same name as our package.
+-------------------code----------------------
+$ moody_pdf
+-------------------code----------------------
+
+- So, we're going to call that
+moody pdf, here potentially we could have another directory for unit tests,
+we're going to look at unit tests in the future. Perhaps we could have
+another top level directory for some sample data and so on.
+All our source code will end up here.
+-------------------code----------------------
+tests/
+data/
+-------------------code----------------------
+
+- Now in this directory, we should add
+an init file, so python will see this as a package.
+Now let's add a couple of modules, so we're going to add a new file, call that pdf to text and pdf to image.
+-------------------code----------------------
+pdf2text.py
+__init__.py
+pdf2image.py
+-------------------code----------------------
+
+and inside of each file we're going to write a basic function
+like convert, so convert, that simply prints pdf to text.
+-------------------code----------------------
+def convert():
+    print("pdf2text")
+-------------------code----------------------
+
+-------------------code----------------------
+def convert():
+    print("pdf2image")
+-------------------code----------------------
+
+
+- So this is a basic structure for a package.
+-------------------code----------------------
+data			moody_pdf		tests
+-------------------code----------------------
+
+- Now, in order to publish this to pypi, we need to add
+three files here. The most important one is setup.py.
+So, at the root of this project, we add a new file, setup.py.
+Here on the top we should import setup tools that we installed earlier.
+-------------------code----------------------
+import setuptools
+-------------------code----------------------
+
+- This module has a method called setup. We call this method
+and pass a few keyword arguments. Here are the essential ones.
+The first one is name. We should set this to a unique name for our package
+so it doesn't conflict with another package in pypi repository.
+In this demo, we're going to set this to moody pdf.
+
+- Next one is version.
+we're going to set this to version 1.0. We need a long description.
+For now, we're going to set this to an empty string. We're going to come back to this in a second.
+And finally, we need to tell what packages
+are going to be distributed. Because in this project currently
+we have one package that is moody pdf, and in this package
+we have these two modules. So we need to tell setup tools
+about the modules and packages that we're going to publish.
+-------------------code----------------------
+setup.py
+-------------------code----------------------
+
+- So, here we add packages and we set it to
+setuptools.packages.
+
+This method will look at our project
+and automatically discover the packages
+that we have defined. However, we need to tell it to exclude two
+directories, tests and data because they don't include source code. So, we pass an array here
+with a couple of strings tests and data. So this is our setup file.
+
+-------------------code----------------------
+setuptools.setup(name="moodypdf",
+                 version=1.0,
+                 long_description="",
+                 packages=setuptools.find_packages(
+                     exclude=["tests", "data", "env"])
+                 )
+-------------------code----------------------
+PS: we add env cause we have env file from the previous lecture
+
+
+
+
+- Now we should create a readme file.
+What we put in the readme file will be displayed in the homepage of our package
+on pypi.
+
+So, here in the root of the project let's add readme
+and by convention we use all capital readme and then lowercase md
+which is short for markdown.
+-------------------code----------------------
+README.md
+-------------------code----------------------
+
+- So here we can use the markdown syntax
+for now we're just going to go with a simple example
+this is the homepage of our project.
+-------------------code----------------------
+This is the homepage of our project.
+-------------------code----------------------
+
+
+- we also need a license file so once again in the root of the project
+let's add license
+-------------------code----------------------
+LICENSE
+-------------------code----------------------
+
+- now if we head over to
+choosealicense.com we can find a basic template for this
+license file, so let's say we care about sharing improvements
+click that here we can see a basic license
+agreement template on the top we're going to click this button to copy
+this to clipboard and then paste it into this file
+that's our license.
+-------------------code----------------------
+https://choosealicense.com
+-------------------code----------------------
+
+ 
+- Now back to setup.py
+we should set this long description to the content of our readme file
+we should import the path class
+and then create a pass object set it to readme.md and then call read text
+-------------------code----------------------
+import setuptools
+from pathlib import Path
+
+setuptools.setup(name="moodypdf",
+                 version=1.0,
+                 long_description=Path("README.md").read_text(),
+                 packages=setuptools.find_packages(
+                     exclude=["tests", "data", "env"])
+                 )
+-------------------code----------------------
+
+
+
+- we added three files to our project a readme file, a license file
+and a setup.py now we need to generate a distribution package
+and that's pretty easy we open up the terminal
+and run 
+-------------------code----------------------
+$ python3 setup.py sdist bdist_wheel
+-------------------code----------------------
+
+Note: sdist which is short for source distribution and bdist
+underline wheel which is short for built distribution
+so with this command we're going to generate.
+
+
+- python setup.py two distribution packages
+a source distribution and a built distribution
+let's go ahead alright, now here we have
+two new directories build and dist in the dist directory
+we have a wheel file which is a built distribution
+and a source distribution both these are zip files
+we can unzip them and see what is inside if we're adventurous
+-------------------code----------------------
+moodypdf-1.0-py3-none-any.whl	moodypdf-1.0.tar.gz
+-------------------code----------------------
+- now that we have
+these two distribution packages the final step
+is to upload them to pypi.org back in the terminal
+we use twine.
+
+- so we're telling twine to upload all the files
+in the dist directory
+-------------------code----------------------
+$ twine upload dist/*
+-------------------code----------------------
+
+
+- so back tp pypi.org if we search for
+moody pdf we can find that here the current version is version 1
+here on the homepage we have the content of our readme file so we can easily
+install this package just like the other packages on pypi.
+
+- for example
+here in our project we're going to use pipenv
+to install moody pdf.
+-------------------code----------------------
+pipenv install moodypdf
+-------------------code----------------------
+
+run the program and here's the output
+so this verifies that we successfully
+published a package to pypi.
+-------------------code----------------------
+from moodypdf import pdf2text
+
+pdf2text.convert()
+-------------------code----------------------

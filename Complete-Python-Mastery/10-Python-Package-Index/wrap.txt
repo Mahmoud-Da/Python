@@ -664,7 +664,7 @@ pypi.org. The first step is to create a new account.
 
 - Next here on the terminal, we need to install
 three tools globally. So pip, or pip3, install, setup tools, wheel,
-and twine. You will see these in action momentarily.
+and twine. we will see these in action momentarily.
 -------------------code----------------------
 $ pip3 install setuptools wheel twine
 -------------------code----------------------
@@ -1069,3 +1069,77 @@ this is really important. Please document our code,
 because nobody likes to use a library
 that is not well documented.
 
+*** 10- Pydoc ***
+
+- In python we have a utility called pydoc that comes with python installation
+with this utility we can easily see the documentation for a module
+that module can be one of the modules in python standard library
+or one of our own modules.  
+
+- So here on the terminal
+if we're on windows, type pydoc, if we're on mac or linux
+type pydoc3. Next we add the module name.
+-------------------code----------------------
+$ pydoc3 math
+NAME
+    math
+
+MODULE REFERENCE
+    https://docs.python.org/3.13/library/math.html
+
+    The following documentation is automatically generated from the Python
+    source files.  It may be incomplete, incorrect or include features that
+    are considered implementation detail and may vary between Python
+    implementations.  When in doubt, consult the module reference at the
+    location listed above.
+
+DESCRIPTION
+    This module provides access to the mathematical functions
+    defined by the C standard.
+....
+-------------------code----------------------
+
+- so we're going to look at the documentation for the math module in python standard library.
+There we go. So, the name of this module
+is math, here's the reference documentation, so we can copy paste
+this into our browser, and on this page we can see all the
+details of the math module.
+-------------------code----------------------
+MODULE REFERENCE
+    https://docs.python.org/3.13/library/math.html
+-------------------code----------------------
+
+- we can see all the functions and their description.
+Alternatively we can see all the documentation here in the terminal window. So, look at this
+colon here, that means this is a multi-page documentation
+and we can go to the next page by pressing space.
+So here's the description for this module and below that we can see all the functions
+and the short description. Now to exit this
+multi-page documentation we press q.
+
+
+- Now, this pydoc has a few interesting switches, one of
+them is w for writing this documentation to an html file.
+
+-------------------code----------------------
+$ pydoc3 -w math
+-------------------code----------------------
+
+- Now this generated this html file that
+contains the documentation for this module.
+Now if we opened this html file. we can see math module,
+and its short description, the classes and so ...
+
+
+- We also have another interesting switch
+for loading the documentation for this application
+as well as python standard library in a web server.
+p is short for port
+-------------------code----------------------
+$ pydoc3 -p 3000
+Server ready at http://localhost:3000/
+Server commands: [b]rowser, [q]uit
+-------------------code----------------------
+
+- here we can see the complete documentation
+for all the objects in this module. So this is all about PyDoc.

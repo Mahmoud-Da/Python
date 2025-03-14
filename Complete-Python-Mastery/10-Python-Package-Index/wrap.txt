@@ -1,0 +1,31 @@
+*** 1- Pypi ***
+
+- In the last section we explored python standard library. Now even though this library is very
+comprehensive, it doesn't have everything that we potentially need when building a real application.
+
+- There are times that we need features not implemented in python standard library.
+That's where pypi or python package index comes into picture. Pypi is like npm or node package
+manager for javascript developers. It's basically a repository of python packages built by people
+like us.
+
+- So if we head over to pypi.org, on this page we can see that currently we have
+almost 600,000 projects registered in this repository.
+-------------------code----------------------
+https://pypi.org/
+-------------------code----------------------
+
+- For pretty much anything we imagine,
+there is a python package here. Let's say we want to work with pdf files in our application.
+
+- simply search for pdf. As we can see currently we have over 2,000 projects for working with pdf
+files. Here are a few examples. This first package is a two-dimensional barcode generator.
+We also have this package for managing and processing pdf files. 
+
+- The next one is for converting a pdf file to text. We can also convert a pdf to image and so on. So we have tons and tons of packages for
+working with pdf files. Of course not all of these are useful, some of them are buggy or incomplete,
+but if we do a little bit of research, we can find a good and stable package for our projects.
+
+
+- Alternatively, we can also google the best python packages for working with pdf files and see what
+other people in the community say. So in this section we're going to learn about all the tooling we need
+to install these packages and publish our own packages to this repository.

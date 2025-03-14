@@ -380,3 +380,66 @@ If we want to deactivate it, simply type exit. Now we're outside of the virtual 
 -------------------code---------------------- 
 exit
 -------------------code---------------------- 
+
+*** 5- Virtual Environments in VSCode ***
+
+Note: this lecture no need to do it only to understand
+if we want to fix the code-runner issue.
+
+- So in the last lecture, we didn't run this program using the code-runner. we used the terminal.
+Now let's see what happens when we run this program using the code-runner extension. So there we go.
+We get the same error. No module named requests. 
+-------------------code---------------------- 
+import requests
+ModuleNotFoundError: No module named 'requests'
+-------------------code---------------------- 
+
+- Because code-runner is running this program using the python interpreter that is installed globally, and that python interpreter
+cannot find the requests module. To fix this problem, we need to tell code-runner
+to use the python interpreter in our virtual environment. So, back in the terminal,
+let's find the virtual environment directory for this project, pipenv
+dash dash venv.
+
+-------------------code---------------------- 
+$ pipenv --venv
+# /Users/mahmouddabbbagh/.local/share/virtualenvs/10-Python-Package-Index-Aaz2bPmn
+-------------------code----------------------
+
+- There we go. Now, let's open this.
+So this is our directory structure that we have seen before. Here in this virtual environment,
+inside of the bin folder, we've got python 3. If we're on windows, we have python.
+So we need to get the pass to this python interpreter, and give it to the code-runner extension.
+Back in vscode, on the top, let's go to the code menu, then preferences, and settings.
+Here click this dot dot dot, and open settings.json Now if we scroll down, we should see code-runner dot executor map.
+We said this earlier in the course. In case we missed that step, simply add
+a new key value pair here, the key is code dash runner dot executor map.
+When we press enter, it automatically generates all these settings.
+
+- Now here we have the path to python, as we can see, we've changed this to python 3.
+Now we need to replace this with the path to the python interpreter in our virtual environment.
+
+- So this is the path to our virtual environment. Let's copy the venv path, then back to user settings.
+And replace python3 with to the pass to our venv.
+
+- So we're referencing the python interpreter in or virtual environment.
+Let's save the changes, back to app3.py, let's run this program using the code-runner extension.
+There we go. So we fixed the issue with code-runner, but we have a red underline here,
+unable to import requests. So vscode cannot find our requests module.
+
+- To fix this problem, we need to tell vscode which python interpreter to use.
+Now if we look at the status bar here, we can see python 3.13 Click this, in this list we should see various python interpreters.
+Now look at the last one with the venv name.
+
+- This is the path to the python interpreter in our virtual environment.
+If we don't see this on our machine, we need to go back to the user settings page.
+And add a new setting. That is "python.pythonPath".
+We set this to the pass to the python interpreter in our virtual environment.
+
+- Now after we add this, we need to restart vscode.
+Then when we go back to app.py, here in the list of virtual environments,
+we should see this new python interpreter.
+we can see the compilation error is gone. But we got this other error, linter pilot is not installed.
+Because earlier we installed this globally, and now it's not available in this isolated virtual environment.
+So we need to go ahead and install it.
+Alright, the error is gone.
+

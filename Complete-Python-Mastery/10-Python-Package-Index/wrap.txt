@@ -29,3 +29,167 @@ but if we do a little bit of research, we can find a good and stable package for
 - Alternatively, we can also google the best python packages for working with pdf files and see what
 other people in the community say. So in this section we're going to learn about all the tooling we need
 to install these packages and publish our own packages to this repository.
+
+*** 2- Pip ***
+
+- To install a package from pypi, we use a tool called pip.
+Now if we're on mac, similar to python, we should use pip3.
+-------------------code----------------------
+$ pip3
+-------------------code----------------------
+
+- Now with this tool we can do various things, such as installing packages,
+uninstalling them, upgrading them, or listing the currently installed
+packages.
+
+- Let's take a look at a few examples. So here to
+install a package, as the first argument we pass, install,
+and as the second argument, we specify the name of the target package.
+So here we're going to install this requests package, which
+we're going to use to send http requests.
+
+-------------------code----------------------
+$ pip3 install requests
+-------------------code----------------------
+
+- So, let's go ahead.
+Alright, this is successfully installed,
+but here down the bottom we have a warning in yellow that is saying we're
+using pip version 24.3.1. However, version 25.0.1 is
+available. So this version 24.3.1 is the version that came with my python
+installation, but because pip is developed independently, we need to
+upgrade it from time to time.
+-------------------code----------------------
+[notice] A new release of pip is available: 24.3.1 -> 25.0.1
+-------------------code----------------------
+
+- So, right below that we can see the command that
+we need to run to upgrade pip.
+-------------------code----------------------
+pip3 install --upgrade pip
+-------------------code----------------------
+
+- Alright, now we have the latest version of pip.
+Let's look at the packages that are
+currently installed on my machine. So pip list.
+-------------------code----------------------
+$ pip3 list
+
+Package            Version
+------------------ ---------
+certifi            2025.1.31
+charset-normalizer 3.4.1
+idna               3.10
+pip                25.0.1
+requests           2.32.3
+urllib3            2.3.0
+-------------------code----------------------
+
+- Here in this list we can see we have installed
+the version 2.32.3 of the requests package.
+This version we see here is what we call semantic versioning.
+
+- The first number represents the major version, the second
+number represents the minor version, and the third number represents the patches
+or bug fixes.
+
+
+- Now back on pipi.org
+let's search for the requests package. So here we have a few
+packages with a similar name. We've got requests, request 3, and request 2.
+And they're not always in the same order, so make sure to pick the
+requests package without 2 or 3.
+
+- Now on this page, on the left side we can see the
+release history of this package. So the latest version that we've installed
+is 2.32.3. There are times that we want to install an earlier
+version, perhaps the latest version has a bug, or is incompatible
+with the other packages we're referencing.
+ 
+- how to install an earlier version. So back on the terminal, let's
+say we want to install version 2.32.0. That is very easy. 
+Just like before pip install requests, now we add two equal signs, followed by the version 2.32.0.
+So as we can see, this successfully uninstalled
+the latest version that was version 2.32.3, and then installed
+version 2.32.0.
+-------------------code----------------------
+$ pip3 install requests==2.32.0
+-------------------code----------------------
+
+- Now here we can also use wildcards, for example,
+pip install requests equal 2.32 asterisk. That means
+install the latest compatible version with version 2.32.
+So if there are any patches or bug fixes, include those as well.
+-------------------code----------------------
+$ pip3 install requests==2.32.*
+-------------------code----------------------
+
+- Now here on pypi.org, we can see we have three 2.32
+versions, this is the base version, and then we got a couple more versions
+before version 2.33. So when we run this command, pip will install
+the latest compatible version with 2.32.0, which is 2.32.2.
+Let's take a look. Now we got this message requirement, already
+satisfied, because we already have version 2.32.0
+installed. 
+
+- So first we need to uninstall it before we install
+the latest compatible version with this. So, that is very easy.
+Pip, this time we're going to use uninstall and then request.
+We don't care about the version. this is asking for confirmation so let's go ahead.
+Now requests version 2.32.0 is uninstalled.
+-------------------code----------------------
+$ pip3 uninstall requests
+-------------------code----------------------
+
+- So now let's install
+requests version 2.32 point asterisk. This will install
+the latest compatible version with 2.32.
+-------------------code----------------------
+$ pip3 install requests==2.32.*
+-------------------code----------------------
+
+- We also have another syntax for installing the latest compatible version.
+So instead of two we use a tilde
+equal sign, and then here we specify a specific version.
+Let's say 2.32.0 Once again, this will install the latest compatible version
+with 2.32.0 which is 2.32.2.
+-------------------code----------------------
+$ pip3 install requests~=2.32.0
+-------------------code----------------------
+
+- Now we can use this asterisk with a minor version as well.
+For example, let me uninstall this first so pip uninstall requests
+ok, let's go ahead good now, pip instal requests 2.0 asterisk
+This will install the latest compatible version with version 2.
+-------------------code----------------------
+$ pip3 install requests==2.*
+-------------------code----------------------
+
+- So back to the release history if we scroll to the very top
+we can see the latest compatible version with version 2
+is 2.32.3 Let's go ahead and run this
+there we go so we successfully installed requests 2.32.3
+
+- Now we can use this package just like the modules
+in python standard library so we import request.
+-------------------code----------------------
+import requests
+-------------------code----------------------
+
+- now we have a module object with these members
+we can read about these on the documentation for this package
+so back on pipeui.org here on the page for the requests package
+if we scroll down we can see a link to the documentation
+
+- Now, back to our code we're going to call the get method
+let's send an http request to google.com this returns
+a response object for now let's simply print
+the response on the terminal.
+
+let's run the program so we got a response with the status
+200 which indicates success
+-------------------code----------------------
+response = requests.get("http://google.com")
+print(response)
+# <Response [200]>
+-------------------code----------------------

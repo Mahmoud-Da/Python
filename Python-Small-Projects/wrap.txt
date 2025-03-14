@@ -6,3 +6,183 @@ PREREQUISITES
 • Loops
 • Functions
 • File handling
+
+*** 2-Dice Rolling Game ***
+Problem:
+- First we get this question, roll the dice.
+-------------------code----------------------
+Roll the dice? (y/n):
+-------------------code----------------------
+
+- Here we have only two options, yes or no.
+If we type anything else, we get an error message saying invalid choice.
+-------------------code----------------------
+Roll the dice? (y/n): z   
+Invalid choice!
+-------------------code----------------------
+
+- Now we can type a y, either lower case or upper case, it doesn't matter.
+And every time we get two new random numbers, just like how we roll a dice.
+-------------------code----------------------
+Roll the dice? (y/n): Y
+(2, 5)
+Roll the dice? (y/n): y
+(4, 1)
+-------------------code----------------------
+
+- Now if we type n, our program terminates and displays a message saying thanks for playing.
+-------------------code----------------------
+Roll the dice? (y/n): n
+Thanks for playing!
+-------------------code----------------------
+
+Solution:
+- Before we jump into coding, we always take a moment to map out what we want to do. Kind
+of like checking a map before we start a road trip. It helps us to see the big picture and
+avoid getting lost along the way.
+
+
+-  So let's quickly plan our approach before we start
+writing any code. it makes things much smoother. So in this python file, we're
+going to use comments to map out how this program should behave. 
+
+- So first we should ask the user a question, like roll the dice, then we should check the user input. So if
+user enters y, then we should generate two random numbers and print them. Otherwise, if the
+user enters no, then we should print a thank we message and terminate the program. Otherwise,
+if the user types anything else, we want to print an error message like invalid choice.
+Now we want to make sure that the user can keep playing until they decide to terminate the
+game. So we should put these instructions inside a loop for repetition. So everything here should
+go inside a loop, an infinite loop.
+-------------------code----------------------
+# Loop
+# Ask: roll the dice?
+# If user enters y
+# Generate two random numbers
+# Print them
+# If user enters n
+# Print thank you message
+# Terminate
+# Else
+# Print invalid choice
+-------------------code----------------------
+
+- Okay? Now let's start converting these comments into
+actual code. So first we're going to ask the user to roll the dice and to do that we use
+the input function. Now here we should type a prompt, we can use double quotes or single
+quotes, different people have different preferences. Whatever we like, just make sure to stick to
+that. So here we're going to ask, roll the dice and give the options yes or no. We add a colon
+followed by a white space, so whatever the user types will be separated from our prompt.
+finally store the result in a variable, we can call it choice.
+-------------------code----------------------
+# Loop
+choice = input('Roll the dice? (y/n): ').lower()
+# If user enters y
+# Generate two random numbers
+# Print them
+# If user enters n
+# Print thank you message
+# Terminate
+# Else
+# Print invalid choice
+-------------------code----------------------
+
+- Okay? Now we'll  Next we should check
+if choice equals y. So if choice equals a lowercase y or choice equals an uppercase y.
+-------------------code----------------------
+if choice == 'y' or choice == 'Y':
+-------------------code----------------------
+
+- that's one way to do this, but there is a smarter way. We can treat whatever the user types as
+lowercase. So look, if we hover our mouse over this choice variable, look at the type,
+the type is a string. So the input function returns a string and we know that in python,
+string objects have a bunch of methods. So here we can use the lower method to convert
+whatever the user types into lowercase. 
+With that we can get rid of the second condition.
+-------------------code----------------------
+choice = input('Roll the dice? (y/n): ').lower()
+  if choice == 'y':
+-------------------code----------------------
+
+- Okay? Now we should generate two random numbers. And to do that, first we have to import
+the random module. Now in this module we have a method, we can call random.randint to generate
+a random integer or a random number between these two numbers, a and b. In this case,
+1 and 6. Now this returns a random number, so we store it in a variable like die1. Now we
+have to repeat this to generate the second random number.
+-------------------code----------------------
+import random
+
+choice = input('Roll the dice? (y/n): ').lower()
+if choice == 'y':
+    die1 = random.randint(1, 6)
+    die2 = random.randint(1, 6)
+-------------------code----------------------
+
+- Next we should print these numbers.
+So here we call print. Now for simplicity, we can use a formatted or an f string. So we
+type an f before our quotes. And here we add parentheses. Inside the parentheses, we want
+to print our random numbers like 1 and 2. But instead of hard coding these numbers, we
+want to print the actual random numbers that are generated here. So we replace one with curly
+braces to add a placeholder or a hole in our string. And inside this hole, we add die1. And
+similarly, replace two with curly braces and add die2. So we print these numbers.
+-------------------code----------------------
+print(f'({die1}, {die2})')
+-------------------code----------------------
+
+- Next we should check if the user types an n. So elif choice equals n, then we want to print a thank
+we message. So thanks for playing. Now to terminate the
+program, we want to break out of our loop. Now we haven't added the loop here, so
+on the top, now there are two ways to do this. Some people like to declare a variable
+like running or playing and initialize it to true. Then
+they add it as the loop condition. So while playing is true, then we're going to
+repeat these instructions. And when the user types an n, we can use the break
+statement to jump out of this loop.
+-------------------code----------------------
+playing = True
+
+while playing:
+    choice = input('Roll the dice? (y/n): ').lower()
+    if choice == 'y':
+        die1 = random.randint(1, 6)
+        die2 = random.randint(1, 6)
+        print(f'({die1}, {die2})')
+    elif choice == 'n':
+        print('Thanks for playing!')
+        break
+-------------------code----------------------
+
+- That's one way, but there is a better way.
+This variable here is really unnecessary. So we can use true as the condition for this
+loop and get rid of one extra line of code. Also note that it's a good practice to add a line break
+between our import statements and the rest of the code. It makes our code cleaner
+and easier to the eyes.
+-------------------code----------------------
+while True:
+    choice = input('Roll the dice? (y/n): ').lower()
+    if choice == 'y':
+        die1 = random.randint(1, 6)
+        die2 = random.randint(1, 6)
+        print(f'({die1}, {die2})')
+    elif choice == 'n':
+        print('Thanks for playing!')
+        break
+-------------------code----------------------
+
+- Now finally,
+if the user types anything else, we want to print an error message. So print
+invalid choice. As simple as that. That was our first project.
+-------------------code----------------------
+import random
+
+
+while True:
+    choice = input('Roll the dice? (y/n): ').lower()
+    if choice == 'y':
+        die1 = random.randint(1, 6)
+        die2 = random.randint(1, 6)
+        print(f'({die1}, {die2})')
+    elif choice == 'n':
+        print('Thanks for playing!')
+        break
+    else:
+        print('Invalid choice!')
+-------------------code----------------------

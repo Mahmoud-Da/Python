@@ -10,3 +10,62 @@ each of these packages has so much detail that goes beyond the scope of this cou
 
 - we need to look at their documentation to learn these additional details on our own.
 So in this section we just want to know what is out there for us and how we can use it.
+
+*** 2- What are APIs ***
+
+- These days, a lot of websites
+make their data available to others via what we call application programming
+interfaces or APIs. In simple terms, these APIs
+are endpoints that are publicly accessible on the internet. So they have
+URLs just like the websites themselves.
+
+- Here's an example.
+On Yelp, we have this API for searching for businesses.
+-------------------code----------------------
+https://docs.developer.yelp.com/reference/v3_get_businesses_engagement
+-------------------code----------------------
+
+- And this API has an endpoint at this address or URL. That is api.yelp.com
+slash version 3 slash businesses slash search.
+So we can send an HTTP request to this endpoint to get the list of
+businesses that match some criteria.
+-------------------code----------------------
+GET https://api.yelp.com/v3/businesses/search
+-------------------code----------------------
+
+- In case we are not familiar with HTTP, it's basically the protocol that powers our web.
+So as we're browsing the web, our browser sends HTTP
+requests to various websites and gets something back. Let me show we.
+So here in chrome, on the top, from the view menu, go to
+developer, and open up developer tools.
+
+- Now open up the network tab. In case we don't see anything here,
+press command and R on Mac, or control and R on Windows to refresh the page.
+There we go. So these are all the HTTP requests that my browser sent to Yelp.
+Look at the first request. Business search. That's a request to get a document.
+Let's inspect this request. Here in the headers tab, we can see various
+attributes of an HTTP request.
+So this is the request URL or address, and that is the
+endpoint where we're sending this request to.
+
+- Every HTTP request has a method, and that
+method determines what we're going to use this request for. We have a few
+standard HTTP request methods, get for getting data,
+post for creating data, put for updating data,
+and delete for deleting data.
+
+- Below the request method we have
+status code, and that is the status code of the response that we
+get from the web server. 200 indicates success.
+
+- Now here if we look at the response tab,
+we can see the response that this web server sent to our browser.
+This is basically an HTML document that represents this web page.
+
+- If we open the preview tab,
+we can see a preview of this web page. 
+
+- So, over the next few lectures, we're going to learn how to communicate
+with Yelp API to search for businesses
+based on some criteria.
+

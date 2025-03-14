@@ -304,3 +304,79 @@ So, we run deactivate.
 -------------------code----------------------
 deactivate
 -------------------code----------------------
+
+*** 4- Pipenv ***
+
+- So we have learned about pip and creating virtual environments. As we have noticed,
+using these tools requires memorizing various commands and arguments. There's a lot to remember.
+That's where pipenv comes in the picture. Pipenv is a tool that combines pip and virtual environments
+into a single toolchain. So we don't have to use pip or virtual environments separately.
+If we're familiar with npm or node package manager, pipenv is the equivalent tool in the
+python world. So it's a dependency manager for python projects. Now we might be curious why
+we didn't start this section with pipenv. Because as we told we, pipenv internally uses pip and virtual
+environments, so we need to understand how exactly it works under the hood. Also, as we look at
+various websites, we will come across pip or virtual environments, so we wanted to make sure
+that these tools are not foreign to us.
+
+- how to use pipenv.
+Here on the terminal, first we need to install it.
+-------------------code----------------------
+$ pip3 install pipenv
+-------------------code---------------------- 
+
+- Alright, now, back to VS code, we're going to delete this env directory because we don't need it anymore.
+We're going to use pipenv to automatically create a virtual directory. So delete, good.
+Now back to the terminal, instead of using pip to install a package, we use pipenv.
+-------------------code---------------------- 
+$ pipenv install requests
+-------------------code----------------------
+
+- This tool created a couple of files, pip file, and pip file.lock,
+we'll look at this later. It also created a virtual environment for us, and installed this request
+package inside of that virtual environment.
+
+- But that virtual environment is not here. Where is it? Let me show we. So here on the terminal, let's run pipenv, dash dash, venv.
+This is the path to our virtual environment directory. As we can tell, this directory is not part of our
+project, and this is a deliberate decision. Because as we install various packages, we'll end up with
+hundreds or even thousands of files in this virtual environment. And this will increase the size of our
+project. So we want to exclude this virtual environment from our project directory.
+-------------------code---------------------- 
+$ pipenv --venv
+# /Users/mahmouddabbbagh/.local/share/virtualenvs/10-Python-Package-Index-Aaz2bPmn
+-------------------code----------------------
+
+- Now, we're going to uninstall the request package that we installed globally using pip.
+So, pip, uninstall, requests.
+-------------------code---------------------- 
+$ pip3 uninstall requests
+-------------------code---------------------- 
+
+- So we installed a dependency using pipenv, now let's run our application. But for this demo,
+we're not going to use code runner, we will see why in a second. So let's run python
+app3.py. We got a module not found error. No module named requests. Because we removed the requests package
+from the list of global packages. And here, python doesn't know where to locate this package.
+It has no knowledge of this new virtual environment.
+-------------------code---------------------- 
+import requests
+ModuleNotFoundError: No module named 'requests'
+-------------------code---------------------- 
+
+- So we need to activate it. Once again,
+we use the same tool, that is pipenv, and as the first argument, we pass shell.
+-------------------code---------------------- 
+pipenv shell
+-------------------code---------------------- 
+
+- So, as we can see, it's activated the virtual environment for this project. Now let's run our
+program one more time. We got a response, beautiful. So python could successfully locate
+the requests package.
+-------------------code---------------------- 
+(10-Python-Package-Index) 10-Python-Package-Index +[main] $ python3 app3.py
+<Response [200]>
+-------------------code---------------------- 
+
+-  So here, we're currently in the virtual environment for this project.
+If we want to deactivate it, simply type exit. Now we're outside of the virtual environment.
+-------------------code---------------------- 
+exit
+-------------------code---------------------- 

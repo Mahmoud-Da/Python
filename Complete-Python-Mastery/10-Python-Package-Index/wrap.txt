@@ -193,3 +193,114 @@ response = requests.get("http://google.com")
 print(response)
 # <Response [200]>
 -------------------code----------------------
+
+*** 3- Virtual Environments ***
+
+- In the last lecture we learned how to install a package using pip. Now
+let's run pip list, we can see
+currently we have installed requests version 2.32.3.
+
+-------------------code----------------------
+$ pip3 list
+
+Package            Version
+------------------ ---------
+certifi            2025.1.31
+charset-normalizer 3.4.1
+idna               3.10
+pip                25.0.1
+requests           2.32.3
+urllib3            2.3.0
+-------------------code----------------------
+
+- there is a problem here. Let's say we have another
+project and in that project we want to use an earlier version of this package.
+With the current structure we cannot have two versions of any
+of these packages side by side. We can have only a single version.
+To solve this problem we need to create an isolated virtual
+environment for each application and install these dependencies into
+that virtual isolated environment.
+
+- how to do that. So, here in the project folder we run python
+dash m venv and then specify the name of a directory for containing this virtual environment. By convention
+we call that env. 
+-------------------code----------------------
+$ python3 -m venv env
+-------------------code----------------------
+
+- PS: Now don't worry about memorizing any of these
+because later we're going to show we a better
+and simpler way. So technically we're never going to execute
+this command after we show we the latest tools. we're just going to
+take we on a step by step journey so we understand
+exactly how these various tools come together.
+
+So, let's go ahead and run this command.
+Good. Now here on the file explorer panel we can see we have a new directory and
+in this directory we have this config file with these parameters.
+-------------------code----------------------
+home = /Library/Frameworks/Python.framework/Versions/3.13/bin
+include-system-site-packages = false
+version = 3.13.1
+executable = /Library/Frameworks/Python.framework/Versions/3.13/bin/python3.13
+command = /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m venv /Users/mahmouddabbbagh/moody/Python/Complete-Python-Mastery/10-Python-Package-Index/env
+-------------------code----------------------
+
+- Home is referencing the directory
+where my python interpreter is installed. And here's the version of that interpreter.
+So we're using c python version 3.13.1 We also have this bin or binary directory
+where we have a bunch of tools like pip, pip3, python, python3 and so on.
+Next to that we have include which is currently empty.
+We have lib, inside of this directory we have python 3.13.1 and inside of that we have site packages.
+
+Note: Now this directory structure is slightly different on windows
+so if we're a windows user don't get hung up on these subtle differences.
+Focus on the big picture. What matters here is that this site packages directory
+is where we'll install the packages for this application.
+
+- So a virtual directory is an isolated environment
+where we have a specific python interpreter in this case c python version 3.13.1
+as well as a bunch of packages that this application needs.
+
+- Okay, now that we have a virtual environment
+we need to activate it. Here in the bin folder
+we have a script called activate.
+We need to run this from the terminal.
+So, back in the terminal, if we're on windows
+we execute this script directly.
+-------------------code----------------------
+$ env\bin\activate.bat
+-------------------code----------------------
+
+-  If we're on mac or linux,
+we will have to type source slash bin slash activate.
+-------------------code----------------------
+$ source env/bin/activate
+(env) 10-Python-Package-Index +[feature/12_3]
+-------------------code----------------------
+
+There we go. Now we can see the name of the currently active
+virtual environment. In this case, that is env.
+We could call this anything, but by convention we use env.
+So now that we are in the virtual environment
+for this application, let's go ahead and install an earlier version of requests package.
+-------------------code----------------------
+$ pip3 install requests==2.32.1
+-------------------code----------------------
+
+
+- So as we can see we have installed
+requests
+version 2.32.1 which is different from the request package
+that we installed globally on this machine. This is specific to this application.
+Now back to our directory structure.
+Now under the site packages directory we have this new directory
+requests. This is where we have installed
+the request package for this application.
+
+- Finally, whenever we are done we need to deactivate
+this virtual environment.
+So, we run deactivate.
+-------------------code----------------------
+deactivate
+-------------------code----------------------

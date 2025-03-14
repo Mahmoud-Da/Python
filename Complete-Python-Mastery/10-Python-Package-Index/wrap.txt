@@ -567,3 +567,92 @@ $ pipenv install --ignore-pipfile
 - As we can see, this time pipenv installed the dependencies
 from pip file.lock.
 
+*** 7- Managing Dependencies ***
+
+- So we have learned the basics of pipenv, now let's take a look at a few useful
+commands for managing the dependencies of our application. 
+
+- We can run pipenv graph to see the list of all the installed
+dependencies. So currently we have installed requests
+version 2.20.1, and below that we can see the dependencies
+of the requests package itself.
+-------------------code----------------------
+$ pipenv graph
+requests==2.32.3
+├── certifi
+├── charset-normalizer
+├── idna
+└── urllib3
+-------------------code----------------------
+
+- Now let's uninstall the requests package. So pipenv
+uninstall requests. So the request
+package is gone, if we look at the pip file, it's not here anymore.
+-------------------code----------------------
+$ pipenv uninstall requests
+Uninstalling requests...
+Found existing installation: requests 2.32.3
+Uninstalling requests-2.32.3:
+  Successfully uninstalled requests-2.32.3
+-------------------code----------------------
+
+- Also if we run pipenv graph,
+it's gone. However, the dependencies
+of the request package are still here
+because pipenv doesn't know if these
+dependencies are used somewhere in our application
+or not. However, if we take this project, put it on a different
+machine, and install all these dependencies from scratch, these packages will not
+end up there, because currently we have not referenced them in our pip file.
+-------------------code----------------------
+$ pipenv graph
+certifi==2025.1.31
+charset-normalizer==3.4.1
+idna==3.10
+urllib3==2.3.0
+-------------------code----------------------
+
+- Now let's install an earlier version of the requests
+package. So pipenv install requests version 2.32 point asterisk
+Alright, now in our pip file we can see we have the request package
+with the version that we have requested and if we look at pipfile.log
+we can see the actual version
+that is installed. That is 2.32.3.
+-------------------code----------------------
+pipenv install requests==2.32
+-------------------code----------------------
+PS: instead of using * we can skip all the number 
+ex: 2.32.* => 2.32
+
+- Now to find the outdated packages we can run pipenv update dash dash
+we get this yellow warning, skip update of package requests
+so this is the version that we have installed as we can see there is a newer
+version available, but pipenv won't be able to install that, because
+in our pip file we ask for the most recent version compatible with 2.32.
+-------------------code----------------------
+$ pipenv update --outdated
+Package 'requests' out-of-date: <Version('2.32.0')> installed, <Version('2.32.3')> available.
+All packages are up to date!
+-------------------code----------------------
+
+- Now we have two choices, we can update this package
+for all packages in our project
+to update all packages we run pipenv update
+and to update a specific package we add its name here so requests
+-------------------code----------------------
+$ pipenv update requests
+-------------------code----------------------
+
+- now all our dependencies are up to date, so
+if we look at pip file dot log we can see that we have
+requests version 2.32.3 and similarly if we run pipenv
+graph we can see that we have installed the latest version of the request package
+
+-------------------code----------------------
+pipenv graph
+requests==2.32.3
+├── certifi
+├── charset-normalizer
+├── idna
+└── urllib3
+-------------------code----------------------

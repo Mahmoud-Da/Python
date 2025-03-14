@@ -877,3 +877,195 @@ from moodypdf import pdf2text
 
 pdf2text.convert()
 -------------------code----------------------
+
+
+*** 9- Docstrings ***
+
+- When we publish our packages to pypi repository,
+it's really important to document our code so other people know how to use it.
+For example, think of the math module. When we import this on the top,
+import math, and then call any of its methods, we see
+this little documentation.
+-------------------code----------------------
+import math
+
+math => hover on it
+
+=> This module provides access to the mathematical functions defined by the C standard.
+-------------------code----------------------
+
+
+- This is what we refer to as Intellisense. So VS code has this Intellisense feature, which basically reads the documentation
+for this method, and displays the documentation for this method.
+And displays it in this little tooltip window. In contrast, our convert function
+has no documentation. So, if we call it here,
+it's not clear what this function does. Now this is a very basic function,
+but in a real application, we could have a function with one or more parameters,
+so people who use these functions need to know what these parameters are,
+what this function does, and what it returns.
+
+- So this is the purpose of documentation.
+Now in python, we have a special format for documenting our code,
+called doc string or documentation string. It's basically a string
+with triple codes that we add, right after declaration of a function,
+or a class, or a variable. This is different from using comments,
+because we should use comments to explain why we have done things in a certain way.
+So we shouldn't use a comment to explain what a function does.
+What it does should be reflected in the documentation string,
+how it does what it does, or why we implement it in a certain way,
+should come in a comment.
+-------------------code----------------------
+"""  => doc strings
+# => comment
+-------------------code----------------------
+ 
+- how to document this module
+using doc strings. So, when we publish a module for other people to use,
+we should document the module itself as well as every object in it.
+So any classes, any methods in those classes, or any stand alone functions
+in that module should be perfectly documented. So here the first line of the module should be a doc string,
+we use triple quotes to define a doc string, here we can have a one line description,
+that ends with a period.
+-------------------code----------------------
+"""One line description."""
+-------------------code----------------------
+
+- this is for simple cases,
+but if we want to explain more, we should use a multi line doc string,
+by convention, the first line should be a short summary,
+followed by a blank line, and then a more detailed explanation.
+-------------------code----------------------
+"""One line description.
+
+   A more detailed explanation.
+"""
+-------------------code----------------------
+
+
+- So if we want to use a multi line doc string,
+this is the convention we need to follow.
+The first line should be a short description,
+followed by a blank line, followed by multiple lines of text.
+Now if we're dealing with a simple case, we can simply use a one line doc string.
+
+- Let's change this into something more meaningful, like this.
+-------------------code----------------------
+""" This module provides functions to convert a PDF to text"""
+-------------------code----------------------
+
+- Now we need to document the convert function.
+So right after the declaration, we add triple quotes, pay attention to indentation.
+
+- So here we need a short summary like,
+convert the given PDF to text. Next we need to have a blank line.
+If we want to explain this function in more details, we can do that here.
+In this case we don't need it. So, the next part is parameters.
+-------------------code----------------------
+def convert(path):
+    """ 
+    Convert the given PDF to text.
+    """
+    print("pdf2text")
+-------------------code----------------------
+
+-  We need to explain what this parameter is,
+what its type is, and what we use it for. So pass of type string, colon,
+the pass to a PDF file.
+-------------------code----------------------
+def convert(path):
+    """ 
+    Convert the given PDF to text.
+
+    Parameters:
+    path (str): The path to a pdf file
+    """
+    print("pdf2text")
+-------------------code----------------------
+PS: if we have more parameters, we will list them here, one on each line.
+
+- Next we need a blank line, followed by returns.
+What do we return here? Let's say we return a string.
+And that is the content of the PDF file as text.
+-------------------code----------------------
+def convert(path):
+    """ 
+    Convert the given PDF to text.
+
+    Parameters:
+    path (str): The path to a pdf file
+
+    Returns:
+    str: the content of the PDF file as text
+    """
+    print("pdf2text")
+-------------------code----------------------
+
+
+- Now, to demonstrate what the consumer of this module will see,
+-------------------code----------------------
+from app9_1 import convert
+
+convert("test")
+-------------------code----------------------
+
+- Now here we can immediately see the documentation for our module.
+-------------------code----------------------
+(function) def convert(path: Any) -> None
+Convert the given PDF to text.
+
+Parameters:
+path (str): The path to a pdf file
+
+Returns:
+str: the content of the PDF file as text
+-------------------code----------------------
+
+
+- Now back to our module.
+Here we currently have only a single function.
+If we had classes, again we would have to document them.
+So, as an example, we're going to define a class here.
+Class Converter, and then we're going to put this function
+inside of the converter class. 
+-------------------code----------------------
+class Converter:
+    def convert(self, path):
+        """ 
+        Convert the given PDF to text.
+
+        Parameters:
+        path (str): The path to a pdf file
+
+        Returns:
+        str: the content of the PDF file as text
+        """
+        print("pdf2text")
+-------------------code----------------------
+
+- we need to add a doc string,
+that summarizes the behavior of this class.
+In this case, we can go with something like
+a simple converter for converting pdfs to text.
+-------------------code----------------------
+class Converter:
+    """ A simple converter for converting PDFs to text. """
+
+    def convert(self, path):
+        """ 
+        Convert the given PDF to text.
+
+        Parameters:
+        path (str): The path to a pdf file
+
+        Returns:
+        str: the content of the PDF file as text
+        """
+        print("pdf2text")
+-------------------code----------------------
+
+Now, we know that this may look a little bit repetitive,
+but if we're providing code for others to use,
+this is really important. Please document our code,
+because nobody likes to use a library
+that is not well documented.
+

@@ -424,3 +424,783 @@ while True:
     except ValueError:
         print('Please enter a valid number')
 -------------------code----------------------
+
+*** 4-Rock Paper Scissor ***
+
+Problem:
+- Alright, our next project
+is a fun game that we have all played in our childhood. Rock, paper,
+scissors game. 
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s):
+-------------------code----------------------
+
+- Now this project is a little bit more challenging than the previous
+project, so let me run the program and show we how it works. First we
+get a question, rock, paper, or scissors. Here we only have three
+choices, R, P, or S. 
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): a
+Invalid choice!
+-------------------code----------------------
+
+- If we type anything else, we get an error message saying, invalid choice. 
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): r
+You chose
+Computer chose
+You lose
+Continue? (y/n):
+-------------------code----------------------
+
+- Now let me go with R, that is short for rock. So we chose rock, computer chose
+paper, and we lost. Now right after we get asked if we want to continue.
+-------------------code----------------------
+Continue? (y/n): y
+Rock, paper, or scissors? (r/p/s): s
+You chose *
+Computer chose
+You win
+-------------------code----------------------
+
+- Let's try again. This time we're going to go with scissors.
+So we chose scissors, computer chose paper, we won.
+-------------------code----------------------
+Continue? (y/n): n
+-------------------code----------------------
+
+- Now, we don't want to continue, so let's type N, the game
+ends. Again, this project is a bit more challenging than the previous ones,
+
+Solution:
+
+- Alright, once again, before we write any code, let's map out what we're going to do.
+So first we're going to ask the user to make a choice.
+Now if the choice is not valid, we're going to print an error.
+Otherwise, we should let the computer to make a choice as well.
+Next we should print the choices using emojis, and this is the fun part.
+Next, we should determine the winner, and finally we ask the user if they want to continue.
+If not, we're going to terminate the game.
+So this is the structure of our program. 
+-------------------code----------------------
+# Ask the user to make a choice
+# If choice is not valid
+#  Print an error
+# Let the computer to make a choice
+# Print choices (emojis)
+# Determine the winner
+# Ask the user if they want to continue
+# If not
+#  Terminate
+-------------------code----------------------
+
+- Now let's start coding.
+So first we should ask the user to make a choice, to do that we use the input function.
+Here we type rock, paper, or scissors.
+And in parenthesis we can type the valid option, so r, p, and s.
+Now we get the result and store it in a variable called user choice.
+Next we should validate the choice. So just like before, here we're going to call the lower method,
+so we can treat the user's input as lowercase text.
+We talked about this technique in one of our earlier projects.
+Now to validate the user's choice, here we can use a bunch of if statements.
+So we can say if user choice does not equal r, and user choice does not equal p, and user
+choice does not equal s, then we can print an error message and say invalid choice.
+That's one way, but this is not a very clever or very professional way to implement this.
+-------------------code----------------------
+user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+if user _choice != 'r' and user_choice != 'p' and user_choice != 's':
+  print('Invalid choice!')
+-------------------code----------------------
+
+- There is a better way.
+We can store the list of valid choices in a list, and then check to see if the user's
+choice is in that list or not.
+So in the first line, we can declare a variable called choices, and initialize it to a list
+a list of valid choices.
+So r, p, and s. Now we can simplify this if statement and say if user choice not in choices, then print an error message.
+This implementation is more concise and more elegant.
+-------------------code----------------------
+choices = ['r', 'p', 's']
+user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+if user_choice not in choices:
+  print( 'Invalid choice!')
+-------------------code----------------------
+
+
+- Now we can further improve this and convert this list to a topple.
+Why?
+Because lists can be modified in our program.
+So somewhere we might accidentally modify the list and use the append method to add a
+new item to the list or remove method to remove one of the existing items.
+This could be an accidental mistake.
+-------------------code----------------------
+choices = ['r', 'p', 's']
+choices.remove('r')
+-------------------code----------------------
+
+- But if we convert this to a topple, it becomes read only.
+So topples look, they don't have the remove or append methods.
+So a topple is just like a read only list.
+So we have our valid choices. And we are done with this step.
+-------------------code----------------------
+choices = ('r', 'p', 's')
+user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+if user_choice not in choices:
+  print('Invalid choice!')
+-------------------code----------------------
+
+
+- Now before going further, let's test our program.
+So we're going to remove these two lines.
+Now back to the terminal, let's run our program.
+So if we type a, we get an error message, beautiful.
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): a
+Invalid choice!
+-------------------code----------------------
+
+- But if we type r, we don't get an error. Great.
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): r
+-------------------code----------------------
+
+- Next, we should let the computer to make a choice.
+And to do that, first we have to import an error.
+We have to import the random module.
+-------------------code----------------------
+import random
+-------------------code----------------------
+
+Now earlier we used the randint method to generate a random number between two numbers.
+But here we want to use a different method and that is choice.
+With this we can pass a list or a topple like choices and let the computer choose one
+of these valid choices.
+So let's store the result in a separate variable like computer choice.
+So we're done with this step.
+Now, let's print the choices. So, first we want to print the choices without emojis just to make sure that our program is
+working up to this point.
+So here we can type, we chose, and then use concatenation to append user's choice here.
+-------------------code----------------------
+computer_choice = random.choice(choices)
+print('You chose' + user_choice)
+-------------------code----------------------
+
+- That's one way, but a better and more elegant way is to use a formatted string.
+So we prefix the string with an F, which is short for formatted, and here we add curly braces
+to insert a value dynamically.
+In this case, user choice. With this we don't have to use concatenation.
+Okay. Similarly, we can duplicate this line and say computer chose, and here we add computer choice.
+-------------------code----------------------
+computer_choice = random.choice(choices)
+print(f'You chose {user_choice}')
+print(f'Computer chose {computer_choice}')
+-------------------code----------------------
+
+- Let's run our program. and test our code.
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): s
+You chose s
+Computer chose r
+-------------------code----------------------
+
+
+- Now we should print emojis. How can we do that?
+Well, there are two ways. One way is to use an if statement and say, if user choice.
+equals R, then we can print an emoji.
+On Mac we can bring up the emoji keyboard by pressing control, command, and space.
+On windows IDK.
+So here we can type rock and select this rock.
+Now similarly we can add a second condition and say if user choice equals S, then we're going
+to print scissors.
+-------------------code----------------------
+if user_choice == 'r':
+  print('🪨')
+elif user_choice == 's':
+  print('✂️')
+-------------------code----------------------
+
+- But again, this approach is not the best way because we need three if statements to map
+these letters to emojis. a better way.
+Now in python we have a data structure called a dictionary.
+A dictionary is used to map a key to a value. So we can map the character R to the emoji of a rock.
+Similarly we can map the letter S to scissors.
+Okay. Now how can we declare a dictionary?
+Well, here we can declare a variable called emojis and set it to curly braces.
+Inside the braces we type key value pairs.
+So our key is going to be R, then we type a colon and map it to the emoji of a rock.
+Note that in this case both our key and value are strings. But this is not a requirement.
+So we can map a string to a number or an object, whatever we want to do.
+Now similarly, let's map S to scissors and also P to paper.
+-------------------code----------------------
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+-------------------code----------------------
+
+
+- Back to the part about printing the user's choice.
+Instead of printing the user's choice, which is a letter like R, P or S, we are going to
+go to this dictionary and look up the value associated with a given key.
+So here we type emojis, then using square brackets we can look up the value associated
+with one of these keys.
+Now here in the auto completion box we can see the valid keys which are P, R or S, but
+we are going to replace this with user choice.
+Now similarly, here we type emojis and pass computer choice.
+-------------------code----------------------
+print(f'You chose {emojis[user_choicel]'})
+print(f'Computer chose {emojis[computer_choice]}')
+-------------------code----------------------
+
+
+- Alright, we are done with this step.
+The next step is determining the winner.
+Now before moving forward, we want to add some line breaks to divide our code into different
+segments, just like the paragraphs of an article.
+So, on the top, we are declaring our emojis and valid choices.
+These two lines are highly related, so we want to keep them together.
+But look at the next line. The next line is about getting the user's input.
+This line has nothing to do with the previous lines. So it's like a different paragraph in a story.
+So here we add a line break.
+Now again, these three lines are highly related because they are part of getting the user's input.
+So we want to keep them together, but separate them from getting the computer's choice.
+Now once again, we add a line break here, because this segment is all about printing the user's
+and computer's choice.
+-------------------code----------------------
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+choices = ('r', 'p', 's')
+
+user_choice = input( 'Rock, paper, or scissors? (r/p/s): '). lower()
+if user_choice not in choices:
+  print( 'Invalid choice!')
+
+computer_choice = random. choice (choices)
+
+print(f'You chose {emojis[user_choicel]'})
+print(f'Computer chose {emojis[computer_choice]}')
+-------------------code----------------------
+
+
+- Now, let's move on to the next segment, which is determining the winner.
+So we add a line break, and here we can check if user choice is the same as computer choice,
+then we print tie, else if, or elif.
+Now, here we want to implement the scenario where the user wins. There are three scenarios.
+One is user choice is rock, and computer choice is scissors.
+In this case, we want to print we win. There's another scenario where user's choice is scissors, and computer choice is
+paper.
+-------------------code----------------------
+if user_choice == computer_choice:
+  print( 'Tie!')
+elif user_choice == 'r' and computer_choice == 's':
+  print( 'You win')
+elif user _choice == 's' and computer_choice == 'p':
+  print( 'You win')
+-------------------code----------------------
+
+
+- Again, here we can print we win, but there is a better way.
+We can combine these two statements into a single statement using the logical or operator.
+So, this is one scenario or one condition where the user wins.
+As we can see, we've selected this expression.
+Now we type left bracket, so the entire expression is now surrounded by parenthesis.
+Right after, we type or, now here, we should select our second condition.
+Again, we type a left bracket to surround this with parenthesis.
+Now we select the entire expression, cut it, and put it right here.
+Now similarly, we type another or operator and add the third condition.
+And that is user choice equals p or paper, and computer choice equals rock.
+So, if any of these conditions is true, the user wins.
+Otherwise, the user loses.
+-------------------code----------------------
+if user_choice == computer_choice:
+ print( 'Tie!')
+elif (user_choice == 'r' and computer_choice == 's') or (user_choice == 's' and computer_choice == 'p') or (user_choice == 'p' and computer_choice == 'r'):
+ print( 'You win')
+else:
+ print( 'You lose')
+-------------------code----------------------
+
+- Now this line is getting a little bit too long. So, to make our code more readable, we can break it down into multiple lines.
+So, right after this or operator, we add a line break.
+Now, here we have an error saying expected expression.
+Because python interpreter expects a colon here.
+So, to tell the interpreter that this is a multiline statement, here we add a backslash.
+Now, to better format our code, it's better to line up all these conditions.
+So, we put this on a new line, add tab.
+Again, on this line, we add a backslash.
+Now, these two conditions are perfectly aligned.
+Now similarly, let's add another backslash and put this condition on a new line.
+So, this is one way to break this code down into multiple lines.
+But all these backslashes are kind of ugly.
+-------------------code----------------------
+if user_choice == computer_choice:
+ print( 'Tie!')
+elif \
+ (user_choice == 'r' and computer_choice == 's') or \
+ (user_choice == 's' and computer_choice == 'p') or \
+ (user_choice == 'p' and computer_choice == 'r'):
+ print( 'You win')
+else:
+ print( 'You lose')
+-------------------code----------------------
+
+- better way.
+Look, here we have three conditions, each surrounded by parenthesis.
+Now, we can grab all these three conditions and wrap them with parenthesis like this.
+We can remove the backslash. we add parenthesis.
+So, the left one is here and the right one should be at the end.
+Right here. With this, we no longer need these backslashes anymore.
+So, Python interpreter knows that this outer parenthesis represents a long expression.
+
+-------------------code----------------------
+elif(
+  (user _choice == 'r' and computer_choice == 's') or
+  (user_choice == 's' and computer_choice == 'p') or
+  (user_choice == 'p' and computer_choice == 'r')):
+-------------------code----------------------
+
+
+
+- We determined the winner.
+Next, we should ask the user if they want to continue.
+So, once again, we add a line break to separate this segment from the previous segment, which
+is about determining the winner.
+And then, use the input function to ask the user if they want to continue or not.
+So, right away we call the lower method.
+And then store the result in a variable like should continue.
+We cannot use the word continue because this is a reserved keyword in python.
+-------------------code----------------------
+should_continue = input('Continue? (y/n): ').lower()
+  if should_continue == 'n':
+-------------------code----------------------
+
+- So, here we check if should continue equals n, then we want to terminate the program.
+Now, to do this, first we have to add these statements inside a while loop.
+So, here we add a while loop with true as the condition.
+Now, let's indent all these lines.
+So, if the user types an n, then we want to break out of this loop to terminate the program.
+Otherwise, if they type y or anything else, we can treat it as yes.
+-------------------code----------------------
+import random
+
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+choices = ('r', 'p', 's')
+
+user_choice = input( 'Rock, paper, or scissors? (r/p/s): '). lower()
+while True:
+  if user_choice not in choices:
+    print( 'Invalid choice!')
+  
+  computer_choice = random. choice (choices)
+  
+  print(f'You chose {emojis[user_choicel]'})
+  print(f'Computer chose {emojis[computer_choice]}')
+  
+  if user_choice == computer_choice:
+   print( 'Tie!')
+  elif(
+    (user _choice == 'r' and computer_choice == 's') or
+    (user_choice == 's' and computer_choice == 'p') or
+    (user_choice == 'p' and computer_choice == 'r')):
+      print( 'You win')
+  else:
+   print( 'You lose')
+  
+  should_continue = input('Continue? (y/n): ').lower()
+    if should_continue == 'n':
+      break
+-------------------code----------------------
+
+- So, let's run our program. First, let's try an invalid choice, like a.
+Alright, our program crashed on this line, line 13 where we try to show the emoji associated
+with the user's choice. Now, obviously, in this dictionary, dictionary of emojis, up here, we don't have a key with
+the value of a, right? So, look, down here, we are validating the user's choice.
+If the user types an invalid choice, we just print an error message.
+But the rest of the code gets executed.
+So, we end up on this line, and this line throws an exception.
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): a
+Error: print(f'You chose {emojis[user_choice]}')
+-------------------code----------------------
+
+
+- To fix this issue, right after printing an error, we should use the connection.
+We should use the continue statement to jump back to the beginning of the while loop.
+So, we ask the user one more time to make a choice.
+-------------------code----------------------
+import random
+
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+choices = ('r', 'p', 's')
+
+user_choice = input( 'Rock, paper, or scissors? (r/p/s): '). lower()
+while True:
+  if user_choice not in choices:
+    print( 'Invalid choice!')
+    continue
+  
+  computer_choice = random.choice(choices)
+  
+  print(f'You chose {emojis[user_choicel]'})
+  print(f'Computer chose {emojis[computer_choice]}')
+  
+  if user_choice == computer_choice:
+   print( 'Tie!')
+  elif(
+    (user _choice == 'r' and computer_choice == 's') or
+    (user_choice == 's' and computer_choice == 'p') or
+    (user_choice == 'p' and computer_choice == 'r')):
+      print( 'You win')
+  else:
+   print( 'You lose')
+  
+  should_continue = input('Continue? (y/n): ').lower()
+    if should_continue == 'n':
+      break
+-------------------code----------------------
+
+- Let's try one more time.
+If we type an a, we get an error message and our program doesn't crash.
+Beautiful.
+
+-------------------code----------------------
+Rock, paper, or scissors? (r/p/s): a
+Invalid choice!
+Rock, paper, or scissors? (r/p/s): b
+Invalid choice!
+Rock, paper, or scissors? (r/p/s): r
+You chose
+Computer chose *
+You win
+Continue? (y/n): y
+Rock, paper, or scissors? (r/p/s): p
+You chose
+Computer chose
+You win
+Continue? (y/n): n
+-------------------code----------------------
+
+Refactor:
+
+- All right, our program is working, but just because it's working, it doesn't mean our
+work is finished. We should always review our code and find opportunities to refine
+and improve it. In coding, this is called refactoring. It's basically a fancy term for
+changing the structure of our code without changing its functionality. In this lesson,
+we're going to look at a common refactoring technique called modularization. Modularizing
+code means breaking down a large program into smaller reusable parts called modules or
+functions. 
+
+- Think of it like organizing a messy room into different boxes, each holding specific
+items. Instead of having one big pile of everything, we put related things together, making it easier
+to find what we need and keep things tidy. 
+
+- Now, back to this code, earlier we talked about different segments in our program. So we have a segment for displaying choices, we have another
+segment for determining winner and so on. Now we're going to extract these segments into
+small functions, each having a single responsibility.  
+
+- So we start from the top. These few lines have a single responsibility, and that is getting the user's choice. So we
+can extract these few lines into a separate function called get user choice. So up here, after we
+declare our emojis and choices, let's define a function called get user choice. Always
+use descriptive names for our functions. Now let's move these few lines inside this function.
+-------------------code----------------------
+def get_user_choice():
+  user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+  if user_choice not in choices:
+    print( 'Invalid choice!')
+    continue
+-------------------code----------------------
+
+- Now here we have an error because the continue keyword can only be used inside a loop. So here
+we need to add a while loop, while true, then we move these few lines inside this loop. 
+-------------------code----------------------
+def get_user_choice():
+  while True:
+    user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+    if user_choice not in choices:
+      print( 'Invalid choice!')
+      continue
+-------------------code----------------------
+
+- So if the user enters an invalid choice, we print an error and then continue which means we jump
+to the beginning of the while loop. Otherwise, we break out of this loop, and at the end we
+should return a value from this function. What value? User's choice. So here we use the
+return statement to return user choice.
+-------------------code----------------------
+def get_user_choice():
+  while True:
+    user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+    if user_choice not in choices:
+      print( 'Invalid choice!')
+      continue
+    else:
+      break
+    return user_choice
+-------------------code----------------------
+
+
+- Now there is a better way to write this code. Instead
+of breaking out of this loop, we can return user choice right here. So return user choice. With
+this we can make our function slightly shorter.
+-------------------code----------------------
+def get_user_choice():
+  while True:
+    user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+    if user_choice not in choices:
+      print( 'Invalid choice!')
+      continue
+    else:
+      user_choice
+-------------------code----------------------
+
+- what happens if we swap these if and else statements. So instead of checking if user choice is not in the list of choices, we check if user
+choice is in the list of choices. In this case, we are going to return immediately. So return
+user choice. Otherwise, we are going to print an error message and continue.
+-------------------code----------------------
+def get_user_choice():
+  while True:
+    user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+    if user_choice in choices:
+      user_choice
+    else:
+      print( 'Invalid choice!')
+      continue      
+-------------------code----------------------
+
+- Okay? Now with this implementation, we don't even need the continue keyword, because if we end up here, we print
+an error and then the control automatically moves to the beginning of the while loop. So we can get
+rid of the continue statement and make our code slightly shorter.
+-------------------code----------------------
+def get_user_choice():
+    while True:
+        user_choice = input('Rock, paper, or scissors? (r/p/s): ').lower()
+        if user_choice in choices:
+            return user_choice
+        else:
+            print('Invalid choice!')
+-------------------code----------------------
+
+- Now back to our main while loop. Earlier we had a few lines for getting users input. Those
+lines are now inside the get user choice function. So here we call get user choice. Get
+the result and store it in a variable called user choice. 
+-------------------code----------------------
+user_choice = get_user_choice()
+-------------------code----------------------
+
+- Next we are going to apply the same technique to these two lines. These two lines are highly related and have a single
+responsibility, displaying choices. So let's select these two lines, cut. Now, after this
+function, we define another function called display choices. 
+-------------------code----------------------
+def display_choices():
+    print(f'You chose {emojis[user_choice]}')
+    print(f'Computer chose {emojis[computer_choice]}')
+-------------------code----------------------
+
+- back to our while loop.
+after we have an error, we have an error, we have an error, we have an error, we have an error
+for determining the winner. Again, select cut. Let's define a new function. Determine winner. Now here we have an error because we need to add indentation here. Good. Now back to our
+while loop. 
+-------------------code----------------------
+def determine_winner():
+    if user_choice == computer_choice:
+        print('Tie!')
+    elif (
+        (user_choice == ROCK and computer_choice == SCISSORS) or
+        (user_choice == SCISSORS and computer_choice == PAPER) or
+            (user_choice == PAPER and computer_choice == ROCK)):
+        print('You win')
+    else:
+        print('You lose')
+-------------------code----------------------
+
+- After we after we display the choices, recall, determine
+good. Now we can do the same thing with our while loop. So we can extract this
+entire logic and put it into a separate function.Let's call that
+play game. This is where we have our game logic. Let's select all this code and
+add indentation. 
+-------------------code----------------------
+def play_game():
+    while True:
+        user_choice = get_user_choice()
+
+        computer_choice = random.choice(choices)
+
+        display_choices()
+
+        determine_winner()
+
+        should_continue = input('Continue? (y/n): ').lower()
+        if should_continue == 'n':
+            break
+-------------------code----------------------
+
+- Now if we look up, we have a bunch of errors
+because in this function, display choices, we do not
+have a variable called user choice. This variable is declared inside
+our play game function. So to fix this issue,
+we have to pass user choice and computer choice to these functions. So
+we go to our display choices function and
+give it two parameters, user choice and computer choice.
+Now the errors are gone. 
+-------------------code----------------------
+def display_choices(user_choice, computer_choice):
+-------------------code----------------------
+
+- Similarly, in determine winner, we add two parameters,
+user choice and computer choice. The errors are gone.
+-------------------code----------------------
+def determine_winner(user_choice, computer_choice):
+-------------------code----------------------
+
+- Now when calling these functions, we should
+pass these values as arguments. User choice and
+computer choice. One more time.
+User choice and computer choice.
+-------------------code----------------------
+def play_game():
+    while True:
+        user_choice = get_user_choice()
+
+        computer_choice = random.choice(choices)
+
+        display_choices(user_choice, computer_choice)
+
+        determine_winner(user_choice, computer_choice)
+
+        should_continue = input('Continue? (y/n): ').lower()
+        if should_continue == 'n':
+            break
+-------------------code----------------------
+
+- Now one last thing.
+If we run our program, nothing happens.
+Because after this refactoring, we move
+different lines of our code inside different functions.
+But currently none of these functions is getting called.
+So at the end,
+we have to call the play game function. So our program starts.
+-------------------code----------------------
+play_game()
+-------------------code----------------------
+
+- We have one more opportunity for improving this code. Look, there are multiple places
+where we have defined our choices. This is bad for two reasons.
+-------------------code----------------------
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+choices = ('r', 'p', 's')
+-------------------code----------------------
+
+- One reason is that if we have a typo in our code, our program is not
+going to work. That's number one problem.
+-------------------code----------------------
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+choices = ('r', 'p', 'test')
+-------------------code----------------------
+
+- The second problem is that if
+tomorrow we decide to change our choices from R, S, and P
+to something else like 1, 2, and 3, there are multiple
+places that we have to modify. 
+
+- In programming, we have this principle called dry, which is short for don't repeat yourself.
+So we don't want to have repetition or duplication in our code. Most of the time
+it's a bad practice. 
+
+- So how can we solve this problem? Well, we can
+generate this tuple based on this dictionary. In this dictionary
+we have three key value pairs. Our keys are R, S, and P. So, let me show we how we can convert this dictionary to
+a tuple with these values. First, we're going to select this line
+and the rest of the code. Now, we can convert all these lines to a comment by pressing command and slash on
+mac or control and slash on windows. Now, all these lines are commented out, so they're not going to get executed. We only
+have the declaration of our dictionary. Now, let's print let's print emojis dot
+look here we have a method called keys which returns the keys of this dictionary using
+this structure, dict keys.
+-------------------code----------------------
+emojis = {r: '🪨', s: '✂️', p: '📃'}
+print(emojis.keys())
+
+dict_keys(['r', 'p', 's'])
+-------------------code----------------------
+
+
+- But this is not exactly what we want.
+What we want is a tuple. But this is very easy to fix. We can
+pass the object that is returned from this method
+to the tuple function and with this
+we get a tuple exactly like the tuple that we declared in choices.
+-------------------code----------------------
+tuple(emojis.keys())
+# ('r', 'p', 's')
+-------------------code----------------------
+
+- So, we can set choices to tuple itself emojis dot keys.
+With this technique we removed duplication in our code.
+-------------------code----------------------
+choices = tuple(emojis.keys())
+-------------------code----------------------
+
+- Now, look there are other places where
+we have repeated our choices. Again, if we have a typo, our program
+is not going to work.
+So, realistically we need a single place
+for defining our choices. To do that, we can go to the top
+and declare a bunch of constants.
+By convention, we use uppercase letters to declare constants.
+So, we can declare a constant like rock and set it to R.
+Similarly, scissors and paper. This is a single place where
+we declare our choices. Now, anywhere we have R, S, and P, we replace them with
+our constants.
+-------------------code----------------------
+ROCK = 'r'
+SCISSORS = 's'
+PAPER = 'p'
+-------------------code----------------------
+
+- we press command and D on mac
+or control and D on windows. Look, this instance is also selected.
+One more time we press command and D.
+There we go. Now, we have three cursors, all of them selecting R. So, we can replace them all with rock in one go.
+
+PS: to cancel multi-cursor editing, we press the escape button twice.
+
+- Now, we have a single place where
+we have defined our choices, so no chance for typos
+and if we decide to change the choices
+from R, S, and P to something else in the future,
+there is a single place we have to update.
+We can change this to 1, 2, and 3, and
+everything will work.
+
+- But there is another benefit here.
+Look, down here where
+we determine the winner,
+our code is more descriptive.
+So, instead of comparing user choice and computer choice with R and S,
+we can clearly see that
+if the user has a rock and the computer has scissors,
+the user is the winner.
+-------------------code----------------------
+elif (
+        (user_choice == ROCK and computer_choice == SCISSORS) or
+        (user_choice == SCISSORS and computer_choice == PAPER) or
+            (user_choice == PAPER and computer_choice == ROCK)):
+        print('You win')
+-------------------code----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

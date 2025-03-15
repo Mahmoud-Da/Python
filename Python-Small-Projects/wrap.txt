@@ -1182,17 +1182,122 @@ elif (
         print('You win')
 -------------------code----------------------
 
+*** 5-QR Code Generator ***
+
+Problem:
+
+- Alright, for our next project we're going to build a QR
+code generator. So first we enter some text or URL.
+we're going to enter the address of google.
+-------------------code----------------------
+Enter the text or URL: https://www.google.com/
+-------------------code----------------------
+
+- next we enter a file name, let's enter google.jpg
+now we have a QR code saved in this file.
+-------------------code----------------------
+Enter the filename: google.jpg
+-------------------code----------------------
 
 
+Solution:
 
+Alright, the first thing we're going to do is set up a virtual environment using pipenv.
 
+- A virtual environment in python is like a separate, isolated workspace on our computer
+where we can install packages and run python projects.
+Think of it as a clean, organized room that's separate from the rest of our house.
+In this room, we have everything we need to work on a specific project
+without affecting anything else in the house.
 
+- Now why do we need a virtual environment?
+Well, imagine we're working on two different python projects.
+One project needs an older version of a library and the other project needs a newer version.
+If we install both versions globally for the whole computer, they might conflict with each other.
+A virtual environment solves this problem by allowing each project to have its own separate environment
+with its own specific versions of libraries.
 
+So, to set up a virtual environment, here we open the terminal window and type python if we're on windows
+or python 3 if we're on mac. we can use pipenv
+to install it 
+-------------------code----------------------
+pip3 install pipenv
+-------------------code----------------------
 
+- then we install the dependencies
+-------------------code----------------------
+pipenv install qrcode
+pipenv install Pillow
+-------------------code----------------------
 
+- finally we activate it
+-------------------code----------------------
+pipenv shell
+-------------------code----------------------
 
+- nowm in our code, First, we import the qrcode module.
+Next, we use the input function, and tell the user to enter some text, or url.
+We get the result and store it in a variable called data.
+-------------------code----------------------
+import qrcode
 
+data = input('Enter the text or URL: ')
+-------------------code----------------------
 
+- Next, we use the input function to get a file name.
+So, enter the file name. And we store it.
+-------------------code----------------------
+filename = input('Enter the filename: ')
+-------------------code----------------------
+
+- Now, it's a good practice to remove any white spaces around what the user types.
+For example, what if the user types, let's say, the address of my website, as the url.
+Whether they type this address, or this address followed by a white space, we want to have
+the same qrcode generator.
+So, over here, we can call the strip method to get rid of any white spaces around our data.
+-------------------code----------------------
+data = input('Enter the text or URL: ').strip()
+-------------------code----------------------
+
+- Similarly, we would like to strip any white spaces around the file name.
+-------------------code----------------------
+filename = input('Enter the filename: ').strip()
+-------------------code----------------------
+
+- Now we are ready to generate our qrcode.
+To do that, we go in the qrcode module, and create a qrcode object.
+Here we want to set two parameters, one is box size.
+we're going to set it to 10, these are just arbitrary values.
+we're going to set border to 4.
+-------------------code----------------------
+qr = qrcode.QRCode(box_size=10, border=4)
+-------------------code----------------------
+
+- This returns a qrcode object, we store it in this variable.
+Next we call qr.add data, then we pass our data.
+-------------------code----------------------
+qr.add_data(data)
+-------------------code----------------------
+
+- Next we call qr.make image, and set two arguments here.
+One is fill color, which we're going to set to black.
+Again, these are arbitrary values, we can use any colors we want.
+We also set back color to white.
+-------------------code----------------------
+image = qr.make_image(fill_color='black', back_color='white')
+-------------------code----------------------
+
+- This returns an image that we store in a variable.
+And finally we call image.save to save it in this file.
+-------------------code----------------------
+image.save(filename)
+-------------------code----------------------
+
+- And at the end, we print qrcode saved as, now here we want to add the file name, so let's
+convert this to a formatted string, and insert the file name here.
+-------------------code----------------------
+print(f'QR code saved as {filename}')
+-------------------code----------------------
 
 
 

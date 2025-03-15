@@ -60,7 +60,7 @@ go inside a loop, an infinite loop.
 # Generate two random numbers
 # Print them
 # If user enters n
-# Print thank you message
+# Print Thank You message
 # Terminate
 # Else
 # Print invalid choice
@@ -80,7 +80,7 @@ choice = input('Roll the dice? (y/n): ').lower()
 # Generate two random numbers
 # Print them
 # If user enters n
-# Print thank you message
+# Print Thank You message
 # Terminate
 # Else
 # Print invalid choice
@@ -185,4 +185,242 @@ while True:
         break
     else:
         print('Invalid choice!')
+-------------------code----------------------
+
+*** 3-Number Guessing Game ****
+Problem:
+- Alright, for our next project, we're going to build a number guessing game.
+So here's how it's going to work. When we run our program, it generates a random number between
+1 and 100 that we have to guess.
+-------------------code----------------------
+Guess the number between 1 and 100:
+-------------------code----------------------
+
+- Now if we type an invalid number like A, we get an error message.
+So let's type a valid number like 50. Now the program is giving us feedback.
+It says this is too high. So let's try 25. It's still too high. What if we try 10?
+Still too high. How about 5? Now it's too low. So the number that the computer has generated
+is between 5 and 10. Let's try 7. It's too low. Let's try 8. There we go. We guessed the number.
+
+-------------------code----------------------
+Please enter a valid number
+Guess the number between 1 and 100: 50
+Too high!
+Guess the number between 1 and 100: 25
+Too high!
+Guess the number between 1 and 100: 10
+Too high!
+Guess the number between 1 and 100: 5
+Too low!
+Guess the number between 1 and 100: 7
+Too low!
+Guess the number between 1 and 100: 8
+Congratulations! You guessed the number.
+-------------------code----------------------
+
+Solution:
+
+- Alright, once again, before we write any code, let's map out
+what exactly we're going to do. So first we should have our program generate
+a random number, then we should ask the user to make a guess. Now we want to make sure
+that the user enters a valid number. So if the user enters
+an invalid number, so if not a valid number, then we want to print an error, otherwise
+we should give the user some feedback. So we can say if this number
+that the user entered is less than the number to guess,
+we can say this is too low.
+Otherwise, if this number that the user entered is higher
+than the number to guess, we can say this is too high.
+Otherwise, that means number equals
+guess, right? So in this situation we should say, hey, well done,
+we made a guess. Now we want to make sure that the user can make multiple
+guesses. So except the first line, we should put the rest of our
+code inside a while loop for repetition. So here's the structure
+of our program.
+-------------------code----------------------
+#  Generate a random number
+# Loop
+# Ask the user to make a guess
+# If not a valid number
+#   Print an error
+# If number ‹ guess
+#   Print too low
+# If number › guess
+#   Print too high
+# Else
+#   Print well done
+-------------------code----------------------
+PS: We don't want to add the first line inside
+a loop because we want to generate a random number only once.
+
+- Now let's convert these comments into actual code.
+To generate a random number, first we import
+the random module, then we add a line break
+to separate our import statement from
+the rest of our program. Next we call
+random.randint to generate a number between 1 and 100.
+
+- Let's store this in a variable
+called number2 guess.
+Always use descriptive names for our variables. So don't use variable
+names like n or x or a
+because someone else reading our code
+they have no clue what these variables represent.
+Okay? So number2 guess.
+-------------------code----------------------
+import random
+
+
+number_to_guess = random.randint(1, 100)
+-------------------code----------------------
+
+- Next, we should ask the user to make a guess.
+So we don't want to add the loop yet,
+let's just convert this comment into code.
+So here we call the input function and tell the user to guess
+the number between 1 and 100.
+-------------------code----------------------
+user_input = input( 'Guess the number between 1 and 100: ')
+-------------------code----------------------
+
+- Now we know that the input function
+returns a string, so we can
+store it in a variable like user input.
+Now we should convert this to a number. And to do that we use the int function,
+we pass user input, and store the result in a variable called
+guess.
+-------------------code----------------------
+user_input = input( 'Guess the number between 1 and 100: ')
+guess = int(user_input)
+-------------------code----------------------
+
+- Now look, user input is only used in a single place. There is no need
+for this variable anywhere else in this program. Because for the rest of our
+program we're going to work with
+this integer. So we can simplify our code and make it more concise
+by removing this variable.
+It's unnecessary. So we can
+get the string that is returned from the input function
+and pass it directly to the int function.
+With this we can remove this unnecessary variable.
+So when this program is executing,
+first, the input function is called, then the return value which is a string is
+passed to the int function.
+-------------------code----------------------
+guess = int(input('Guess the number between 1 and 100: '))
+-------------------code----------------------
+
+- Now how can we validate
+that this is a valid number? Well, before we do that, let's just print
+guess on the terminal to see if our program works up to this
+point. So this is a good technique
+for building larger programs. Always do it in baby steps.
+So instead of implementing the entire program
+do it in baby steps, make sure it works and then move on.
+So here in the terminal, let's run
+our program and enter an invalid number like a.
+-------------------code----------------------
+guess = int(input('Guess the number between 1 and 100: '))
+print(guess)
+
+# Guess the number between 1 and 100: a Traceback (most recent call last):
+# File "number_guessing_gam
+# e-py", line 5, in ‹module>
+# guess = int (input ( 'Guess the number between 1 and 100: '))
+# ValueError: invalid literal for int() with base 10: 'a'
+-------------------code----------------------
+
+- Alright, look, our program crashed
+because an exception is thrown on this line.
+And here's the type of the exception, value error. So to handle
+this situation and prevent our
+program from crashing, we have to add this line inside a try block.
+So we type try then add indentation now right after try we should
+type accept, followed by the type of error we want to handle
+in this case value error.
+Okay? Now if we end up here, we want to print an error message and say, please
+enter a valid number.
+-------------------code----------------------
+try:
+    guess = int(input('Guess the number between 1 and 100: '))
+  except ValueError:
+    print('Please enter a valid number')
+-------------------code----------------------
+
+- Okay, let's run our program one more time.
+So we type a. Okay, this time our program didn't crash
+instead we got a friendly error message.
+-------------------code----------------------
+Guess the number between 1 and 100: a 
+Please enter a valid number
+-------------------code----------------------
+
+- So we're done with this step. Now, we should give the user some feedback.
+So after the accept block we want to add a line break
+to separate this bit of logic from the rest of the logic
+which is about giving the user some feedback.
+So using these line breaks is like how we break up a story
+into multiple paragraphs. Imagine if we read a book and there are no paragraphs.
+Obviously reading that book is very difficult.
+So here we can check if guess is less than number to guess reprint a message and say too low.
+-------------------code----------------------
+try:
+    guess = int(input('Guess the number between 1 and 100: '))
+  except ValueError:
+    print('Please enter a valid number')
+
+if guess < number_to_guess:
+  print('Too low!')
+-------------------code----------------------
+
+- Now here we have an error message
+on the guess variable saying guess is possibly unbound.
+we know this is a weird error message
+but basically this is happening because
+we have declared this variable inside the try block.
+so it's only meaningful inside the try block.
+This is called the scope of this variable. So to fix this error
+we have to move these two lines inside our try block
+and add indentation.
+
+-------------------code----------------------
+try:
+    guess = int(input('Guess the number between 1 and 100: '))
+    
+    if guess < number_to_guess:
+      print('Too low!')
+  except ValueError:
+    print('Please enter a valid number')
+
+-------------------code----------------------
+
+- So we read a number then we check
+if it's less than the number to guess
+otherwise elif guess is greater than
+number to guess we print too high
+otherwise that means the user guessed it correctly
+so here we can say
+congratulations we guessed the number.
+Now let's get rid of these comments
+we don't need them anymore.
+
+finally we put all these instructions inside an infinite loop.
+-------------------code----------------------
+import random
+
+
+number_to_guess = random.randint(1, 100)
+
+while True:
+    try:
+        guess = int(input('Guess the number between 1 and 100: '))
+
+        if guess < number_to_guess:
+            print('Too low!')
+        elif guess > number_to_guess:
+            print('Too high!')
+        else:
+            print('Congratulations! You guessed the number.')
+            break
+    except ValueError:
+        print('Please enter a valid number')
 -------------------code----------------------

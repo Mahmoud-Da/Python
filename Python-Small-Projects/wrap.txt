@@ -1887,3 +1887,495 @@ def main():
 if __name__ == "__main__":
     main()
 -------------------code----------------------
+
+*** 7-Quiz Game ***
+
+Problem:
+
+- Alright, for our next project, we're going to build a fun and interactive quiz game. 
+
+- Let's see how it works. Here's our first question
+What is the capital of France? Let's select Paris.
+That was correct. 
+
+-------------------code----------------------
+Question 1: What is the capital of France?
+A. Berlin
+B. Madrid
+C. Paris
+D. Rome
+Your answer:
+Correct!
+-------------------code----------------------
+- The second question is, which planet is known
+as the red planet? We know the answer, it's Mars, but let's see what happens
+if we select Earth. Wrong, the correct answer is B.
+
+-------------------code----------------------
+Question 2: Which planet is known as the red planet?
+A. Earth
+B. Mars
+C. Jupiter
+D. Saturn
+Your answer:
+Wrong! The correct answer is B
+-------------------code----------------------
+
+- So if the user answers correctly, we display some text in green
+otherwise we display it in red.
+
+- We have one more question, what is the
+largest ocean on Earth? That is Pacific, correct?
+So the quiz is over, and our final score is 2 out of 3. 
+
+-------------------code----------------------
+Question 3: What is the largest ocean on Earth?
+A. Atlantic
+B. Indian
+C. Arctic
+D. Pacific
+Your answer: d
+Correct!
+Quiz over! Your final score is 2 out of.
+-------------------code----------------------
+
+Solution:
+
+- Alright, let's start by mapping out what exactly
+we're going to do. First, we're going to define our questions,
+options, and the correct answer.
+Next, we're going to shuffle the questions, so every time we run our
+program, we get questions in a different order. Then, we're going to loop
+over questions, we're going to print one question at a time,
+next we should get user input.
+And here we check, if input is correct,
+we're going to print a message like correct answer, and
+at the same time, we should also increase the user's
+score. Otherwise, if the input is
+incorrect, we're going to say wrong answer.
+And at the end, we should print the final score.
+-------------------code----------------------
+# Define questions, options, correct answer
+# Shuffle the questions
+# Loop over questions
+  # Print question
+  # Get user input
+  # If input is correct
+    # Print correct answer 
+    # Increase score
+  # Else
+  # Print wrong answer
+# Print the final score
+-------------------code----------------------
+
+- First, we have to figure out a way to represent
+our questions, their options, and correct answers. There are different ways
+we can go about this, we can use tuples,
+we can use dictionaries, we can create
+classes. A simple beginner friendly way is to use a dictionary.
+Now, because we're going to have multiple questions, we need a list of
+dictionaries. So, we can declare a variable called
+quiz, and set it to a list. In this list, we're going to have
+a bunch of dictionaries. So, we add one dictionary for each item.
+Now, here we're going to have three key value pairs.
+-------------------code----------------------
+quiz = [
+        {
+            'question': 'What is the capital of France?',
+            'options': ['A. Berlin', 'B. Madrid', 'C. Paris', 'D. Rome'],
+            'answer': 'C'
+        },
+        {
+            'question': 'Which planet is known as the red planet?',
+            'options': ['A. Earth', 'B. Mars', 'C. Jupiter', 'D. Saturn'],
+            'answer': 'B'
+        },
+        {
+            'question': 'What is the largest ocean on Earth?',
+            'options': ['A. Atlantic', 'B. Indian', 'C. Arctic', 'D. Pacific'],
+            'answer': 'D'
+        }
+    ]
+-------------------code----------------------
+
+- next we want to shuffle the question To do that, we have to import
+the random module on the top. Then, here we call
+random.shuffle and pass our quiz.
+-------------------code----------------------
+import random
+
+random.shuffle(quiz)
+-------------------code----------------------
+
+- We're done with this step. Now, let's loop over the questions.
+To do that, we're going to use a for loop. We can say for item
+in. Now, here we have to use the enumerate function
+to iterate over an iterable. In this case, our quiz.
+So, we pass the quiz. This returns a topple with two elements.
+The first element is the index of the current element. And the second element is
+the actual item. 
+-------------------code----------------------
+for index, item in enumerate(quiz):
+  print(item['question'])
+-------------------code----------------------
+
+- Now, before going further, let's just print
+the question and see if our code is working up to this point.
+Back to the terminal, let's run our quiz game.
+-------------------code----------------------
+$ python3 quiz_game.py
+
+What is the capital of France?
+What is the largest ocean on Earth?
+Which planet is known as the red planet?
+-------------------code----------------------
+
+- Okay, we have our questions. If we run this program again,
+the order of questions has changed.
+-------------------code----------------------
+$ python3 quiz_game.py
+
+What is the largest ocean on Earth?
+Which planet is known as the red planet?
+What is the capital of France?
+-------------------code----------------------
+
+*****************************************************************************
+enumerate() in Python is used to add a counter to an iterable (like a list, tuple, or string). It returns pairs of index numbers and values, 
+which is particularly useful when we need both the index and value in a loop.
+
+More practical examples:
+1.Creating a dictionary with positions
+Without enumerate:
+-------------------code----------------------
+# If we need both index and value, we need a separate counter
+fruits = ["apple", "banana", "cherry"]
+index = 0
+for fruit in fruits:
+    print(f"Index {index}: {fruit}")
+    index += 1
+
+# Or using range and len (less readable)
+for i in range(len(fruits)):
+    print(f"Index {i}: {fruits[i]}")
+-------------------code----------------------
+
+With enumerate:
+-------------------code----------------------
+fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):
+    print(f"Index {index}: {fruit}")
+
+# You can also start counting from a different number
+for index, fruit in enumerate(fruits, start=1):
+    print(f"Number {index}: {fruit}")
+-------------------code----------------------
+
+
+2. Finding indices of specific elements:
+
+# Without enumerate
+-------------------code----------------------
+numbers = [1, 4, 6, 4, 8, 4]
+
+indices = []
+for i in range(len(numbers)):
+    if numbers[i] == 4:
+        indices.append(i)
+-------------------code----------------------
+# With enumerate (more readable)
+-------------------code----------------------
+numbers = [1, 4, 6, 4, 8, 4]
+indices = [i for i, num in enumerate(numbers) if num == 4]
+-------------------code----------------------
+
+3.Creating numbered lists:
+
+
+# Without enumerate
+-------------------code----------------------
+tasks = ["Learn Python", "Practice coding", "Build project"]
+print("Todo List:")
+for i in range(len(tasks)):
+    print(f"{i+1}. {tasks[i]}")
+-------------------code----------------------
+# With enumerate (cleaner)
+-------------------code----------------------
+tasks = ["Learn Python", "Practice coding", "Build project"]
+print("Todo List:")
+for num, task in enumerate(tasks, 1):  # start=1 for natural counting
+    print(f"{num}. {task}")
+-------------------code----------------------
+
+Benefits of using enumerate():
+1. More readable and Pythonic code
+2. Less prone to errors (no manual index tracking)
+3. More efficient than maintaining a separate counter
+4. Can start counting from any number using the start parameter
+5. Reduces the need for multiple variables or complex indexing
+PS: Remember that enumerate() returns an enumerate object, which can be converted to a list if needed:
+
+-------------------code----------------------
+letters = ['a', 'b', 'c']
+enum_list = list(enumerate(letters))
+print(enum_list)  # [(0, 'a'), (1, 'b'), (2, 'c')]
+-------------------code----------------------
+*****************************************************************************
+
+- let's take this to the next level. Instead of printing the question,
+we want to print something like this. Question
+1, and then here we're going to add the actual question.
+To do that, we're going to use a formatted string here. 
+-------------------code----------------------
+for index, item in enumerate(quiz):
+  print(f'Question {index}: {item ['question']}')
+-------------------code----------------------
+
+- Now, let's run our program
+one more time. Okay, getting better, but we don't want to start with question 0.
+-------------------code----------------------
+$ python3 quiz_game.py
+
+Question 0: Which planet is known as the red planet?
+Question 1: What is the largest ocean on Earth?
+Question 2: What is the capital of France?
+-------------------code----------------------
+
+-To fix this problem, here we can pass a second argument and that is the starting
+index. So, if we set this to
+1, index is going to start from
+-------------------code----------------------
+for index, item in enumerate(quiz, 1):
+  print(f'Question {index}: {item ['question']}')
+-------------------code----------------------
+
+- let's run it one more time.
+-------------------code----------------------
+$ python3 quiz_game.py
+
+Question 1: Which planet is known as the red planet?
+Question 2: What is the largest ocean on Earth?
+Question 3: What is the capital of France?
+-------------------code----------------------
+
+1. So,  There we go. That's better.
+Now, let's move on to the next step. After printing the question, we
+want to print all the options. So, once again, we're going to use a for loop.
+-------------------code----------------------
+for index, item in enumerate(quiz, 1):
+  print(f'Question {index}: {item[ 'question']}')
+  for option in item['options']:
+    print(option)
+-------------------code----------------------
+
+- Now, we should get the user's input. So, we're going to add a line break
+to separate this segment from the next one, because this
+segment is all about printing a question
+and all its options. Now, we're going to move on to the next step or next
+segment, which is about getting the user's input. So, here we use the
+input function and say our answer. Now, to simplify our if
+statements, we're going to convert whatever the user types to uppercase
+and also remove any accidental white space around
+the answer. We store the result in a variable called answer.
+Now, we have to do our comparisons. So, we check if answer equals item of
+answer, then we're going to print
+correct.
+-------------------code----------------------
+answer = input( 'Your answer: ').upper().strip()
+if answer == item['answer']:
+  print( 'Correct!')
+-------------------code----------------------
+
+- and increase the score. So, outside of this for loop,
+we have to declare a variable called score and initialize it to 0. Then,
+every time the user answers a question, we're going to increment
+the score. So, score plus equal 1. Okay?
+Now, otherwise, if the answer is incorrect,
+we're going to print wrong, the correct answer is, well, we're going to use
+a formatted string here. So, here we're going to print item
+of answer. Okay? And of course, we have to prefix this with F.
+-------------------code----------------------
+score = 0
+
+for loop statement ...
+
+if answer == item ['answer']:
+print( 'Correct!')
+score += 1
+else:
+print( 'Wrong! The correct answer is f{item['answer']})
+-------------------code----------------------
+
+- Finally, we have to print the final score.
+-------------------code----------------------
+print(f'Quiz over! Your final score is {score} out of {len(quiz)}')
+-------------------code----------------------
+
+Alright, now we're going to take this to the next level.
+We're going to colorize the text in the terminal. And to do that,
+we're going to use a popular package called term color.
+-------------------code----------------------
+termcolor
+
+https://pypi.org/project/termcolor/
+-------------------code----------------------
+ It's very easy
+to use, we install it with pip, and down here we can see an example
+of using this library. In this lesson, we're going to use the cprint
+function that is defined in this module.
+-------------------code---------------------- 
+from termcolor import cprint
+-------------------code----------------------
+
+- This is exactly like our print function, but as a second argument, we can pass a color.
+Now, where we give user feedback, instead of the print function,
+we're going to use cprint. So if the answer is correct, we're going to use green color.
+-------------------code----------------------
+cprint('Correct!', 'green')
+-------------------code----------------------
+
+- Otherwise, we're going to use red. 
+-------------------code----------------------
+cprint(f'Wrong! The correct answer is {item['answer']}', 'red')
+-------------------code----------------------
+- Now, to separate the questions after we give user feedback,
+we would like to add an empty line, because this makes the output cleaner.
+-------------------code----------------------
+cprint(f'Wrong! The correct answer is {item['answer']}', 'red')
+
+print()
+-------------------code----------------------
+
+- So let's run our project one more time. and test it
+
+Refactor:
+
+Alright, we're done with our solution, but there is one thing that stands out. The repeated
+use of these string keys 'question', 'answer' , 'option'. If we have a typo in our code, like an extra n here or a white
+space, our code is not going to work, right? These kind of mistakes can be tricky to catch
+and can cause bugs that are hard to trace. Earlier we talked about the "dry" principle
+encoding, don't repeat yourself. So let's clean up this code by replacing these string
+keys with constants. This simple change can make our code more robust, easier to maintain
+and less prone to errors.
+
+- So up here, we declare three constants. Question, we set it to question,
+options, and answer. Now let me clarify something here. In python, we don't really have constants
+the way we have in languages like java, c++, or c sharp. So there is nothing that stops
+me from reassigning one of these so called constants. So essentially this is just a variable, but
+by convention, we use uppercase letters to tell other programmers to treat these as constants.
+-------------------code----------------------
+QUESTION = 'question'
+OPTIONS = 'options'
+ANSWER = 'answer'
+-------------------code----------------------
+
+- next Now we're going to replace these string keys with constants.
+
+- Alright, now we're going to refactor our code to make it more
+modular and easier to work with. We want to break down this script
+into smaller functions. 
+
+- Now there are different ways we can do this, for example
+we can extract these few lines into a function called display question. That's one way.
+-------------------code----------------------
+print(f'Question {index}: {question}')
+  for option in options:
+      print(option)
+-------------------code----------------------
+ 
+- but we can also include this line
+as well and extract all of this into a function called ask
+question. we prefer this approach because the act of asking a
+question and getting an answer are highly related. So to make our code
+more modular, we want to have all the logic, all the lines that are
+highly related inside a single function.
+
+- Now we need three pieces of information in this function. The index of the question
+so we add it here. The second is the question itself
+and third is the options. Now here we can add
+item as a parameter and then access the question and
+options key here. But we don't like this approach because someone else
+looking at this code, they have no idea about the shape of this item object.
+It's kind of ambiguous. So we prefer to get a bit more explicit here.
+We can replace item with two parameters, question
+and options. Now our code is very straightforward.
+-------------------code----------------------
+def ask_question(index, question, options):
+    print(f'Question {index}: {question}')
+    for option in options:
+        print(option)
+
+    answer = input('Your answer: ').upper().strip()
+-------------------code----------------------
+
+- Now let's put the rest of the code inside a function like run quiz.
+So run quiz. Now we should move all the logic inside this function.
+Okay, here's what we have. In this function we need to have access to our quiz.
+Now we have declared quiz globally so we can access it anywhere in these functions
+but generally speaking it's best to stay away from global variables
+global variables because they can cause bugs that are hard to trace.
+So we would prefer to pass quiz as an argument to this function.
+-------------------code----------------------
+def run_quiz(quiz):
+    random.shuffle(quiz)
+
+    .....
+
+
+-------------------code----------------------
+
+
+- Now let's replace these few lines with our ask question function.
+Here we have three parameters, index, question, and options.
+Now when calling this function, we should pass three arguments.
+So index, item of question, and item of answer.
+-------------------code----------------------
+for index, item in enumerate(quiz, 1):
+    answer = ask_question(index, item[QUESTION], item[OPTIONS])
+-------------------code----------------------
+
+- So, we have this now, this function should return an answer.
+We forgot to do that earlier. So this is where we get the answer. We can return it right away.
+We can also make our code more concise by returning
+the return value of the input function immediately.
+so There is no need to declare an extra variable.
+-------------------code----------------------
+def ask_question(index, question, options):
+    print(f'Question {index}: {question}')
+    for option in options:
+        print(option)
+
+    return input('Your answer: ').upper().strip()
+-------------------code----------------------
+
+- let's add a main function. In this function, we call run quiz and give it our quiz object.
+Now, earlier we told we that it's best to stay away from global variables.
+-------------------code----------------------
+def main():
+    quiz = [
+        {
+            QUESTION: 'What is the capital of France?',
+            OPTIONS: ['A. Berlin', 'B. Madrid', 'C. Paris', 'D. Rome'],
+            ANSWER: 'C'
+        },
+        {
+            QUESTION: 'Which planet is known as the red planet?',
+            OPTIONS: ['A. Earth', 'B. Mars', 'C. Jupiter', 'D. Saturn'],
+            ANSWER: 'B'
+        },
+        {
+            QUESTION: 'What is the largest ocean on Earth?',
+            OPTIONS: ['A. Atlantic', 'B. Indian', 'C. Arctic', 'D. Pacific'],
+            ANSWER: 'D'
+        }
+    ]
+    run_quiz(quiz)
+-------------------code----------------------
+
+- Now, the final step.
+At the end, we should check, if name equals main, then we call the main function.
+
+-------------------code----------------------
+if __name__ == '__main__':
+    main()
+-------------------code----------------------

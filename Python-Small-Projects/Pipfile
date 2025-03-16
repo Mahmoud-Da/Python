@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 qrcode = "8.0"
 Pillow = "11.1.0"
+termcolor = "2.5.0"
 
 [dev-packages]
 

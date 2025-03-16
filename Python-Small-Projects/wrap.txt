@@ -2379,3 +2379,688 @@ At the end, we should check, if name equals main, then we call the main function
 if __name__ == '__main__':
     main()
 -------------------code----------------------
+
+*** 8-Tic Tac Toe Game ***
+Problem:
+
+- Alright, our next project is a classic one,
+tic tac toe. We're going to build a simple text based version of this game
+in python. So when we run our program we see a 3 by 3
+grid, and now each player takes a turn to insert a mark.
+-------------------code----------------------
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+Player X's turn
+Enter row (0-2):
+-------------------code----------------------
+
+
+- First we have to enter a row, and this can only be a number between 0
+to 2. So if we type anything else, we get an error
+saying invalid input. Similarly if we enter a negative number
+or a number greater than 2, again, we get the same
+error. 
+-------------------code----------------------
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+Player X's turn
+Enter row (0-2): a
+Invalid input!
+Enter row (0-2): -1
+Invalid input!
+Enter row (0-2): 3
+Invalid input!
+-------------------code----------------------
+
+Now we want to put a mark in this position, that is row
+0, column 0. So for the row we enter 0,
+and for the column we enter 0 as well. Now we see
+the updated board.
+-------------------code----------------------
+Enter row (0-2): 0
+Enter column (0-2): 0
+---+---+---
+ X |   |
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+Player O's turn
+-------------------code----------------------
+
+- Now it's the next player's turn. For this
+player, we want to put a mark in the same position. So row 0,
+and column 0. Look, we get an
+error saying this spot is already taken. 
+
+-------------------code----------------------
+Player O's turn
+Enter row (0-2): 0
+Enter column (0-2): 0
+This spot is already taken
+-------------------code----------------------
+
+- and continue until one player wins
+player x wins.
+-------------------code----------------------
+Enter row (0-2): 1
+Enter column (0-2): 1
+---+---+---
+ X |   |
+---+---+---
+   | O |
+---+---+---
+   |   |
+---+---+---
+Player X's turn
+Enter row (0-2): 0
+Enter column (0-2): 1
+---+---+---
+ X | X |
+---+---+---
+   | O |
+---+---+---
+   |   |
+---+---+---
+Player O's turn
+Enter row (0-2): 1
+Enter column (0-2): 2
+---+---+---
+ X | X |
+---+---+---
+   | O | O
+---+---+---
+   |   |
+---+---+---
+Player X's turn
+Enter row (0-2): 0
+Enter column (0-2): 2
+---+---+---
+ X | X | X
+---+---+---
+   | O | O
+---+---+---
+   |   |
+---+---+---
+Player X wins!
+-------------------code----------------------
+
+- Now if the board is full and no one wins,
+again, the game is going to get terminated
+and we're going to see a message saying
+the board is full.
+-------------------code----------------------
+---+---+---
+ X | O | X
+---+---+---
+ X | O | O
+---+---+---
+ O | X | X
+---+---+---
+Board is full
+-------------------code----------------------
+
+- This is a perfect beginner project
+because it covers a lot of fundamental
+programming concepts. We'll be working
+with loops, conditionals, functions
+and lists.
+
+
+Solution:
+
+- Alright, first we have to figure out a data structure for representing our board. Because
+we want to know where each player's marks are located. So first we have to
+declare the board and print it so we'll see an empty board. Next we should add
+a loop to keep the game going until there is a winner or the board
+is full. Now in this loop we should ask the current player
+for a move, but how do we know who is the current player? Well,
+initially we can set the current player to x
+and then after they make a move we can switch the current
+player. Okay, now once they make a move
+we should store their mark on the board and reprint the board.
+Next we should check for a winner, so check the winner.
+If we have a winner then we should print a message
+and break out of this loop to terminate the game. Otherwise if we don't have a winner
+we should check if the board is full. If yes, then we're going to print a message
+and break out of this loop.
+So that's the basic structure of this project.
+-------------------code----------------------
+# Declare the board
+# Print the board
+# Current player = 'X'
+# Loop
+  # Ask the current player for a move
+  # Store their mark on the board 
+  # Print the board
+  # Check the winner 
+  # If we have a winner
+    # Print a message
+    # Break
+  # If the board is full
+    # Print a message 
+    # Break
+# Switch the current player
+-------------------code----------------------
+
+
+- Now let's start coding.
+So on the top, first we have to figure out how we want to represent
+the board. Well, we know that our board
+is a 3 by 3 grid. So in each row we have 3 cells.
+We can represent each row using a list. So initially we will have 3 white spaces
+in each cell, and then later as users play we can place an x or o in these cells.
+Now we can repeat this for second and third rows.
+-------------------code----------------------
+row1 = ['X', 'O', ' ']
+row2 = ['X', 'O', ' ']
+row3 = ['X', 'O', ' ']
+-------------------code----------------------
+
+- but there is a better way. We can declare our board
+as a list of 3 rows where each row
+is a list itself.  So that is our data structure.
+A list of lists.
+-------------------code----------------------
+board = [
+  [' ', ' ', ' '],
+  [' ', ' ', ' '],
+  [' ', ' ', ' ']
+]
+-------------------code----------------------
+
+We're done with the first step. Now let's print the board.
+Now because we have multiple places where
+we have to print the board, we would prefer to implement this logic inside a function
+right from the get go. So let's define a function
+called print board that takes a board object
+in this function first we should print a horizontal row
+that will be the top of our board. We print 3 hyphens
+followed by a plus sign this is like a connector.
+You'll see that in a second. Next we add 3 more hyphens and
+a plus sign with 3 more hyphens. Next we should iterate over this board
+and for each row we should print a formatted string. 
+-------------------code----------------------
+def print_board(board):
+    line = '---+---+---'
+    print(line)
+    for row in board:
+        print(f' {row[0]} | {row[1]} | {row[2]}')
+        print(line)
+-------------------code----------------------
+
+- Now, before going further
+let's test our program up to this point.
+So, right after outside of this function we call
+print board and give it our board object.
+
+-------------------code----------------------
+print_board(board)
+-------------------code----------------------
+- let's run tic tac toe.
+This is our empty board,
+-------------------code----------------------
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+-------------------code----------------------
+
+
+- Let's move on to the next step.
+So, we printed the board. Next we should set the current player to x.
+That's super easy. So, current player, we set it to x.
+Then we add a loop while true.
+
+- Now, here we should ask the current player for a move.
+First, we want to print whose turn it is.
+Now, here we should add an apostrophe, an s, but because we are using single quotes
+to represent our string, this doesn't work anymore, so
+we have to replace single quotes with double quotes.
+Okay, next we should get their move.
+for row and column Whatever the user enters,
+And then we store the result in each variable row and column.
+
+-------------------code----------------------
+while True:
+  print(f"player {current_player}'s turn")
+  row = int(input('Enter row (0-2): '))
+  column = int(input('Enter column (0-2): '))
+-------------------code----------------------
+
+- Next we should store a mark at this position.
+So, first we have to check
+if the cell at this position is empty or not.
+Now we should give the user a chance to retry
+so here we use the continue keyword to move control back
+to the beginning of the while loop.
+-------------------code----------------------
+if board[row][column] == ' ':
+    board[row][column] = current_player
+else:
+    print('This spot is already taken')
+    continue
+-------------------code----------------------
+
+- So here we call print board and pass our board
+object.
+Now before we implement the rest of the program,
+let's test what we have done so far.
+-------------------code----------------------
+print_board(board)
+
+Player X's turn
+Enter row (0-2): 0
+Enter column (0-2): 0
+---+---+---
+ X |   |
+---+---+---
+   |   |
+---+---+---
+   |   |
+---+---+---
+Player X's turn
+Enter row (0-2): 1
+Enter column (0-2): 1
+---+---+---
+ X |   |
+---+---+---
+   | X |
+---+---+---
+   |   |
+---+---+---
+-------------------code----------------------
+
+
+- Next we should check the winner.
+Now checking the winner requires some complex logic.
+we don't want to implement it with same code. we would prefer to implement it in a separate function
+right from the get go.
+
+- So before moving on, let's put
+all the code for our game inside
+our main function.
+-------------------code----------------------
+def main():
+  print_board(board)
+
+    current_player = 'X'
+
+    while True:
+      print(f"player {current_player}'s turn")
+      row = int(input('Enter row (0-2): '))
+      column = int(input('Enter column (0-2): '))
+     
+     if board[row][column] == ' ':
+      board[row][column] = current_player
+     else:
+      print('This spot is already taken')
+      continue
+-------------------code----------------------
+
+- Now before we forget, let's add the calling condition
+-------------------code----------------------
+if __name__ == '__main__':
+    main()
+-------------------code----------------------
+
+- Now let's define a function for checking the winner.
+So before our main function, we define
+another function called check winner.
+We give it our board. Now here we have three scenarios.
+We have to check rows for a winner, we have to check columns,
+and diagonals.
+
+
+- Let's implement each scenario separately.
+So for checking rows,
+we should iterate
+over all rows in this board.
+-------------------code----------------------
+def check_winner(board):
+    # Check rows
+    for row in board:  # [' ', ' ', ' ']
+        if row[0] == row[1] == row[2] != ' ':
+            return True
+    # Check columns
+
+    # Check diagonals
+-------------------code----------------------
+
+
+- the second column, and the third column.
+So here's one scenario. if one of this conditions are true  that means
+we have a winner.
+-------------------code----------------------
+# Check columns
+board[0][0] == board[1][0] == board[2][0]
+board[0][1] == board[1][1] == board[2][1]
+board[0][2] == board[1][2] == board[2][2|]
+-------------------code----------------------
+
+
+- Now, we don't want to write a long if statement
+because that's kind of ugly and unprofessional.
+So here we can write some dynamic logic.
+What do we mean by that?
+Well, look, most of our logic is the same,
+the only part that is different across these lines
+is the column that we are checking.
+So in the first line we are checking the first column
+and the second line we are checking the second column and so on.
+So here we can write a for loop and say for column
+in range of 3, we should know that this function returns
+a list with 3 numbers. 0, 1, and 2. These are our column numbers
+that we are going to use.
+-------------------code----------------------
+# Check columns
+for column in range(3):
+  if board[0][column] == board[1][column] == board[2][column] != ' ':
+    return True
+-------------------code----------------------
+
+- Now finally,
+we should check diagonals. Here we have
+two scenarios.
+A diagonal from the top left corner
+to the bottom right corner,
+and one more from the top right to the bottom left corner.
+-------------------code----------------------
+# Check diagonals
+  if board[0][0] == board[1][1] == board[2][2] != ' ' or \
+      board[0][2] == board[1][1] == board[2][0] != ' ':
+      return True
+-------------------code----------------------
+
+
+- So we checked all these three scenarios,
+rows, columns, and diagonals, if none of these
+is true, that means there is no winner,
+so at the end we should return false from this function.
+-------------------code----------------------
+def check_winner(board):
+    # Check rows
+    for row in board:  # [' ', ' ', ' ']
+        if row[0] == row[1] == row[2] != ' ':
+            return True
+
+    # Check columns
+    for column in range(3):
+        if board[0][column] == board[1][column] == board[2][column] != ' ':
+            return True
+
+    # Check diagonals
+    if board[0][0] == board[1][1] == board[2][2] != ' ' or \
+       board[0][2] == board[1][1] == board[2][0] != ' ':
+        return True
+
+    return False
+-------------------code----------------------
+
+- Now, back to our main function.
+So we printed the board, now let's move
+the rest of the logic inside our main function.
+So here we should check the winner,
+we call check winner, and give it a board,
+and then check. If it returns true,
+that means we have a winner,
+so we print, here we use a formatted string
+and say player, current player, wins.
+And then we break out of this loop
+to terminate the program.
+-------------------code----------------------
+if check_winner(board):
+    print(f'Player {current_player} wins!')
+    break
+-------------------code----------------------
+
+
+- We're done with this step, next we should check if the board is full.
+Again, this logic is a little bit complicated, so we don't want to implement it with the code,
+we should implement it in a separate function.
+So after the check winner function, we define another function, is_full,
+we give it a board object.
+-------------------code----------------------
+def is_full(board):
+  for row in board:
+      if ' ' in row:
+          return False
+
+  return True
+-------------------code----------------------
+
+- next we check if board is full,
+if so, we print a message,
+and say, board is full, and terminate the game.
+-------------------code----------------------
+if is_full(board):
+  print(f'Board is full')
+  break
+-------------------code----------------------
+
+
+- Otherwise, if we end up, that means, we should switch the current player's turn.
+To do that, we can write a simple logic,
+-------------------code----------------------
+if current_player == 'X':
+  current_player = 'O'
+else:
+ current_player = 'X'
+-------------------code----------------------
+
+- but there is a more concise way to write this logic.
+This line is exactly the same as
+these three lines. But it's more concise,
+it's more elegant.
+-------------------code----------------------
+current_player = O if current_player == 'X' else 'X'
+-------------------code----------------------
+
+- finally we test our code.
+
+Refactor:
+
+- Our project is in a pretty good shape in terms of
+modularization. Here we have functions like print board, check
+winner, is full and so on. But there is still an opportunity to further
+improve and refine this code.
+
+- Look, these few lines are highly
+related because the whole purpose of these few lines is to get the users
+move. First we print a message to say whose turn it is, then
+we ask for a row, a column, and check if the spot
+at the given position is available or not. So all these few lines together
+have a single responsibility and that is getting the users
+move. So we can extract these few lines from our main function, put it
+in a separate function, and this way our main function will be simpler and
+easier to understand.
+-------------------code----------------------
+print(f"player {current_player}'s turn")
+row = int(input('Enter row (0-2): '))
+column = int(input('Enter column (0-2): '))
+
+if board[row][column] == ' ':
+  board[row][column] = current_player
+else:
+  print('This spot is already taken')
+  continue
+-------------------code----------------------
+
+
+- Now in this function we need to know the current player, so we should give it
+a parameter called current player.
+Now if this spot at the given position is already
+taken, we want to give the user a chance to retry.
+So we want to wrap these few lines for reading a row and a column inside a while loop.
+So while true, we didn't put the first line here because we don't
+want to keep telling the user whose turn it is. We should say it only once.
+So we put these lines inside a while loop.
+So if the spot is already taken, we jump back to the
+beginning, but this is actually unnecessary because even if we remove
+the continue keyword, the control moves back to the beginning
+of the while loop. But otherwise, if the user can
+successfully insert a mark at the given position, we want to break out of this loop.
+So here we add the break statement.
+
+In fact, we can further simplify this code by removing the else keyword.
+Because if the control moves here, we break out of this loop
+and basically this function will be terminated.
+Otherwise, if this logic is not true, we will end up
+on this line anyway. So there is no need to add
+the else keyword.
+-------------------code----------------------
+def get_move(current_player):
+    print(f"Player {current_player}'s turn")
+    while True:
+        row = int(input('Enter row (0-2): '))
+        column = int(input('Enter column (0-2): '))
+
+        if board[row][column] == ' ':
+            board[row][column] = current_player
+            break
+
+        print('This spot is already taken')
+-------------------code----------------------
+
+- inside our main function.
+So we're going to replace these few lines
+with a call to get move and give it the current player.
+Now we can easily see the entire game logic.
+First we get a move, then we print the board,
+we check the winner, we check if the board is full or not,
+and finally we swap the player.
+-------------------code----------------------
+def main():
+    print_board(board)
+
+    current_player = 'X'
+
+    while True:
+        get_move(current_player)
+
+        print_board(board)
+
+        if check_winner(board):
+            print(f'Player {current_player} wins!')
+            break
+
+        if is_full(board):
+            print(f'Board is full')
+            break
+
+        current_player = 'O' if current_player == 'X' else 'X'
+-------------------code----------------------   
+
+
+- Let's just make sure that our program still works.
+But what if we enter an invalid value like A?
+Our program crashes. So, let's improve this part.
+-------------------code----------------------   
+ValueError: invalid literal for int() with base 10: 'a'
+-------------------code---------------------- 
+
+- We go back to our new function, get move.
+Here, if the user enters a value that cannot be converted to an integer,
+we have to print an error. We have seen this before.
+We can catch these errors using a try block.
+But here's the thing. We have to repeat our data validation logic in two places.
+One, for the row, and one more time, for the column.
+We talked about the dry principle. We don't want to repeat ourselves.
+So let's create a separate function for reading a value between 0 and 2 from the terminal.
+And then we can use that function for reading a row and a column.
+-------------------code----------------------  
+def get_position(prompt):
+    while True:
+        try:
+            position = int(input(prompt))
+            if position < 0 or position > 2:
+                raise ValueError
+            return position
+        except ValueError:
+            print('Invalid input!')
+-------------------code---------------------- 
+
+
+- Now, let's remove this line.
+Similarly, let's duplicate this and ask for a column.
+And then we store the result in column.
+-------------------code----------------------
+def get_move(current_player):
+    print(f"Player {current_player}'s turn")
+    while True:
+        row = get_position('Enter row (0-2): ')
+        column = get_position('Enter column (0-2): ')
+
+        if board[row][column] == ' ':
+            board[row][column] = current_player
+            break
+
+        print('This spot is already taken')
+-------------------code----------------------
+
+- finally we test our program one more time.
+
+
+- Now, the next thing we're going to improve in this code is
+replacing these magic strings with constants.
+We have talked about the problem with these magic strings many times before.
+-------------------code----------------------
+X = 'X'
+O = 'O'
+-------------------code----------------------
+
+- Now that we have got our basic tic-tac-toe game
+up and running, let's make it a little more visually appealing. We want to add some
+color to our game's output. Specifically, we are going to use green
+for player O and red for player X.
+
+- we are going to use the other function that is colored, and
+with this we can create colored text that we can later pass to the
+print function. So this function itself doesn't print anything, it just
+generates colored text. So as the first argument we provide
+some text, as the second argument we provide a color.
+
+- so on the top
+-------------------code----------------------
+from termcolor import colored
+-------------------code----------------------
+
+- Now, here in the print board function, instead of outputting the cell content, we want to output
+colored text. To do that, we are going to define a helper function. So, we define a function
+-------------------code----------------------
+def cell(mark):
+  if mark == X:
+    return colored(mark, 'red') 
+  return colored(mark, 'green')
+-------------------code----------------------
+
+- Now, there is another way to write this
+logic, we can make it a little bit more
+concise and elegant.
+-------------------code----------------------
+def cell(mark):
+  color = 'red' if mark == X else 'green'
+  return colored(mark, color)
+-------------------code----------------------
+
+- Now, back to our print board function. We're going to wrap
+the cell content with our cell function.
+-------------------code----------------------
+print(f' {cell(row[0])} | {cell(row[1])} | {cell(row[2])}')
+-------------------code----------------------
+
+- finally we test our code.

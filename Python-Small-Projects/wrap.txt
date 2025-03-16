@@ -527,7 +527,7 @@ if user_choice not in choices:
 -------------------code----------------------
 
 
-- Now we can further improve this and convert this list to a topple.
+- Now we can further improve this and convert this list to a tuple.
 Why?
 Because lists can be modified in our program.
 So somewhere we might accidentally modify the list and use the append method to add a
@@ -538,9 +538,9 @@ choices = ['r', 'p', 's']
 choices.remove('r')
 -------------------code----------------------
 
-- But if we convert this to a topple, it becomes read only.
+- But if we convert this to a tuple, it becomes read only.
 So topples look, they don't have the remove or append methods.
-So a topple is just like a read only list.
+So a tuple is just like a read only list.
 So we have our valid choices. And we are done with this step.
 -------------------code----------------------
 choices = ('r', 'p', 's')
@@ -573,7 +573,7 @@ import random
 
 Now earlier we used the randint method to generate a random number between two numbers.
 But here we want to use a different method and that is choice.
-With this we can pass a list or a topple like choices and let the computer choose one
+With this we can pass a list or a tuple like choices and let the computer choose one
 of these valid choices.
 So let's store the result in a separate variable like computer choice.
 So we're done with this step.
@@ -1299,13 +1299,591 @@ convert this to a formatted string, and insert the file name here.
 print(f'QR code saved as {filename}')
 -------------------code----------------------
 
+*** 6-Currency Converter ***
+
+Problem:
+Alright, for our next project we're going to build a currency converter.
+
+- how it works.
+So first we have to enter an amount and this has to be a valid positive number.
+
+- So if we type zero or a negative number we get an error, similarly if we type something
+that cannot be converted to a number like A or dollar sign, we get the same error.
+So let's enter 100 dollars, next we have to select the source currency which can only
+be one of these three options.
+-------------------code----------------------
+Enter the amount: 0
+Invalid amount
+
+Enter the amount: -1
+Invalid amount
+
+Enter the amount: a
+Invalid amount
+
+Enter the amount: $
+Invalid amount
+-------------------code----------------------
+
+- Once again if we type an invalid currency, we get an error and we have a chance to retry,
+now here we can enter one of these currencies in lower case or upper case, it doesn't matter.
+So let's convert 100 US dollars to Canadian dollars, here's the result, 125 dollars.
+Of course for the exchange rates we are not using live data, we've hard coded some arbitrary
+exchange rates in my program.
+
+-------------------code----------------------
+Enter the amount: 100
+Source currency (USD/EUR/CAD): a
+Invalid currency
+Source currency (USD/EUR/CAD): usd
+Target currency (USD/EUR/CAD): cad
+100.0 USD is equal to 125.00
+-------------------code----------------------
+
+
+Solution:
+
+- Alright, let's start by mapping out what we're going to do.
+First, we're going to ask the user for an amount.
+Now, if the amount is invalid, we're going to print
+an error. Now, we want to give the user a chance to retry.
+So, we should put these instructions inside a loop for repetition.
+Next, we should ask for the source currency.
+Once again, if it's invalid, we're going to print an error.
+Now, just like before, we want to put these
+instructions inside a loop, so if the user enters
+an invalid currency, they have a chance to retry. Now, we're
+going to have the same structure for getting
+the target currency. Okay? Now, after that, we're going to do
+the conversion and print the result. That's the basic idea.
+
+-------------------code----------------------
+# Loop
+#  Ask the user for an amount
+#  If invalid
+#   Print an error
+
+# Loop
+#  Ask for the source currency
+#  If invalid
+#   Print an error
+
+# Loop
+#  Ask for the target currency
+#  If invalid
+#  Print an error
+
+# Do the conversion
+# Print the result
+-------------------code----------------------
+
+- Let's start implementing this program. So,
+first, we're going to add a while loop here, while true.
+Next, we ask the user for an amount. So, here we use the input function
+and say, enter the amount.
+Now, whatever the user enters, we want to convert it to a floating point
+number. So, we should pass the return
+value to the float function, and then we store
+the result in a variable called amount.
+-------------------code----------------------
+amount = float(input( 'Enter the amount:'))
+-------------------code----------------------
+
+-  Now, if the user enters something that cannot be converted
+to a float, we're going to get a value error. We have seen this error
+before. So, we have to wrap this inside a try block, try, followed by
+accept, and here we catch errors of type value error.
+In this case, we print an error and say invalid
+amount. Now, if the user enters a valid amount,
+we want to break out of this loop. So, here we add a brick statement.
+-------------------code----------------------
+while True:
+  try:
+    amount = float(input( 'Enter the amount:'))
+    break
+  except ValueError:
+    print('Invalid amount')
+-------------------code----------------------
+
+- Now, before going further,
+let's test our program up to this point. 
+-------------------code----------------------
+Enter the amount: -
+Invalid amount
+
+Enter the amount: a
+Invalid amount
+
+Enter the amount: d
+Invalid amount
+
+Enter the amount: 10
+-------------------code----------------------
+
+- Now, what if the user enters 0?
+Our program is treating this as a valid
+amount, but it doesn't really make sense.
+-------------------code----------------------
+Enter the amount: 0
+-------------------code----------------------
+
+- The same is true if the user enters a negative amount.
+-------------------code----------------------
+Enter the amount: -1
+-------------------code----------------------
+
+So, back to this code, after we read the amount, we should
+check if amount is less than or equal to 0.
+Now, here we have two options. One option is to print an
+error and say invalid amount, but we already have this piece of logic
+down here.
+-------------------code----------------------
+while True:
+  try:
+    amount = float(input( 'Enter the amount:'))
+    if amount <= 0:
+      print('Invalid amount')
+    break
+  except ValueError:
+    print('Invalid amount')
+-------------------code----------------------
+
+- So, instead of duplicating this, we can raise
+an error, we can raise a value error, and this will move
+the control to the line where except is. 
+-------------------code----------------------
+while True:
+  try:
+    amount = float(input( 'Enter the amount:'))
+    if amount <= 0:
+      raise ValueError
+    break
+  except ValueError:
+    print('Invalid amount')
+-------------------code----------------------
+
+-then we print
+the invalid amount error. Let's try it one more time. If we enter 0, we get the same error,
+negative 1, good. What if we enter 5?.
+it's working without fine.
+-------------------code----------------------
+Enter the amount:
+Invalid amount
+
+Enter the amount: -1
+Invalid amount
+
+Enter the amount: 5
+-------------------code----------------------
+
+- So, we are done with the first
+step. Now we have a valid amount.
+Next, we have to read the source currency.
+So, once again, we start with a loop, while true,
+here we ask for the source currency, so we use the input
+function and say source currency. Now, here we're only
+going to have three options. US dollars, euro, and Canadian dollars.
+-------------------code----------------------
+while True:
+    source_currency = input('Source currency (USD/EUR/CAD): ')
+-------------------code----------------------
+
+- Now, we read this and store it ina variable called source currency.
+Now, how can we validate the source currency?
+Well, we can store our valid currencies in a
+tuple, and then check to see if source currency is in that
+tuple or not. So, outside of this loop, we're going to
+declare a tuple, we can call it currencies, and initialize it to
+US dollars, euro, and Canadian dollars. Now, why
+did we put this outside the loop? Because
+this is not a piece of logic that should be
+repeated. We want to declare this only once.
+
+- So, after we read the source currency, we
+check if source currency is not in
+the list of valid currencies. If so, we print an error and say
+invalid currency. Otherwise, if
+the user enters a valid currency, we want to break out of this loop.
+-------------------code----------------------
+currencies = ('USD', 'EUR', 'CAD')
+
+while True:
+  source_currency = input('Source currency (USD/EUR/CAD): ')
+  if source_currency not in currencies:
+    print('Invalid currency')
+  else:
+    break
+-------------------code----------------------
 
 
 
+- Let's test our program
+one more time. So, we enter
+hundred dollars. If we
+type an invalid currency, we get
+an error. 
+-------------------code----------------------
+Enter the amount: 100
+Source currency (USD/EUR/CAD): a
+Invalid currency
+
+Source currency (USD/EUR/CAD): d
+Invalid currency
+
+Source currency (USD/EUR/CAD): f
+Invalid currency
+-------------------code----------------------
+
+
+- If we type usd,
+we still get an error because our program is only expecting usd
+in uppercase.
+-------------------code----------------------
+Source currency (USD/EUR/CAD): usd
+Invalid currency
+
+Source currency (USD/EUR/CAD): USD
+-------------------code----------------------
+
+- So, to make it more flexible, we have
+to come back here and right after we read the source currency,
+we should convert it to uppercase text. 
+-------------------code----------------------
+source_currency = input('Source currency (USD/EUR/CAD): ').upper()
+-------------------code----------------------
+
+- Okay? Let's try it
+one more time. Hundred dollars, usd in lowercase, beautiful.
+Now, we have to repeat the same structure for reading the target
+currency. So, let's duplicate this. And we
+add a line break to separate these segments just like different paragraphs
+in a story, but this time we are
+reading the target currency. Let's change
+the name of this variable. 
+-------------------code----------------------
+while True:
+  target_currency = input('Target currency (USD/EUR/CAD): ').upper()
+  if target_currency not in currencies:
+    print('Invalid currency')
+  else:
+    break
+-------------------code----------------------
+
+
+- Now, the fun part, doing the
+conversion. Now, here we have two choices. One option is to have
+a bunch of if statements like if source currency is usd
+and target currency is cad, then we're going to use whatever value for the
+exchange rate. But the problem with this approach
+is that we're going to have so many if statements
+for every combination of currencies. And the more currencies we support,
+the more if statements we need.
+-------------------code----------------------
+if source_currency == 'USD' and target_currency == 'CAD':
+-------------------code----------------------
+
+
+- So, what can we do here? This is where
+we can use a dictionary. You have learned that. Using a dictionary we can
+map a key to a value. In this dictionary we can have
+our source currencies like usd, euro, and cad. Now, we can map
+the source currency to another dictionary where we have
+key value pairs for the target currency. 
+-------------------code----------------------
+# key -> value
+# USD: { CAD: 1.12, EUR: 0.8 }
+# EUR
+# CAD
+-------------------code----------------------
+
+- So, in this dictionary our key is going to be let's say
+cad, and the value is going to be the exchange rate,
+whatever it is. Similarly, we're going to have another key
+value pair for another target currency, euro.
+With a different exchange rate. Okay, let's implement this. So,
+we're going to declare a variable, let's call that
+exchange rates, we set it to a dictionary, we add
+our source currencies, usd, and map this to a dictionary with
+two other currencies. 
+-------------------code----------------------
+exchange_rates = {
+  'USD': {'EUR': 0.85, 'CAD': 1.25},
+  'EUR': {'USD': 1.18, 'CAD': 1.47},
+  'CAD': {'USD': 0.80, 'EUR': 0.68},
+}
+-------------------code----------------------
+
+
+- So,
+we have the exchange rates. Finally, to do the conversion,
+we declare another variable, we can call it converted amount,
+and here we get the amount, and multiply it by, now to find the exchange rate, we have to go to our
+exchange rates dictionary, and look up the source currency.
+So, here we pass source currency. Now, this expression,
+returns a dictionary. So, when we access
+exchange rates of let's say, usd, we get another dictionary.
+In this dictionary we have two other key value pairs.
+So then we're going to look up the target currency using square brackets,
+target currency, and that's pretty much it.
+
+Now finally, let's print the result.
+-------------------code----------------------
+converted_amount = amount * exchange_rates[source_currency][target_currency]
+print(converted_amount)
+-------------------code----------------------
+
+
+- Here we're going to use a formatted string.
+-------------------code----------------------
+converted_amount = amount * exchange_rates[source_currency][target_currency]
+print(f'{amount} {source_currency} is equal to {converted_amount}')
+-------------------code----------------------
+
+- we test our code 
+-------------------code----------------------
+Enter the amount: 100
+Source currency (USD/EUR/CAD): USD
+Target currency (USD/EUR/CAD): CAD
+100.0 USD is equal to 125.0
+-------------------code----------------------
+
+- Now, we can take this further.
+Let's say we only want to show two digits after the decimal point.
+To do that, we use a format specifier. So, in our formatted string,
+where we add the converted amount,
+here we type a colon, and type a format specifier.
+Here we can type .2f,
+and that means two digits after the decimal point.
+-------------------code----------------------
+converted_amount = amount * exchange_rates[source_currency][target_currency]
+print(f'{amount} {source_currency} is equal to {converted_amount:.2f}')
+-------------------code----------------------
+
+- So, if we run our program, and for the amount,
+if we enter 123.45678, from usd, to cad, we get the result with
+only two digits after the decimal point.
+
+-------------------code----------------------
+Enter the amount: 123.45678
+Source currency (USD/EUR/CAD): USD
+Target currency (USD/EUR/CAD): CAD
+123.45678 USD is equal to 154.32
+-------------------code----------------------
+
+- Now, let's try another scenario.
+What if we enter 100 dollars, from usd, to usd.
+Our program crashed.
+-------------------code----------------------
+Enter the amount: 100
+Source currency (USD/EUR/CAD): USD
+Target currency (USD/EUR/CAD): USD
+
+KeyError: 'USD'
+-------------------code----------------------
+
+
+- One way to solve this problem
+is to add another key value pair here.
+So, usd, and the exchange rate
+is going to be one. But this is kind of unnecessary,
+and adds extra noise in our code. So, after exchange rates,
+we can check if source currency is the same as target currency.
+We can set the converted amount
+to the original amount. Otherwise,
+we perform the calculation.
 
 
 
+With this, if we select the same currency,
+our program doesn't crash.
+-------------------code----------------------
+if source_currency == target_currency:
+        return amount
+
+    return amount * exchange_rates[source_currency][target_currency]
+-------------------code----------------------
+
+and this is our full program
+
+-------------------code----------------------
+while True:
+  try:
+    amount = float(input( 'Enter the amount:'))
+    if amount <= 0:
+      raise ValueError
+    break
+  except ValueError:
+    print('Invalid amount')
+
+currencies = ('USD', 'EUR', 'CAD')
+
+while True:
+  source_currency = input('Source currency (USD/EUR/CAD): ')
+  if source_currency not in currencies:
+    print('Invalid currency')
+  else:
+    break
+
+while True:
+  target_currency = input('Target currency (USD/EUR/CAD): ').upper()
+  if target_currency not in currencies:
+    print('Invalid currency')
+  else:
+    break
+
+exchange_rates = {
+  'USD': {'EUR': 0.85, 'CAD': 1.25},
+  'EUR': {'USD': 1.18, 'CAD': 1.47},
+  'CAD': {'USD': 0.80, 'EUR': 0.68},
+}
+
+if source_currency == target_currency:
+    return amount
+
+  return amount * exchange_rates[source_currency][target_currency]
 
 
+print(f'{amount} {source_currency} is equal to {converted_amount:.2f}')
+-------------------code----------------------
+
+Refactor:
+
+- Our program is working but as we said just because it's working doesn't mean our job is done.
+We should always review and refine our code. Earlier we talked about modularizing code
+which means breaking down a large program into small reusable and more maintainable functions.
+
+- So let's start modularizing this code. The first thing we're going to do is extract these
+few lines into a separate function called get amount.
+So let's define a function called get amount and then we move this piece of logic inside this function.
+We just have to make a small change. If the user enters a valid value
+we don't want to just break out of this loop, we want to return that value.
+So we're going to replace the break statement with return amount.
+-------------------code----------------------
+def get_amount():
+  while True:
+    try:
+      amount = float(input( 'Enter the amount:'))
+      if amount <= 0:
+        raise ValueError
+      return amount
+    except ValueError:
+      print('Invalid amount')
+-------------------code----------------------
 
 
+- Next we're going to extract a function for reading the source and target currencies.
+Now here we have two segments and as we can see these segments are almost identical.
+All the logic is the same, the only difference is the label that we are printing on the terminal.
+So we can extract this logic into a reusable function called get currency.
+So we're going to select the first while loop, copy these few lines.
+Now after our first function, let's define another function called get currency.
+And we give it a parameter called label.
+Now we're going to paste the code that we just copied. 
+Now here we're going to use a formatted string, so we can insert the label dynamically.
+ONow in this function we are not necessarily working with the source currency,
+so we can simplify our code and make it cleaner by renaming this variable to currency.
+Now if the user enters a valid value, we don't want to just break out of this loop,
+we want to return that currency. 
+Okay.
+Now look, at currencies tuple that we declared earlier, it's only used in get_currency.
+So we want to move this line in this function because this is where we need this.
+So in a function we should only have the statements that are highly related.
+So here we have a small function for getting the currency,
+now we can use it for reading both the source and the target currencies.
+-------------------code----------------------
+def get_currency(label):
+    currencies = ('USD', 'EUR', 'CAD')
+    while True:
+        currency = input(f'{label} currency (USD/EUR/CAD): ').upper()
+        if currency not in currencies:
+            print('Invalid currency')
+        else:
+            return currency
+-------------------code----------------------
+
+
+- So, we're going to replace this while loop with a call to get currency,
+and for the label we pass source. Then we get the result and store it,
+in source currency. Similarly, we're going to replace
+this piece of logic with a call to our new function.
+Get currency, target, and then store the result in target currency.
+And of course before these two lines, we should call get amount,
+and store the result in a variable called amount.
+-------------------code----------------------
+amount = get_amount()
+source_currency = get_currency('Source')
+target_currency = get_currency('Target')
+-------------------code----------------------
+
+
+- Alright, next we're going to extract the logic for performing the conversion
+into a separate function called convert. So, we're going to grab
+all this code, exchange rates, as well as the logic for conversion, cut it,
+and then, we're going to define a new function here, convert,
+with three parameters. amount, source currency, and target currency.
+Then we paste the logic, and fix the problem with indentation.
+So, here's what we have, but we have to make a small change.
+Instead of setting the converted amount variable, we just want to return this value.
+And similarly here, now we can make this code a bit more concise and cleaner,
+by removing the else statement, because it's not needed here.
+Why?
+Look, if source and target currencies are the same,
+we're going to return this amount, so the rest of this function is not executed.
+That's why, we don't really need the else statement here.
+So, let's remove this, and fix the indentation. Our code is cleaner.
+-------------------code----------------------
+def convert(amount, source_currency, target_currency):
+    exchange_rates = {
+        'USD': {'EUR': 0.85, 'CAD': 1.25},
+        'EUR': {'USD': 1.18, 'CAD': 1.47},
+        'CAD': {'USD': 0.80, 'EUR': 0.68},
+    }
+
+    if source_currency == target_currency:
+        return amount
+
+    return amount * exchange_rates[source_currency][target_currency]
+-------------------code----------------------
+
+
+- we have broken down this program into
+a bunch of functions, each having a single responsibility.
+These functions are very self-explanatory, they are properly named,
+and each has only a few lines of code. So, if there is a bug in this program,
+we only have to focus on a small piece of logic.
+
+
+- Now the final step. So, we have a bunch of reusable functions,
+but we don't want to have these statements at the end of the script.
+It would be nicer to move these inside a separate function.
+So, by convention, we know that, we use the main function for that,
+that is the entry point for our program.
+So, when we run our program, this piece of logic should get executed.
+So, this is the main function. Now, the final step is to call it.
+So, right after we define it, we call the main function.
+Now there is one more thing we want to improve here.
+So, currently we are running these scripts directly.
+But if we import this module into a separate module,
+the main function in this module will get executed.
+And this is not what we want. Because if we import this module into a separate module,
+perhaps we're going to do that to reuse these functions we have defined here.
+So, we want to execute the main function only if we execute this script directly from the terminal.
+not as part of importing this module into a separate module using the import statement.
+To do that, we have to add a bit of logic here. So,
+we have this special variable called
+name that is automatically set by the python interpreter.
+When we execute this script directly from the terminal,
+So, we want to execute the main function only if name is equal to main.
+This is the mini module using the canvas via às a vector board.
+-------------------code----------------------
+def main():
+    amount = get_amount()
+    source_currency = get_currency('Source')
+    target_currency = get_currency('Target')
+    converted_amount = convert(amount, source_currency, target_currency)
+    print(f'{amount} {source_currency} is equal to {converted_amount:.2f}')
+
+
+if __name__ == "__main__":
+    main()
+-------------------code----------------------
